@@ -1,1221 +1,1920 @@
 <!DOCTYPE html>
-<html lang="uz" class="dark scroll-smooth">
+<html lang="uz" data-theme="dark" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Developer Portfolio & Creative Hub</title>
-  
-  <!-- Tailwind CSS & Lucide Icons & AOS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio &amp; Creative Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { darkMode:'class', theme:{ extend:{
+  colors:{ brand:{50:'#ecfeff',100:'#cffafe',300:'#67e8f9',400:'#22d3ee',500:'#06b6d4',600:'#0891b2'} },
+  animation:{ 'float-slow':'floating 7s ease-in-out infinite','pulse-glow':'pulseGlow 4s ease-in-out infinite','shine':'shine 3s linear infinite' },
+  keyframes:{
+    floating:{'0%,100%':{transform:'translateY(0) rotate(0deg)'},'50%':{transform:'translateY(-16px) rotate(1.5deg)'}},
+    pulseGlow:{'0%,100%':{opacity:'.35',transform:'scale(1)'},'50%':{opacity:'.75',transform:'scale(1.06)'}},
+    shine:{'0%':{backgroundPosition:'-200% 0'},'100%':{backgroundPosition:'200% 0'}}
+  }
+}}}
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    --bg:#020617; --bg2:#0f172a; --fg:#e2e8f0; --muted:#94a3b8;
+    --card:rgba(15,23,42,.62); --line:rgba(255,255,255,.10);
+  }
+  html[data-theme="light"]{ --bg:#f1f5f9; --bg2:#ffffff; --fg:#0f172a; --muted:#475569;
+    --card:rgba(255,255,255,.72); --line:rgba(15,23,42,.10); }
+  html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px); }
+  body{ font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--fg);
+    transition:background-color .35s ease,color .35s ease; }
+  .font-mono{ font-family:'JetBrains Mono',monospace; }
+  .surface{ background:var(--card); border:1px solid var(--line); }
+  .glass{ backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+  ::-webkit-scrollbar{ width:8px;height:8px }
+  ::-webkit-scrollbar-track{ background:transparent }
+  ::-webkit-scrollbar-thumb{ background:rgba(148,163,184,.32);border-radius:9999px }
+  ::-webkit-scrollbar-thumb:hover{ background:rgba(148,163,184,.6) }
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            cyber: {
-              bg: '#070913',
-              card: 'rgba(18, 24, 43, 0.65)',
-              border: 'rgba(139, 92, 246, 0.25)',
-              accent: '#8b5cf6',
-              cyan: '#06b6d4',
-              pink: '#ec4899',
-            }
-          },
-          animation: {
-            'blob': 'blob 8s infinite',
-            'float-slow': 'floating 6s ease-in-out infinite',
-            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
-            'spin-slow': 'spin 12s linear infinite',
-          },
-          keyframes: {
-            blob: {
-              '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-              '33%': { transform: 'translate(30px, -40px) scale(1.1)' },
-              '66%': { transform: 'translate(-20px, 20px) scale(0.95)' },
-            },
-            floating: {
-              '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-              '50%': { transform: 'translateY(-12px) rotate(1.5deg)' },
-            },
-            pulseGlow: {
-              '0%, 100%': { opacity: '0.3', transform: 'scale(1)' },
-              '50%': { opacity: '0.7', transform: 'scale(1.05)' },
-            }
-          }
-        }
-      }
-    }
-  </script>
+  /* ===== Yangi reveal animatsiya tizimi (AOS o'rniga) ===== */
+  [data-rv]{ opacity:0; will-change:transform,opacity,filter; transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1), filter .75s ease; }
+  [data-rv="up"]{ transform:translateY(46px) }
+  [data-rv="down"]{ transform:translateY(-38px) }
+  [data-rv="left"]{ transform:translateX(-56px) rotate(-1.5deg) }
+  [data-rv="right"]{ transform:translateX(56px) rotate(1.5deg) }
+  [data-rv="zoom"]{ transform:scale(.86) }
+  [data-rv="blur"]{ filter:blur(14px); transform:translateY(24px) }
+  [data-rv="flip"]{ transform:perspective(900px) rotateX(24deg) translateY(30px); transform-origin:top }
+  [data-rv="swing"]{ transform:rotate(6deg) translateY(30px) scale(.95); transform-origin:bottom left }
+  .rv-in{ opacity:1!important; transform:none!important; filter:none!important; }
+  @media (prefers-reduced-motion:reduce){ [data-rv]{opacity:1!important;transform:none!important;filter:none!important;transition:none} }
 
-  <style>
-    body {
-      background-color: #070913;
-      color: #f8fafc;
-      overflow-x: hidden;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-    }
-    .glass-panel {
-      background: rgba(18, 24, 43, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(139, 92, 246, 0.2);
-    }
-    .glass-card {
-      background: rgba(15, 20, 36, 0.7);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(139, 92, 246, 0.15);
-      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .glass-card:hover {
-      border-color: rgba(6, 182, 212, 0.5);
-      transform: translateY(-6px) scale(1.015);
-      box-shadow: 0 16px 35px -10px rgba(139, 92, 246, 0.3);
-    }
-    .text-glow {
-      text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
-    }
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #070913;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1e1b4b;
-      border-radius: 4px;
-      border: 1px solid rgba(139, 92, 246, 0.3);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #8b5cf6;
-    }
-  </style>
+  .tilt{ transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, border-color .4s ease }
+  .tilt:hover{ transform:translateY(-9px) scale(1.012) }
+  .scroll-x{ overflow-x:auto }
+  .noscb::-webkit-scrollbar{ display:none }
+  .shine{ background-image:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.18) 45%,transparent 60%); background-size:200% 100%; }
+  .chat-bubble a{ text-decoration:underline; text-underline-offset:2px }
+  .ring-progress{ transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1) }
+  input,textarea,select{ color-scheme:dark }
+  html[data-theme="light"] input,html[data-theme="light"] textarea,html[data-theme="light"] select{ color-scheme:light }
+  .tabbtn.active{ background:linear-gradient(90deg,#06b6d4,#6366f1); color:#fff; border-color:transparent }
+</style>
 </head>
-<body class="selection:bg-fuchsia-500 selection:text-white">
+<body class="min-h-screen relative overflow-x-hidden selection:bg-cyan-500 selection:text-white">
 
-  <!-- Ambient Glowing Background -->
-  <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-    <div class="absolute -top-40 -left-40 w-96 h-96 bg-violet-600/20 rounded-full blur-[128px] animate-blob"></div>
-    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-[128px] animate-pulse-glow"></div>
-    <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-fuchsia-600/20 rounded-full blur-[140px] animate-blob"></div>
+<!-- ===== Ambient fon ===== -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/15 rounded-full blur-3xl animate-pulse-glow"></div>
+  <div class="absolute top-1/3 -right-40 w-[30rem] h-[30rem] bg-purple-600/15 rounded-full blur-3xl animate-pulse-glow" style="animation-delay:1.5s"></div>
+  <div class="absolute -bottom-40 left-1/3 w-96 h-96 bg-emerald-500/12 rounded-full blur-3xl animate-pulse-glow" style="animation-delay:3s"></div>
+</div>
+
+<div id="toastContainer" class="fixed bottom-5 right-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+
+<!-- ===== Bloklangan foydalanuvchi ekrani ===== -->
+<div id="blockedScreen" class="hidden fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center p-6 text-center">
+  <div class="max-w-md space-y-6">
+    <div class="inline-flex p-4 rounded-3xl bg-red-500/10 text-red-500 border border-red-500/20 text-5xl"><i class="fa-solid fa-ban"></i></div>
+    <h1 class="text-7xl font-extrabold text-white font-mono">404</h1>
+    <h2 class="text-2xl font-bold text-red-400">Kirish cheklandi</h2>
+    <p class="text-slate-400 text-sm">Sizning qurilmangiz ma'muriyat tomonidan bloklangan.</p>
   </div>
+</div>
 
-  <!-- 404 BLOKLANGANLAR EKRANI -->
-  <div id="blocked-screen" class="hidden fixed inset-0 z-[100] bg-[#070913] flex flex-col items-center justify-center p-6 text-center">
-    <div class="w-24 h-24 rounded-3xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-red-400 mb-6 shadow-2xl shadow-red-500/20">
-      <i data-lucide="shield-alert" class="w-12 h-12"></i>
-    </div>
-    <h1 class="text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-rose-400 mb-2">404</h1>
-    <h2 class="text-2xl font-bold text-slate-100 mb-3">Kirish Cheklandi / Access Denied</h2>
-    <p class="text-slate-400 max-w-md mb-6">Xavfsizlik tizimi tomonidan sizning IP manzilingiz bloklangan. Sayt ma'lumotlaridan foydalana olmaysiz.</p>
-    <div class="px-4 py-2 rounded-xl bg-red-950/40 border border-red-800/40 text-xs font-mono text-red-300" id="blocked-ip-label">
-      IP: Aniqlanmoqda...
-    </div>
-  </div>
-
-  <!-- FLOATING NAVBAR -->
-  <header class="fixed top-4 inset-x-0 z-40 px-4 sm:px-8">
-    <div class="max-w-6xl mx-auto glass-panel rounded-2xl sm:rounded-full px-5 py-3 flex items-center justify-between shadow-xl">
-      
-      <!-- Logo: 2 marta tez bosilganda Admin ochiladi -->
-      <div id="brand-logo" ondblclick="openAdminModal()" title="Admin panelga kirish uchun 2 marta bosing" class="flex items-center space-x-3 cursor-pointer group select-none">
-        <div id="brand-logo-icon" class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 to-cyan-500 p-0.5 shadow-md shadow-violet-500/30 group-hover:scale-105 transition-transform flex items-center justify-center overflow-hidden">
-          <span id="brand-logo-text-icon" class="text-white font-bold font-mono text-sm">M</span>
-          <img id="brand-logo-img" src="" alt="logo" class="w-full h-full object-cover hidden">
+<!-- ===== 1-marta kirish: Ism + Telefon ===== -->
+<div id="gateModal" class="hidden fixed inset-0 z-[9000] bg-slate-950/90 backdrop-blur-2xl flex items-center justify-center p-4">
+  <div class="w-full max-w-md rounded-3xl surface glass shadow-2xl overflow-hidden">
+    <div class="h-1.5 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500"></div>
+    <div class="p-7 space-y-6">
+      <div class="text-center space-y-2">
+        <div class="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-2xl text-white shadow-lg shadow-cyan-500/20">
+          <i class="fa-solid fa-id-card"></i>
         </div>
-        <div class="flex flex-col">
-          <span id="brand-title" class="font-extrabold text-sm sm:text-base tracking-wider bg-gradient-to-r from-white via-slate-200 to-violet-400 bg-clip-text text-transparent">MHDV</span>
-          <span class="text-[10px] text-cyan-400 font-mono tracking-widest leading-none">DEVELOPER</span>
-        </div>
+        <h2 class="text-2xl font-extrabold">Xush kelibsiz!</h2>
+        <p class="text-xs" style="color:var(--muted)">Saytdan foydalanish uchun ismingiz va telefon raqamingizni kiriting. Bu ma'lumot faqat bir marta so'raladi.</p>
       </div>
-
-      <!-- Nav havolalari (Desktop) -->
-      <nav class="hidden md:flex items-center space-x-6 text-xs sm:text-sm font-medium text-slate-300">
-        <a href="#services" class="hover:text-cyan-400 transition-colors">Xizmatlar</a>
-        <a href="#projects" class="hover:text-cyan-400 transition-colors">Loyihalar</a>
-        <a href="#skills" class="hover:text-cyan-400 transition-colors">Ko'nikmalar</a>
-        <a href="#about" class="hover:text-cyan-400 transition-colors">Men haqimda</a>
-        <a href="#contact" class="hover:text-cyan-400 transition-colors">Bog'lanish</a>
-      </nav>
-
-      <!-- Chat & Theme Action -->
-      <div class="flex items-center space-x-3">
-        <button onclick="toggleChat()" class="relative p-2.5 rounded-xl bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/30 text-cyan-300 transition-colors" title="Jonli Chat">
-          <i data-lucide="message-square-code" class="w-4 h-4"></i>
-          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full animate-ping"></span>
-          <span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-cyan-400 rounded-full"></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO SECTION -->
-  <section class="min-h-screen pt-32 pb-20 px-4 sm:px-8 max-w-6xl mx-auto flex flex-col justify-center">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-      
-      <!-- Chap tomon: Matnlar -->
-      <div class="lg:col-span-7 space-y-6 text-center lg:text-left" data-aos="fade-right">
-        <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-violet-950/60 border border-violet-500/30 text-xs font-mono text-cyan-300">
-          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-          <span id="hero-badge-status">Yangi loyihalar uchun ochiq</span>
-        </div>
-
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-          Salom, men <br>
-          <span id="hero-name" class="bg-gradient-to-r from-violet-400 via-fuchsia-400 to-cyan-400 bg-clip-text text-transparent text-glow">Ibrohimxon</span>
-        </h1>
-
-        <div class="text-lg sm:text-xl font-medium text-slate-300 flex items-center justify-center lg:justify-start space-x-2">
-          <span>Mutaxassisligim:</span>
-          <span id="hero-role" class="font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-400 font-mono">Frontend & AI Manager</span>
-        </div>
-
-        <p id="hero-bio" class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0">
-          Zamonaviy, yuqori tezlikda ishlovchi veb-ilovalar, sun'iy intellekt integratsiyalari va avtomatlashtirilgan aqlli botlar ishlab chiqaman.
-        </p>
-
-        <!-- CTA tugmalari -->
-        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-          <a href="#projects" class="px-6 py-3 rounded-xl bg-gradient-to-r from-violet-600 via-fuchsia-600 to-cyan-500 hover:opacity-95 text-white font-semibold text-sm shadow-lg shadow-violet-500/25 transition-all flex items-center space-x-2">
-            <span>Loyihalarni ko'rish</span>
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-          </a>
-          <a href="#contact" class="px-6 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-violet-500/30 text-slate-200 font-semibold text-sm transition-all flex items-center space-x-2">
-            <span>Bog'lanish</span>
-            <i data-lucide="send" class="w-4 h-4"></i>
-          </a>
-        </div>
-
-        <!-- Mini Stats -->
-        <div class="grid grid-cols-3 gap-4 pt-6 border-t border-violet-500/15 max-w-md mx-auto lg:mx-0">
-          <div>
-            <div class="text-2xl font-bold text-white font-mono">3+</div>
-            <div class="text-xs text-slate-400">Yillik tajriba</div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold text-cyan-400 font-mono">30+</div>
-            <div class="text-xs text-slate-400">Loyihalar</div>
-          </div>
-          <div>
-            <div class="text-2xl font-bold text-fuchsia-400 font-mono">100%</div>
-            <div class="text-xs text-slate-400">Ishonchlilik</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- O'ng tomon: 3D Aura va Dumaloq Avatar -->
-      <div class="lg:col-span-5 flex justify-center" data-aos="fade-left">
-        <div class="relative group">
-          <div class="absolute -inset-2 bg-gradient-to-tr from-violet-600 via-fuchsia-500 to-cyan-400 rounded-full blur-xl opacity-75 group-hover:opacity-100 transition duration-700 animate-spin-slow"></div>
-          
-          <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full p-2 bg-[#070913] ring-2 ring-violet-500/40 overflow-hidden shadow-2xl animate-float-slow">
-            <img id="hero-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Avatar" class="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500">
-          </div>
-
-          <div class="absolute -bottom-2 -left-4 glass-panel px-3 py-2 rounded-xl text-xs flex items-center space-x-2 shadow-xl animate-float-slow">
-            <i data-lucide="code-2" class="w-4 h-4 text-cyan-400"></i>
-            <span class="font-mono text-slate-200">Clean Architecture</span>
-          </div>
-
-          <div class="absolute -top-2 -right-4 glass-panel px-3 py-2 rounded-xl text-xs flex items-center space-x-2 shadow-xl animate-float-slow" style="animation-delay: 2s;">
-            <i data-lucide="bot" class="w-4 h-4 text-fuchsia-400"></i>
-            <span class="font-mono text-slate-200">AI Powered</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- 1. XIZMATLARIMIZ (SERVICES) SECTION -->
-  <section id="services" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto">
-    <div class="text-center mb-14" data-aos="fade-up">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">Imkoniyatlar</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Xizmatlarimiz</h3>
-      <div class="w-16 h-1 bg-gradient-to-r from-violet-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
-    </div>
-
-    <div id="services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </section>
-
-  <!-- 2. LOYIHALARIM SECTION (PRAVERITY / MODAL KO'RISH) -->
-  <section id="projects" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto">
-    <div class="text-center mb-14" data-aos="fade-up">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-violet-400 mb-2">Portfolio</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Amalga Oshirilgan Loyihalar</h3>
-      <div class="w-16 h-1 bg-gradient-to-r from-fuchsia-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
-    </div>
-
-    <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-  </section>
-
-  <!-- 3. TEXNIK KO'NIKMALAR (% BO'YICHA TARTIBLANUVCHI) -->
-  <section id="skills" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto">
-    <div class="text-center mb-14" data-aos="fade-up">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">Tajriba Darajasi</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Texnik Ko'nikmalarim</h3>
-      <p class="text-xs text-slate-400 mt-2 font-mono">(Eng yuqori ko'rsatkichlar avtomatik ravishda yuqoriga chiqadi)</p>
-    </div>
-
-    <div id="skills-container" class="max-w-3xl mx-auto space-y-4" data-aos="fade-up"></div>
-  </section>
-
-  <!-- 4. MEN HAQIMDA SECTION -->
-  <section id="about" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto">
-    <div class="glass-panel rounded-3xl p-8 sm:p-12 border border-violet-500/25 relative overflow-hidden" data-aos="zoom-in">
-      <div class="absolute -right-20 -top-20 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl pointer-events-none"></div>
-      
-      <div class="max-w-3xl">
-        <h2 class="text-xs font-mono uppercase tracking-widest text-cyan-400 mb-2">Tanishuv</h2>
-        <h3 class="text-3xl font-extrabold text-white mb-6">Men Haqimda</h3>
-        <div id="about-content" class="text-slate-300 space-y-4 leading-relaxed text-sm sm:text-base"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. BOG'LANISH (CONTACT) SECTION -->
-  <section id="contact" class="py-20 px-4 sm:px-8 max-w-6xl mx-auto">
-    <div class="text-center mb-14" data-aos="fade-up">
-      <h2 class="text-xs font-mono uppercase tracking-widest text-fuchsia-400 mb-2">Aloqa</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Bog'lanish Tarmoqlari</h3>
-      <div class="w-16 h-1 bg-gradient-to-r from-violet-500 to-cyan-400 mx-auto mt-4 rounded-full"></div>
-    </div>
-
-    <div id="contact-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-w-4xl mx-auto"></div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="py-10 border-t border-violet-500/15 text-center text-xs text-slate-500 font-mono">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>© 2026 MHDV Portfolio. Barcha huquqlar himoyalangan.</p>
-      <p class="text-violet-400">Created with ❤️ & High Performance</p>
-    </div>
-  </footer>
-
-  <!-- PRAVERITY / IN-BROWSER WEBSITE PREVIEW MODAL -->
-  <div id="praverity-modal" class="fixed inset-0 z-50 bg-[#070913]/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
-    <div class="w-full max-w-5xl h-[88vh] glass-panel rounded-2xl flex flex-col border border-violet-500/30 overflow-hidden shadow-2xl">
-      <div class="bg-slate-950/80 px-4 py-3 border-b border-violet-500/20 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <div class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer" onclick="closePraverity()"></div>
-          <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
-          <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
-        </div>
-        
-        <div class="flex-1 max-w-md mx-4">
-          <div class="bg-slate-900 px-3 py-1 rounded-lg border border-slate-700/60 text-xs text-slate-300 font-mono flex items-center space-x-2 truncate">
-            <i data-lucide="lock" class="w-3 h-3 text-cyan-400"></i>
-            <span id="praverity-url-label" class="truncate">https://example.com</span>
-          </div>
-        </div>
-
-        <div class="flex items-center space-x-2">
-          <a id="praverity-external-btn" href="#" target="_blank" class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs transition-colors" title="Tashqi oynada ochish">
-            <i data-lucide="external-link" class="w-4 h-4"></i>
-          </a>
-          <button onclick="closePraverity()" class="p-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-300 transition-colors">
-            <i data-lucide="x" class="w-4 h-4"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="flex-1 bg-slate-950 relative">
-        <div id="iframe-loader" class="absolute inset-0 flex items-center justify-center bg-slate-950/90 text-cyan-400 space-x-2 text-sm">
-          <i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i>
-          <span>Sayt yuklanmoqda...</span>
-        </div>
-        <iframe id="praverity-iframe" src="" class="w-full h-full border-none" onload="document.getElementById('iframe-loader').classList.add('hidden')"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- JONLI CHAT DARCHASI -->
-  <div id="chat-drawer" class="fixed bottom-4 right-4 z-50 w-full max-w-sm glass-panel rounded-2xl border border-violet-500/30 shadow-2xl flex flex-col h-[500px] hidden transition-all">
-    <div class="p-4 bg-slate-950/80 border-b border-violet-500/20 flex items-center justify-between rounded-t-2xl">
-      <div class="flex items-center space-x-2">
-        <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></div>
-        <span class="font-bold text-sm text-white">Dasturchi Bilan Jonli Chat</span>
-      </div>
-      <button onclick="toggleChat()" class="text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-    </div>
-
-    <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3 text-xs"></div>
-
-    <div class="p-3 bg-slate-950/90 border-t border-violet-500/20 rounded-b-2xl">
-      <div id="chat-file-preview" class="hidden mb-2 relative inline-block">
-        <img id="preview-img" src="" class="w-16 h-16 object-cover rounded-lg border border-violet-500/40">
-        <button onclick="clearChatFile()" class="absolute -top-1 -right-1 bg-red-600 text-white rounded-full p-0.5">
-          <i data-lucide="x" class="w-3 h-3"></i>
-        </button>
-      </div>
-
-      <div class="flex items-center space-x-2">
-        <label class="p-2 rounded-xl bg-slate-900 border border-violet-500/30 text-slate-400 hover:text-cyan-400 cursor-pointer transition-colors" title="Rasm biriktirish">
-          <i data-lucide="paperclip" class="w-4 h-4"></i>
-          <input type="file" id="chat-file-input" class="hidden" accept="image/*" onchange="handleChatFileUpload(event)">
-        </label>
-
-        <input type="text" id="chat-input" placeholder="Xabarni yozing (Enter)..." class="flex-1 bg-slate-900 border border-violet-500/20 rounded-xl px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400" onkeydown="if(event.key === 'Enter') sendChatMessage()">
-
-        <button onclick="sendChatMessage()" class="p-2 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white hover:opacity-90">
-          <i data-lucide="send" class="w-4 h-4"></i>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ADMIN LOGIN MODAL -->
-  <div id="admin-login-modal" class="fixed inset-0 z-50 bg-[#070913]/90 backdrop-blur-xl hidden flex items-center justify-center p-4">
-    <div class="glass-panel w-full max-w-sm rounded-3xl p-6 border border-violet-500/30 shadow-2xl relative">
-      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
-        <i data-lucide="x" class="w-4 h-4"></i>
-      </button>
-
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-gradient-to-tr from-violet-600 to-cyan-500 flex items-center justify-center text-white shadow-lg">
-          <i data-lucide="shield-check" class="w-6 h-6"></i>
-        </div>
-        <h3 class="text-xl font-bold text-white">Admin Boshqaruvi</h3>
-        <p class="text-xs text-slate-400">Tizimga kirish uchun hisob ma'lumotlarini kiriting</p>
-      </div>
-
-      <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+      <form id="gateForm" class="space-y-4" autocomplete="off">
         <div>
-          <label class="block text-xs text-slate-300 mb-1">Login yoki Email</label>
-          <input type="text" id="admin-user-input" required placeholder="Login kiriting" class="w-full bg-slate-900 border border-violet-500/20 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-400 outline-none">
+          <label class="block text-xs font-semibold mb-1.5">Ismingiz</label>
+          <div class="relative">
+            <i class="fa-regular fa-user absolute left-4 top-1/2 -translate-y-1/2 text-cyan-400 text-sm"></i>
+            <input id="gateName" required minlength="2" maxlength="40" placeholder="Masalan: Sardor"
+              class="w-full pl-11 pr-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400">
+          </div>
         </div>
         <div>
-          <label class="block text-xs text-slate-300 mb-1">Parol</label>
-          <input type="password" id="admin-pass-input" required placeholder="Parol kiriting" class="w-full bg-slate-900 border border-violet-500/20 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-400 outline-none">
+          <label class="block text-xs font-semibold mb-1.5">Telefon raqamingiz</label>
+          <div class="flex items-stretch gap-2">
+            <div class="px-4 flex items-center rounded-2xl bg-white/5 border border-white/10 text-sm font-mono whitespace-nowrap">+998</div>
+            <input id="gatePhone" required inputmode="numeric" placeholder="901234567" maxlength="9"
+              class="flex-1 min-w-0 px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-sm font-mono tracking-wider focus:outline-none focus:border-cyan-400">
+          </div>
+          <p id="gatePhoneHint" class="text-[11px] mt-1.5" style="color:var(--muted)">Raqam aniq <b>9 ta</b> sondan iborat bo'lishi kerak.</p>
         </div>
-
-        <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-violet-600 to-cyan-500 text-white text-xs font-semibold shadow-lg shadow-violet-500/25">
-          Tizimga Kirish
+        <button type="submit" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold text-sm shadow-lg shadow-cyan-500/25 hover:opacity-95 flex items-center justify-center gap-2">
+          <span>Saytga kirish</span><i class="fa-solid fa-arrow-right text-xs"></i>
         </button>
       </form>
     </div>
   </div>
+</div>
 
-  <!-- TO'LIQ ADMIN PANEL DASHBOARD -->
-  <div id="admin-dashboard-modal" class="fixed inset-0 z-50 bg-[#070913] hidden flex flex-col">
-    <div class="bg-slate-950 border-b border-violet-500/20 px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="p-2 rounded-xl bg-violet-600 text-white">
-          <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+<!-- ===== Header ===== -->
+<header class="sticky z-40 w-full border-b glass" style="top:env(safe-area-inset-top,0px);border-color:var(--line);background:var(--card)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+
+    <div class="flex items-center gap-3 cursor-pointer select-none group shrink-0" id="brandLogo" title="Logotipni 2 marta bosing">
+      <div id="brandLogoBox" class="relative w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-[2px] shadow-lg shadow-cyan-500/20 transition-all group-hover:scale-105 group-hover:rotate-6">
+        <div id="brandLogoInner" class="w-full h-full rounded-[14px] overflow-hidden flex items-center justify-center" style="background:var(--bg)">
+          <span id="brandLogoText" class="text-transparent bg-clip-text bg-gradient-to-tr from-cyan-400 to-purple-400 font-extrabold text-xl">M</span>
+          <img id="brandLogoImg" class="hidden w-full h-full object-cover" alt="logo">
         </div>
-        <div>
-          <h2 class="text-base font-bold text-white">Admin Console</h2>
-          <span class="text-xs text-cyan-400 font-mono">Boshqaruv & CRM Tizimi</span>
-        </div>
+        <div class="absolute -top-1 -right-1 w-3 h-3 bg-emerald-400 rounded-full ring-2" style="--tw-ring-color:var(--bg)"></div>
       </div>
-
-      <button onclick="closeAdminDashboard()" class="px-4 py-2 rounded-xl bg-slate-900 hover:bg-red-950/40 border border-violet-500/20 text-slate-300 hover:text-red-400 text-xs font-medium transition-colors flex items-center space-x-2">
-        <i data-lucide="log-out" class="w-4 h-4"></i>
-        <span>Chiqish</span>
-      </button>
+      <div class="hidden xs:block">
+        <span class="text-lg font-bold tracking-tight group-hover:text-cyan-400 transition-colors flex items-center gap-1.5">
+          <span id="brandName">Portfolio</span>
+          <span id="brandBadge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono">v3.0</span>
+        </span>
+        <p id="brandTag" class="text-[11px] tracking-wider font-mono uppercase" style="color:var(--muted)">Developer Hub</p>
+      </div>
     </div>
 
-    <div class="flex-1 flex overflow-hidden">
-      <div class="w-64 bg-slate-950/50 border-r border-violet-500/15 p-4 space-y-2 overflow-y-auto hidden md:block">
-        <button onclick="switchAdminTab('hero')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2 bg-violet-600/20 text-white" data-tab="hero">
-          <i data-lucide="user" class="w-4 h-4"></i>
-          <span>Hero & Branding</span>
-        </button>
-        <button onclick="switchAdminTab('services')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="services">
-          <i data-lucide="boxes" class="w-4 h-4"></i>
-          <span>Xizmatlar (+Add)</span>
-        </button>
-        <button onclick="switchAdminTab('projects')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="projects">
-          <i data-lucide="folder-kanban" class="w-4 h-4"></i>
-          <span>Loyihalar (+Add)</span>
-        </button>
-        <button onclick="switchAdminTab('skills')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="skills">
-          <i data-lucide="cpu" class="w-4 h-4"></i>
-          <span>Ko'nikmalar (%)</span>
-        </button>
-        <button onclick="switchAdminTab('about')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="about">
-          <i data-lucide="file-text" class="w-4 h-4"></i>
-          <span>Men Haqimda</span>
-        </button>
-        <button onclick="switchAdminTab('contacts')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="contacts">
-          <i data-lucide="share-2" class="w-4 h-4"></i>
-          <span>Bog'lanish (+Add)</span>
-        </button>
-        <button onclick="switchAdminTab('crm')" class="admin-tab-btn w-full text-left px-3 py-2.5 rounded-xl text-xs font-medium text-slate-300 hover:bg-violet-600/20 hover:text-white transition-all flex items-center space-x-2" data-tab="crm">
-          <i data-lucide="users" class="w-4 h-4"></i>
-          <span>IP & Brauzer Analitika</span>
+    <nav id="mainNav" class="hidden lg:flex items-center gap-1 p-1.5 rounded-full border glass" style="border-color:var(--line);background:var(--card)"></nav>
+
+    <div class="flex items-center gap-2">
+      <div id="userChip" class="hidden sm:flex items-center gap-2 pl-2 pr-1 py-1 rounded-2xl border" style="border-color:var(--line);background:var(--card)">
+        <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white text-xs font-bold flex items-center justify-center" id="userChipAv">U</div>
+        <div class="leading-tight pr-1">
+          <div class="text-xs font-semibold max-w-[90px] truncate" id="userChipName">Mehmon</div>
+          <div class="text-[10px] font-mono" style="color:var(--muted)" id="userChipPhone">+998</div>
+        </div>
+        <button onclick="logoutVisitor()" title="Chiqish" class="w-7 h-7 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs flex items-center justify-center">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
       </div>
 
-      <div class="flex-1 p-6 overflow-y-auto bg-[#070913]/50">
-        <!-- Hero Tab -->
-        <div id="tab-hero" class="admin-content-pane space-y-6 max-w-2xl">
-          <h3 class="text-lg font-bold text-white">Hero va Sayt Logotipini Tahrirlash</h3>
-          <div class="space-y-4 glass-panel p-5 rounded-2xl border border-violet-500/20">
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Header Logo Matni</label>
-              <input type="text" id="adm-brand-name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Header Logo Rasmi (Fayldan yuklash)</label>
-              <input type="file" accept="image/*" onchange="uploadBase64(event, 'brandLogo')" class="text-xs text-slate-400">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Ism va Familiya</label>
-              <input type="text" id="adm-hero-name" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Mutaxassislik Roli</label>
-              <input type="text" id="adm-hero-role" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Dumaloq Avatar Rasmi (Fayldan yuklash)</label>
-              <input type="file" accept="image/*" onchange="uploadBase64(event, 'heroAvatar')" class="text-xs text-slate-400">
-            </div>
-            <button onclick="saveHeroSettings()" class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold">
-              Saqlash
-            </button>
-          </div>
-        </div>
+      <button id="themeToggleBtn" class="w-10 h-10 rounded-2xl border hover:bg-white/10 flex items-center justify-center" style="border-color:var(--line);background:var(--card)" title="Mavzu">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
 
-        <!-- Services Tab -->
-        <div id="tab-services" class="admin-content-pane hidden space-y-6">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-white">Xizmatlar Boshqaruvi</h3>
-            <button onclick="openAddServiceModal()" class="px-3 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs flex items-center space-x-1">
-              <i data-lucide="plus" class="w-4 h-4"></i>
-              <span>Yangi Xizmat Qo'shish</span>
-            </button>
-          </div>
-          <div id="adm-services-list" class="space-y-3"></div>
-        </div>
+      <button id="openChatBtn" class="relative px-3.5 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500/20 to-purple-500/20 hover:from-cyan-500/30 hover:to-purple-500/30 border border-cyan-500/30 text-cyan-300 font-medium text-sm flex items-center gap-2">
+        <i class="fa-regular fa-comment-dots text-lg"></i><span class="hidden sm:inline">Jonli Chat</span>
+        <span id="chatBadge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-emerald-500 text-white rounded-full text-[10px] font-bold flex items-center justify-center ring-2" style="--tw-ring-color:var(--bg)">0</span>
+      </button>
 
-        <!-- Projects Tab -->
-        <div id="tab-projects" class="admin-content-pane hidden space-y-6">
-          <div class="flex items-center justify-between">
-            <h3 class="text-lg font-bold text-white">Loyihalar Boshqaruvi</h3>
-            <button onclick="openAddProjectModal()" class="px-3 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs flex items-center space-x-1">
-              <i data-lucide="plus" class="w-4 h-4"></i>
-              <span>Yangi Loyiha Qo'shish</span>
-            </button>
-          </div>
-          <div id="adm-projects-list" class="space-y-3"></div>
-        </div>
+      <button id="mobileMenuBtn" class="lg:hidden w-10 h-10 rounded-2xl border flex items-center justify-center" style="border-color:var(--line);background:var(--card)">
+        <i class="fa-solid fa-bars text-lg"></i>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden px-4 pt-2 pb-5 border-t glass space-y-1.5" style="border-color:var(--line);background:var(--card)"></div>
+</header>
 
-        <!-- Skills Tab -->
-        <div id="tab-skills" class="admin-content-pane hidden space-y-6 max-w-2xl">
-          <h3 class="text-lg font-bold text-white">Ko'nikmalar (+Add)</h3>
-          <div class="p-4 glass-panel rounded-2xl border border-violet-500/20 space-y-3">
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs text-slate-400 mb-1">Ko'nikma Nomi</label>
-                <input type="text" id="adm-skill-name" placeholder="Masalan: Tailwind CSS" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-xs text-slate-400 mb-1">Foiz (0 - 100)</label>
-                <input type="number" id="adm-skill-percent" placeholder="95" min="1" max="100" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-              </div>
-            </div>
-            <button onclick="addSkill()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold">
-              + Qo'shish
-            </button>
-          </div>
-          <div id="adm-skills-list" class="space-y-2"></div>
-        </div>
+<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20 space-y-28">
 
-        <!-- About Tab -->
-        <div id="tab-about" class="admin-content-pane hidden space-y-6 max-w-2xl">
-          <h3 class="text-lg font-bold text-white">"Men Haqimda" Matnini Tahrirlash</h3>
-          <div class="p-5 glass-panel rounded-2xl border border-violet-500/20 space-y-4">
-            <textarea id="adm-about-text" rows="6" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-white leading-relaxed focus:border-cyan-400 outline-none"></textarea>
-            <button onclick="saveAboutText()" class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold">
-              Saqlash
-            </button>
-          </div>
-        </div>
+<!-- ===== HERO ===== -->
+<section id="hero" class="min-h-[78vh] flex items-center py-6">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center w-full">
+    <div class="lg:col-span-7 space-y-6 order-2 lg:order-1 text-center lg:text-left">
+      <div data-rv="left" class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs sm:text-sm font-semibold">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span><span id="heroRoleBadge">Frontend &amp; AI Manager</span>
+      </div>
+      <h1 data-rv="up" data-rv-d="80" class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight leading-tight">
+        Salom, men <br/>
+        <span id="heroNameText" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">Muhammad Amin</span>
+      </h1>
+      <p id="heroBioText" data-rv="blur" data-rv-d="160" class="text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0" style="color:var(--muted)"></p>
+      <div data-rv="up" data-rv-d="240" class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
+        <a href="#projects" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm shadow-lg shadow-cyan-500/25 hover:-translate-y-0.5 transition-all flex items-center gap-2">
+          <span>Loyihalarim</span><i class="fa-solid fa-arrow-right text-xs"></i></a>
+        <a href="#contact" class="px-6 py-3.5 rounded-2xl border font-semibold text-sm hover:-translate-y-0.5 transition-all flex items-center gap-2" style="border-color:var(--line);background:var(--card)">
+          <i class="fa-regular fa-envelope"></i><span>Bog'lanish</span></a>
+        <button onclick="openChat()" class="px-5 py-3.5 rounded-2xl border font-medium text-sm hover:-translate-y-0.5 transition-all flex items-center gap-2" style="border-color:var(--line);background:var(--card)">
+          <i class="fa-regular fa-paper-plane"></i><span>Xabar yozish</span></button>
+      </div>
+      <div id="heroStats" data-rv="up" data-rv-d="320" class="grid grid-cols-3 gap-3 pt-6 border-t max-w-lg mx-auto lg:mx-0" style="border-color:var(--line)"></div>
+    </div>
 
-        <!-- Contacts Tab -->
-        <div id="tab-contacts" class="admin-content-pane hidden space-y-6 max-w-2xl">
-          <h3 class="text-lg font-bold text-white">Bog'lanish Tarmoqlari (+Add)</h3>
-          <div class="p-5 glass-panel rounded-2xl border border-violet-500/20 space-y-3">
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-xs text-slate-400 mb-1">Tarmoq Nomi</label>
-                <input type="text" id="adm-contact-name" placeholder="Telegram" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-              </div>
-              <div>
-                <label class="block text-xs text-slate-400 mb-1">Havola (Link)</label>
-                <input type="text" id="adm-contact-url" placeholder="https://t.me/..." class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white">
-              </div>
-            </div>
-            <div>
-              <label class="block text-xs text-slate-400 mb-1">Rasm / Logotip (Fayldan tanlash)</label>
-              <input type="file" accept="image/*" onchange="uploadBase64(event, 'tempContactImg')" class="text-xs text-slate-400">
-            </div>
-            <button onclick="addContactCard()" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-semibold">
-              + Kartani Qo'shish
-            </button>
+    <div class="lg:col-span-5 flex flex-col items-center justify-center order-1 lg:order-2" data-rv="zoom">
+      <div class="relative group">
+        <div id="heroAura" class="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-500"></div>
+        <div id="heroAvatarFrame" class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full p-2 bg-gradient-to-b from-white/20 via-cyan-500/20 to-purple-500/20 border border-white/20 shadow-2xl glass animate-float-slow">
+          <div id="heroAvatarInner" class="w-full h-full rounded-full overflow-hidden relative border-4 border-slate-900/60 bg-slate-900">
+            <img id="heroAvatarImg" alt="Avatar" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onerror="this.src='https://placehold.co/600x600/0f172a/38bdf8?text=Developer'">
           </div>
-          <div id="adm-contacts-list" class="space-y-2"></div>
-        </div>
-
-        <!-- CRM & Browser Analytics Tab -->
-        <div id="tab-crm" class="admin-content-pane hidden space-y-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-lg font-bold text-white">Foydalanuvchilar Analitikasi & Brauzer Ma'lumotlari</h3>
-              <p class="text-xs text-slate-400">Kirgan har bir kishining IP manzili, qaysi brauzer va operatsion tizimdan kirgani.</p>
-            </div>
-            <span class="text-xs text-cyan-400 font-mono" id="crm-count-label">Jami: 0 ta</span>
-          </div>
-          <div class="glass-panel rounded-2xl border border-violet-500/20 overflow-hidden">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-950/80 text-slate-400 uppercase font-mono border-b border-violet-500/20">
-                <tr>
-                  <th class="p-3">IP Manzil</th>
-                  <th class="p-3">Brauzer & Qurilma</th>
-                  <th class="p-3">Kirgan Vaqti</th>
-                  <th class="p-3">Holat</th>
-                  <th class="p-3 text-right">Amal</th>
-                </tr>
-              </thead>
-              <tbody id="crm-table-body" class="divide-y divide-violet-500/10"></tbody>
-            </table>
+          <div class="absolute bottom-3 right-4 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-emerald-500/30 text-emerald-400 text-xs font-semibold flex items-center gap-2 shadow-lg glass">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span><span id="heroStatusText">Faol ishlamoqda</span>
           </div>
         </div>
+      </div>
+      <div class="mt-6 text-center">
+        <h3 id="heroAvatarName" class="text-2xl font-bold tracking-tight"></h3>
+        <p id="heroAvatarRoleSub" class="text-sm font-medium text-cyan-400/90 font-mono"></p>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- FIREBASE REALTIME CHAT SDK -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-    import { 
-      getFirestore, 
-      collection, 
-      addDoc, 
-      onSnapshot, 
-      query, 
-      orderBy, 
-      deleteDoc, 
-      doc 
-    } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+<!-- ===== LOYIHALAR ===== -->
+<section id="projects" class="space-y-8 scroll-mt-28">
+  <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b pb-6" style="border-color:var(--line)" data-rv="up">
+    <div>
+      <span class="text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase">Portfolio</span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Loyihalarim</h2>
+      <p class="text-sm mt-1" style="color:var(--muted)">Veb-saytlar, ilovalar va yuklab olish mumkin bo'lgan fayllar.</p>
+    </div>
+    <div class="flex flex-wrap gap-2" id="projectFilterGroup"></div>
+  </div>
+  <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+</section>
 
-    // Siz taqdim etgan Firebase ma'lumotlari
-    const firebaseConfig = {
-      apiKey: "AIzaSyAKp-OYabFgC2BCEYxrZKYdq8_XUy2b3zc",
-      authDomain: "portfoliyo-c2103.firebaseapp.com",
-      projectId: "portfoliyo-c2103",
-      storageBucket: "portfoliyo-c2103.firebasestorage.app",
-      messagingSenderId: "285640353556",
-      appId: "1:285640353556:web:783f863a8d4b7fb9d8c401",
-      measurementId: "G-1V78RDGJE3"
-    };
+<!-- ===== KO'NIKMALAR ===== -->
+<section id="skills" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase">Salohiyat</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Texnik Ko'nikmalarim</h2>
+    <p class="text-sm mt-1" style="color:var(--muted)">Har bir ko'nikma daraja, kategoriya va foiz ko'rsatkichi bilan.</p>
+  </div>
+  <div id="skillsSummary" class="grid grid-cols-2 sm:grid-cols-4 gap-3" data-rv="up" data-rv-d="60"></div>
+  <div class="flex flex-wrap gap-2" id="skillCatGroup"></div>
+  <div id="skillsList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</section>
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+<!-- ===== XIZMATLAR ===== -->
+<section id="services" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-purple-400 uppercase">Xizmatlar</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Nima qila olaman</h2>
+    <p class="text-sm mt-1" style="color:var(--muted)">Buyurtma asosida bajariladigan asosiy yo'nalishlar.</p>
+  </div>
+  <div id="servicesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</section>
 
-    // Bulutga xabar yozish
-    window.sendChatMessageToCloud = async function(msgData) {
-      try {
-        await addDoc(collection(db, "chats"), {
-          ...msgData,
-          timestamp: Date.now()
-        });
-      } catch (err) {
-        console.error("Firebase xatolik:", err);
+<!-- ===== TAJRIBA / TA'LIM ===== -->
+<section id="timeline" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-emerald-400 uppercase">Yo'l xaritasi</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Tajriba &amp; Ta'lim</h2>
+  </div>
+  <div id="timelineList" class="relative pl-6 sm:pl-10 space-y-6"></div>
+</section>
+
+<!-- ===== SHARHLAR ===== -->
+<section id="reviews" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-amber-400 uppercase">Fikrlar</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Mijozlar sharhi</h2>
+  </div>
+  <div id="reviewsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</section>
+
+<!-- ===== MEN HAQIMDA ===== -->
+<section id="about" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase">Tarjimai hol</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Men Haqimda</h2>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+    <div class="lg:col-span-8 space-y-6" data-rv="left">
+      <div class="p-6 sm:p-8 rounded-3xl surface glass space-y-6">
+        <div class="flex flex-col sm:flex-row gap-6">
+          <img id="aboutImg" class="hidden w-full sm:w-44 h-44 object-cover rounded-2xl border" style="border-color:var(--line)" alt="about">
+          <div id="aboutContentText" class="flex-1 space-y-4 text-sm sm:text-base leading-relaxed"></div>
+        </div>
+        <div id="aboutHighlights" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+      </div>
+      <div id="aboutExtras" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+    </div>
+    <div class="lg:col-span-4 p-6 sm:p-8 rounded-3xl border border-cyan-500/20 glass space-y-5 bg-gradient-to-b from-cyan-500/5 to-purple-500/5" data-rv="right">
+      <h3 class="text-lg font-bold flex items-center gap-2"><i class="fa-solid fa-award text-cyan-400"></i> Asosiy ma'lumotlar</h3>
+      <ul id="aboutInfoList" class="space-y-1 text-xs sm:text-sm"></ul>
+      <a href="#contact" class="w-full py-3 rounded-2xl border text-xs font-semibold flex items-center justify-center gap-2 hover:bg-white/10" style="border-color:var(--line)">
+        <span>Hamkorlikni boshlash</span><i class="fa-solid fa-paper-plane text-xs"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOG'LANISH ===== -->
+<section id="contact" class="space-y-8 scroll-mt-28">
+  <div class="max-w-2xl" data-rv="up">
+    <span class="text-xs font-bold font-mono tracking-widest text-cyan-400 uppercase">Aloqa</span>
+    <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight mt-1">Bog'lanish</h2>
+    <p class="text-sm mt-1" style="color:var(--muted)">Ijtimoiy tarmoqlar orqali yoki to'g'ridan-to'g'ri xabar qoldiring.</p>
+  </div>
+  <div id="socialCardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+  <div class="p-6 sm:p-8 rounded-3xl surface glass" data-rv="up">
+    <h3 class="text-xl font-bold mb-1">To'g'ridan-to'g'ri xabar</h3>
+    <p class="text-xs mb-6" style="color:var(--muted)">Xabaringiz chat orqali to'g'ridan-to'g'ri adminga yetib boradi.</p>
+    <form id="contactForm" onsubmit="handleDirectContact(event)" class="space-y-4">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div><label class="block text-xs font-semibold mb-1">Ismingiz</label>
+          <input type="text" id="contactFormName" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400"></div>
+        <div><label class="block text-xs font-semibold mb-1">Telefon / Telegram</label>
+          <input type="text" id="contactFormContact" required class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400"></div>
+      </div>
+      <div><label class="block text-xs font-semibold mb-1">Xabar matni</label>
+        <textarea id="contactFormMsg" required rows="3" class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400"></textarea></div>
+      <button type="submit" class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-semibold text-sm flex items-center gap-2">
+        <i class="fa-regular fa-paper-plane"></i><span>Xabarni yuborish</span></button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="border-t glass py-10 relative z-10" style="border-color:var(--line);background:var(--card)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+    <div>
+      <span class="text-sm font-bold flex items-center justify-center sm:justify-start gap-2">
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span><span id="footerName">Portfolio</span></span>
+      <p class="text-xs mt-1" style="color:var(--muted)">Barcha huquqlar himoyalangan &copy; <span id="footerYear"></span></p>
+    </div>
+    <div class="flex items-center gap-3 text-xs" style="color:var(--muted)">
+      <span id="syncBadge" class="px-2.5 py-1 rounded-lg border font-mono text-[11px]" style="border-color:var(--line)">…</span>
+      <a href="#hero" class="p-2 rounded-xl border hover:bg-white/10" style="border-color:var(--line)"><i class="fa-solid fa-arrow-up"></i></a>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== Sayt ko'rish (iframe) ===== -->
+<div id="websitePreviewModal" class="hidden fixed inset-0 z-[60] bg-slate-950/85 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6">
+  <div class="relative w-full max-w-6xl h-[90vh] bg-slate-900 border border-white/15 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+    <div class="px-4 py-3 bg-slate-950/90 border-b border-white/10 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-3 h-3 rounded-full bg-red-500/80 cursor-pointer" onclick="closeWebsitePreview()"></div>
+        <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div><div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+      </div>
+      <div class="flex-1 max-w-xl mx-auto flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-slate-300 font-mono">
+        <i class="fa-solid fa-lock text-[10px] text-emerald-400"></i><span id="previewModalUrlDisplay" class="truncate"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a id="previewModalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs flex items-center gap-1">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i><span class="hidden sm:inline">Brauzerda</span></a>
+        <button onclick="closeWebsitePreview()" class="p-2 rounded-xl bg-white/5 hover:bg-red-500/20 text-slate-300 hover:text-red-400 text-xs"><i class="fa-solid fa-xmark text-sm"></i></button>
+      </div>
+    </div>
+    <div class="flex-1 relative bg-slate-950">
+      <div id="previewIframeLoader" class="absolute inset-0 flex items-center justify-center bg-slate-950/90 z-10 text-cyan-400 gap-3">
+        <i class="fa-solid fa-circle-notch fa-spin text-2xl"></i><span class="text-sm">Yuklanmoqda...</span></div>
+      <iframe id="previewIframe" src="" class="w-full h-full border-none" onload="document.getElementById('previewIframeLoader').classList.add('hidden')"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Media lightbox ===== -->
+<div id="lightbox" class="hidden fixed inset-0 z-[9500] bg-black/95 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeLightbox(event)">
+  <button onclick="closeLightbox()" class="absolute top-5 right-5 w-11 h-11 rounded-2xl bg-white/10 hover:bg-white/20 text-white text-lg"><i class="fa-solid fa-xmark"></i></button>
+  <div id="lightboxBody" class="max-w-[92vw] max-h-[86vh] flex items-center justify-center"></div>
+</div>
+
+<!-- ===== Yuklab olish tasdiqlash ===== -->
+<div id="dlModal" class="hidden fixed inset-0 z-[9600] bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-4">
+  <div class="w-full max-w-sm rounded-3xl surface glass p-6 space-y-5 text-center shadow-2xl">
+    <div class="mx-auto w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-2xl flex items-center justify-center"><i class="fa-solid fa-file-arrow-down"></i></div>
+    <div>
+      <h3 class="text-lg font-bold">Faylni yuklab olasizmi?</h3>
+      <p id="dlFileName" class="text-xs mt-1 font-mono break-all" style="color:var(--muted)"></p>
+      <p id="dlFileMeta" class="text-[11px] mt-1" style="color:var(--muted)"></p>
+    </div>
+    <div class="flex gap-3">
+      <button onclick="closeDlModal()" class="flex-1 py-3 rounded-2xl border text-sm font-semibold hover:bg-white/10" style="border-color:var(--line)">Bekor qilish</button>
+      <button onclick="confirmDownload()" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-sm font-bold">Ha, yuklab olish</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CHAT (foydalanuvchi) ===== -->
+<div id="chatDrawer" class="fixed z-[70] right-4 w-full sm:w-[420px] max-w-[calc(100vw-2rem)] h-[580px] max-h-[calc(100vh-7rem)] rounded-3xl shadow-2xl glass flex flex-col overflow-hidden transform translate-y-[130%] opacity-0 transition-all duration-300 pointer-events-none surface"
+  style="bottom:calc(1rem + env(safe-area-inset-bottom,0px))">
+  <div class="p-4 border-b flex items-center justify-between" style="border-color:var(--line);background:var(--card)">
+    <div class="flex items-center gap-3">
+      <div class="relative"><div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white"><i class="fa-solid fa-headset"></i></div>
+        <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 rounded-full ring-2" style="--tw-ring-color:var(--bg)"></span></div>
+      <div><h4 class="font-bold text-sm">Qo'llab-quvvatlash</h4><p class="text-[11px] text-emerald-400">Odatda tez javob beradi</p></div>
+    </div>
+    <button onclick="closeChat()" class="w-9 h-9 rounded-xl border hover:bg-white/10" style="border-color:var(--line)"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div id="chatMessages" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+  <div id="chatAttachBar" class="hidden px-3 py-2 border-t flex items-center gap-3" style="border-color:var(--line)">
+    <div id="chatAttachPrev" class="flex items-center gap-2 text-xs min-w-0"></div>
+    <button onclick="clearAttach('user')" class="ml-auto w-7 h-7 rounded-lg bg-red-500/10 text-red-400 text-xs"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <form id="chatForm" class="p-3 border-t flex items-center gap-2" style="border-color:var(--line);background:var(--card)">
+    <input type="file" id="chatFileInput" class="hidden" onchange="pickAttach(event,'user')">
+    <button type="button" onclick="document.getElementById('chatFileInput').click()" class="w-10 h-10 shrink-0 rounded-2xl border hover:bg-white/10" style="border-color:var(--line)" title="Fayl biriktirish"><i class="fa-solid fa-paperclip"></i></button>
+    <input id="chatInput" placeholder="Xabar yozing..." class="flex-1 min-w-0 px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400">
+    <button type="submit" class="w-10 h-10 shrink-0 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+  </form>
+</div>
+
+<!-- ===== Admin login ===== -->
+<div id="adminLoginModal" class="hidden fixed inset-0 z-[9700] bg-slate-950/92 backdrop-blur-2xl flex items-center justify-center p-4">
+  <div class="w-full max-w-sm rounded-3xl surface glass shadow-2xl overflow-hidden">
+    <div class="h-1.5 bg-gradient-to-r from-cyan-400 via-indigo-500 to-purple-500"></div>
+    <form id="adminLoginForm" class="p-7 space-y-5" autocomplete="off">
+      <div class="text-center space-y-1">
+        <div class="mx-auto w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-xl text-cyan-400"><i class="fa-solid fa-shield-halved"></i></div>
+        <h3 class="text-xl font-extrabold">Boshqaruv paneli</h3>
+      </div>
+      <input id="adminLoginUser" type="text" required placeholder="Login" autocomplete="off"
+        class="w-full px-4 py-3.5 rounded-2xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400">
+      <div class="relative">
+        <input id="adminLoginPass" type="password" required placeholder="Parol" autocomplete="new-password"
+          class="w-full px-4 py-3.5 pr-12 rounded-2xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400">
+        <button type="button" onclick="togglePass()" class="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-lg text-slate-400 hover:text-cyan-400"><i class="fa-regular fa-eye" id="passEye"></i></button>
+      </div>
+      <div class="flex gap-3">
+        <button type="button" onclick="closeAdminLogin()" class="flex-1 py-3 rounded-2xl border text-sm font-semibold hover:bg-white/10" style="border-color:var(--line)">Yopish</button>
+        <button type="submit" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-sm font-bold">Kirish</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminPanel" class="hidden fixed inset-0 z-[8000] overflow-hidden flex flex-col" style="background:var(--bg)">
+  <div class="border-b glass" style="border-color:var(--line);background:var(--card);padding-top:env(safe-area-inset-top,0px)">
+    <div class="px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white shrink-0"><i class="fa-solid fa-sliders"></i></div>
+        <div class="min-w-0"><h3 class="font-bold text-sm truncate">Admin boshqaruvi</h3>
+          <p class="text-[11px] font-mono truncate" style="color:var(--muted)" id="adminSyncInfo">Serverga ulanmoqda…</p></div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button onclick="adminSaveAll()" class="px-3 sm:px-4 py-2.5 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up"></i><span class="hidden sm:inline">Saqlash</span></button>
+        <button onclick="closeAdminPanel()" class="px-3 sm:px-4 py-2.5 rounded-2xl border text-xs font-bold flex items-center gap-2" style="border-color:var(--line)">
+          <i class="fa-solid fa-eye"></i><span class="hidden sm:inline">Saytni ko'rish</span></button>
+        <button onclick="adminLogout()" class="px-3 sm:px-4 py-2.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold flex items-center gap-2">
+          <i class="fa-solid fa-power-off"></i><span class="hidden sm:inline">Chiqish</span></button>
+      </div>
+    </div>
+    <!-- Tugmalar headerda -->
+    <div class="px-3 sm:px-6 pb-3 overflow-x-auto noscb" style="scrollbar-width:none">
+      <div id="adminTabs" class="flex items-center gap-2 min-w-max"></div>
+    </div>
+  </div>
+  <div class="flex-1 overflow-y-auto">
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 pb-24">
+      <div id="pane-site" class="apane hidden"></div>
+      <div id="pane-hero" class="apane hidden"></div>
+      <div id="pane-projects" class="apane hidden"></div>
+      <div id="pane-skills" class="apane hidden"></div>
+      <div id="pane-services" class="apane hidden"></div>
+      <div id="pane-timeline" class="apane hidden"></div>
+      <div id="pane-reviews" class="apane hidden"></div>
+      <div id="pane-about" class="apane hidden"></div>
+      <div id="pane-contact" class="apane hidden"></div>
+      <div id="pane-visitors" class="apane hidden"></div>
+      <div id="pane-chat" class="apane hidden"></div>
+      <div id="pane-settings" class="apane hidden"></div>
+    </div>
+  </div>
+</div>
+<script>
+/* ============================================================
+   0) ASOSIY SOZLAMALAR VA BOSHLANG'ICH MA'LUMOT
+   ============================================================ */
+const LS_DATA = 'pf_v3_content';
+const LS_VISITOR = 'pf_v3_visitor';
+const LS_CHAT = 'pf_v3_chat_local';
+const LS_USERS = 'pf_v3_users_local';
+const LS_THEME = 'pf_v3_theme';
+const MAX_INLINE = 190 * 1024; // db hujjatiga sig'adigan fayl hajmi
+
+const DEFAULT = {
+  site: { name:"Portfolio", tag:"Developer Hub", badge:"v3.0", logoText:"M", logoImg:"", logoShape:"rounded" },
+  hero: {
+    name:"Muhammad Amin", role:"Frontend & AI Manager", status:"Faol ishlamoqda",
+    avatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+    avatarShape:"circle",
+    bio:"Foydalanuvchiga zavq ulashuvchi zamonaviy veb ilovalar, intellektual AI yechimlari va yuqori tezlikka ega arxitekturalar yaratuvchisi.",
+    stats:[ {id:'st1',val:"3+",label:"Yillik tajriba"}, {id:'st2',val:"24+",label:"Tugallangan loyiha"}, {id:'st3',val:"100%",label:"Mijoz qoniqishi"} ]
+  },
+  about:{
+    img:"",
+    paragraphs:[
+      {id:'ap1',text:"Salom! Men zamonaviy veb-texnologiyalar va sun'iy intellekt tizimlarini birlashtirishga ixtisoslashgan dasturchiman. Murakkab g'oyalarni sodda va chiroyli raqamli mahsulotlarga aylantirish mening asosiy ishtiyoqim."},
+      {id:'ap2',text:"Frontend sohasida yuqori unumdorlikka ega, animatsiyalarga boy interfeyslar yarataman hamda AI modellarini biznes jarayonlariga integratsiya qilaman."},
+      {id:'ap3',text:"Har doim yangi texnologiyalarni o'rganish va qiziqarli jamoalar bilan hamkorlikka tayyorman."}
+    ],
+    highlights:[
+      {id:'ah1',icon:"fa-solid fa-code",title:"Dasturlash falsafasi",text:"Toza kod, modulli arxitektura va intuitiv foydalanuvchi tajribasi tarafdoriman."},
+      {id:'ah2',icon:"fa-solid fa-brain",title:"AI integratsiyasi",text:"Zamonaviy LLM va AI agentlar orqali jarayonlarni avtomatlashtiraman."}
+    ],
+    extras:[
+      {id:'ax1',icon:"fa-solid fa-rocket",title:"Tezkor ishga tushirish",text:"MVP loyihalarni qisqa muddatda ishga tayyorlab beraman."},
+      {id:'ax2',icon:"fa-solid fa-shield-halved",title:"Xavfsizlik",text:"Ma'lumotlar xavfsizligi va himoyaga alohida e'tibor."}
+    ],
+    info:[
+      {id:'ai1',k:"Manzil",v:"O'zbekiston, Toshkent"},
+      {id:'ai2',k:"Kasb",v:"Frontend & AI Manager"},
+      {id:'ai3',k:"Ish holati",v:"Frilans & loyihalar ochiq"},
+      {id:'ai4',k:"Tillar",v:"O'zbek, Rus, Ingliz"}
+    ]
+  },
+  skills:[
+    {id:'s1',name:"React / Next.js",cat:"Frontend",icon:"fa-brands fa-react",percent:95},
+    {id:'s2',name:"AI Agentlar & Prompting",cat:"AI",icon:"fa-solid fa-robot",percent:92},
+    {id:'s3',name:"Tailwind & UI dizayn",cat:"Frontend",icon:"fa-solid fa-palette",percent:94},
+    {id:'s4',name:"JavaScript ES6+",cat:"Frontend",icon:"fa-brands fa-js",percent:90},
+    {id:'s5',name:"Python & FastAPI",cat:"Backend",icon:"fa-brands fa-python",percent:78},
+    {id:'s6',name:"Git, Docker, Deploy",cat:"DevOps",icon:"fa-brands fa-docker",percent:75},
+    {id:'s7',name:"SQL & NoSQL",cat:"Backend",icon:"fa-solid fa-database",percent:68}
+  ],
+  projects:[
+    {id:'p1',name:"NeuroCore AI Workspace",desc:"Sun'iy intellektga asoslangan tahliliy ish maydoni.",type:"veb sayt",link:"https://example.com",img:"https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",file:null,tags:"AI, React"},
+    {id:'p2',name:"Apex Crypto Analytics",desc:"Real vaqtda kripto portfel va signallar vizualizatori.",type:"veb sayt",link:"https://wikipedia.org",img:"https://images.unsplash.com/photo-1642543492481-44e81e3914a7?auto=format&fit=crop&w=800&q=80",file:null,tags:"Chart, API"},
+    {id:'p3',name:"CyberShield Security Tool",desc:"Xavfsizlik zaifliklarini tekshiruvchi Python moduli.",type:"boshqa",link:"https://github.com",img:"https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80",file:null,tags:"Python"}
+  ],
+  services:[
+    {id:'sv1',icon:"fa-solid fa-laptop-code",title:"Veb-sayt ishlab chiqish",desc:"Landing, korporativ sayt, admin panel va do'kon.",price:"Kelishilgan holda"},
+    {id:'sv2',icon:"fa-solid fa-robot",title:"AI yechimlar",desc:"Chat-bot, avtomatlashtirish va AI integratsiya.",price:"Loyihaga qarab"},
+    {id:'sv3',icon:"fa-solid fa-mobile-screen",title:"UI / UX dizayn",desc:"Zamonaviy, moslashuvchan va tezkor interfeys.",price:"Kelishilgan holda"}
+  ],
+  timeline:[
+    {id:'t1',year:"2024 — hozir",title:"Frontend & AI Manager",place:"Frilans",desc:"Mijozlar uchun veb ilovalar va AI yechimlar."},
+    {id:'t2',year:"2023 — 2024",title:"Frontend dasturchi",place:"Startap loyiha",desc:"React asosidagi katta interfeyslar."},
+    {id:'t3',year:"2022",title:"Dasturlash asoslari",place:"O'quv markaz",desc:"JavaScript, algoritmlar va amaliyot."}
+  ],
+  reviews:[
+    {id:'r1',name:"Sardor A.",role:"Tadbirkor",rating:5,text:"Ish sifati va tezligi juda yuqori. Aloqa doim ochiq edi.",avatar:""},
+    {id:'r2',name:"Nilufar K.",role:"Marketolog",rating:5,text:"Sayt dizayni kutganimdan ham chiroyli chiqdi.",avatar:""}
+  ],
+  socials:[
+    {id:'c1',name:"Telegram",link:"https://t.me/mhdvmim",color:"blue",icon:"fa-brands fa-telegram"},
+    {id:'c2',name:"GitHub",link:"https://github.com",color:"slate",icon:"fa-brands fa-github"},
+    {id:'c3',name:"LinkedIn",link:"https://linkedin.com",color:"sky",icon:"fa-brands fa-linkedin"},
+    {id:'c4',name:"Instagram",link:"https://instagram.com",color:"purple",icon:"fa-brands fa-instagram"}
+  ],
+  auth:{ login:"admin", pass:"1234" }
+};
+
+/* ============================================================
+   1) GLOBAL HOLAT
+   ============================================================ */
+let DATA = null;
+let DB = null, ASSETS = null, DOWNLOADS = null, USERCAP = null;
+let USERS = {};              // vid -> foydalanuvchi ma'lumoti
+let CHATS = {};              // vid -> {msgs:[...]}
+let ME = null;               // {vid,name,phone}
+let IS_ADMIN = false;
+let canWriteShared = true;
+let activeThread = null;
+let unsubs = [];
+const fileCache = {};
+
+/* ============================================================
+   2) KICHIK YORDAMCHILAR
+   ============================================================ */
+const $ = id => document.getElementById(id);
+const esc = s => String(s==null?'':s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid = (p='id') => p + Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-4);
+const clone = o => JSON.parse(JSON.stringify(o));
+
+function timeStr(ts){ const d = new Date(ts||Date.now()); return d.toLocaleTimeString('uz-UZ',{hour:'2-digit',minute:'2-digit'}); }
+function dateStr(ts){ if(!ts) return '—'; const d=new Date(ts);
+  return d.toLocaleDateString('uz-UZ',{day:'2-digit',month:'2-digit',year:'numeric'})+' '+timeStr(ts); }
+function agoStr(ts){ if(!ts) return '—'; const s=(Date.now()-ts)/1000;
+  if(s<60) return 'hozir'; if(s<3600) return Math.floor(s/60)+' daq oldin';
+  if(s<86400) return Math.floor(s/3600)+' soat oldin'; return Math.floor(s/86400)+' kun oldin'; }
+function sizeStr(b){ if(!b && b!==0) return ''; if(b<1024) return b+' B';
+  if(b<1048576) return (b/1024).toFixed(1)+' KB'; return (b/1048576).toFixed(2)+' MB'; }
+
+function showToast(msg, type='info'){
+  const c = $('toastContainer'); if(!c) return;
+  const map = { success:'bg-emerald-600/90 border-emerald-400/40', error:'bg-red-600/90 border-red-400/40', info:'bg-cyan-600/90 border-cyan-400/40' };
+  const t = document.createElement('div');
+  t.className = `px-4 py-3 rounded-2xl shadow-2xl border backdrop-blur-md text-xs sm:text-sm font-medium text-white flex items-center gap-2 transition-all duration-300 translate-y-4 opacity-0 pointer-events-auto ${map[type]||map.info}`;
+  t.innerHTML = `<i class="fa-solid ${type==='success'?'fa-circle-check':type==='error'?'fa-triangle-exclamation':'fa-bell'}"></i><span>${esc(msg)}</span>`;
+  c.appendChild(t);
+  requestAnimationFrame(()=>t.classList.remove('translate-y-4','opacity-0'));
+  setTimeout(()=>{ t.classList.add('opacity-0','translate-y-2'); setTimeout(()=>t.remove(),300); }, 3200);
+}
+
+/* Yo'l bo'yicha qiymat olish/yozish: "hero.name", "projects.2.img" */
+function getPath(path){ return path.split('.').reduce((o,k)=> (o==null?o:o[k]), DATA); }
+function setPath(path, val){
+  const ks = path.split('.'); let o = DATA;
+  for(let i=0;i<ks.length-1;i++){ if(o[ks[i]]==null) o[ks[i]]={}; o=o[ks[i]]; }
+  o[ks[ks.length-1]] = val;
+}
+
+/* Reveal animatsiyalari */
+let rvObserver = null;
+function initReveal(){
+  if(rvObserver) rvObserver.disconnect();
+  rvObserver = new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        const d = parseInt(e.target.dataset.rvD||'0',10);
+        setTimeout(()=>e.target.classList.add('rv-in'), d);
+        rvObserver.unobserve(e.target);
       }
-    };
-
-    // Bulutdan o'chirish
-    window.deleteChatMessageFromCloud = async function(docId) {
-      try {
-        await deleteDoc(doc(db, "chats", docId));
-      } catch (err) {
-        console.error("O'chirishda xatolik:", err);
-      }
-    };
-
-    // Real-vaqtda boshqa qurilmalardan kelgan xabarlarni eshitish
-    const chatQuery = query(collection(db, "chats"), orderBy("timestamp", "asc"));
-    onSnapshot(chatQuery, (snapshot) => {
-      state.chatMessages = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      renderChat();
     });
-  </script>
+  }, {threshold:.12, rootMargin:'0px 0px -60px 0px'});
+  document.querySelectorAll('[data-rv]:not(.rv-in)').forEach(el=>rvObserver.observe(el));
+}
+function rv(kind='up', delay=0){ return `data-rv="${kind}" data-rv-d="${delay}"`; }
 
-  <!-- ASOSIY DASTURIY KODLAR VA DETEKTORLAR -->
-  <script>
-    const MASTER_LOGIN = "mhdvmim@gmail.com";
-    const MASTER_PASS = "1234567890mhdv";
+/* Havolalarni aniqlash */
+function linkify(text){
+  return esc(text).replace(/(https?:\/\/[^\s<]+)/g, u =>
+    `<a href="${u}" target="_blank" rel="noopener noreferrer" class="text-cyan-300 hover:text-cyan-200">${u}</a>`);
+}
 
-    let state = {
-      brand: { title: "MHDV", logoImg: "" },
-      hero: {
-        name: "Ibrohimxon",
-        role: "Frontend & AI Manager",
-        bio: "Zamonaviy, yuqori tezlikda ishlovchi veb-ilovalar, sun'iy intellekt integratsiyalari va avtomatlashtirilgan aqlli botlar ishlab chiqaman.",
-        avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"
-      },
-      services: [
-        { id: 1, title: "Web Development", desc: "Tezkor, moslashuvchan va SEO optimallashtirilgan zamonaviy veb-saytlar.", icon: "globe", link: "#contact" },
-        { id: 2, title: "Telegram & AI Botlar", desc: "Aiogram va OpenAI asosidagi avtomatlashtirilgan aqlli botlar.", icon: "bot", link: "#contact" },
-        { id: 3, title: "UI/UX & Optimizatsiya", desc: "Zamonaviy shisha dizayn va veb-sahifalar yuklanish tezligini oshirish.", icon: "zap", link: "#contact" }
-      ],
-      projects: [
-        { id: 1, title: "E-Commerce Market", type: "website", desc: "Onlayn do'kon platformasi, to'liq savat va admin paneli bilan.", link: "https://example.com", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" },
-        { id: 2, title: "AI Assistant Platform", type: "other", desc: "Neyrotarmoqlar orqali matn va audio tahlil qiluvchi yordamchi ilova.", link: "https://github.com", img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600" }
-      ],
-      skills: [
-        { id: 1, name: "JavaScript / React", percent: 92 },
-        { id: 2, name: "Tailwind CSS & Animatsiyalar", percent: 98 },
-        { id: 3, name: "Python / Bot Frameworks", percent: 85 },
-        { id: 4, name: "REST API & Performance", percent: 75 },
-        { id: 5, name: "Docker / Basics", percent: 45 }
-      ],
-      about: "Assalomu alaykum! Men veb-dasturlash va zamonaviy texnologiyalar orqali muammolarga qulay va tezkor yechimlar yaratishga qiziqaman.",
-      contacts: [
-        { id: 1, name: "Telegram", url: "https://t.me", img: "" },
-        { id: 2, name: "GitHub", url: "https://github.com", img: "" }
-      ],
-      visitors: [],
-      blockedIPs: [],
-      chatMessages: []
-    };
-
-    let tempUploads = {};
-
-    // 1. BRAUZER VA QURILMANI ANIQ TANIYDIGAN DETEKTOR
-    function detectBrowserAndOS() {
-      const userAgent = navigator.userAgent;
-      let browser = "Noma'lum brauzer";
-      let os = "Noma'lum OS";
-
-      // Brauzerni aniqlash
-      if (userAgent.indexOf("Firefox") > -1) {
-        browser = "Mozilla Firefox";
-      } else if (userAgent.indexOf("SamsungBrowser") > -1) {
-        browser = "Samsung Internet";
-      } else if (userAgent.indexOf("Opera") > -1 || userAgent.indexOf("OPR") > -1) {
-        browser = "Opera";
-      } else if (userAgent.indexOf("Edg") > -1) {
-        browser = "Microsoft Edge";
-      } else if (userAgent.indexOf("Chrome") > -1) {
-        browser = "Google Chrome";
-      } else if (userAgent.indexOf("Safari") > -1) {
-        browser = "Apple Safari";
-      }
-
-      // Operatsion tizimni aniqlash
-      if (userAgent.indexOf("Win") > -1) os = "Windows";
-      else if (userAgent.indexOf("Mac") > -1) os = "macOS";
-      else if (userAgent.indexOf("Android") > -1) os = "Android";
-      else if (userAgent.indexOf("iPhone") > -1 || userAgent.indexOf("iPad") > -1) os = "iOS";
-      else if (userAgent.indexOf("Linux") > -1) os = "Linux";
-
-      return `${browser} (${os})`;
-    }
-
-    // IP va foydalanuvchini qayd etish
-    async function trackVisitor() {
-      let ip = "127.0.0.1";
-      try {
-        const res = await fetch('https://api.ipify.org?format=json');
-        const data = await res.json();
-        ip = data.ip || ip;
-      } catch (e) {}
-
-      // Bloklanganligini tekshirish
-      if (state.blockedIPs.includes(ip)) {
-        document.getElementById('blocked-screen').classList.remove('hidden');
-        document.getElementById('blocked-ip-label').innerText = "IP: " + ip;
-        return;
-      }
-
-      const clientInfo = detectBrowserAndOS();
-      const visitor = {
-        id: Date.now(),
-        ip: ip,
-        device: clientInfo,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', day: '2-digit', month: '2-digit' })
+/* ============================================================
+   3) FAYL BILAN ISHLASH (rasm siqish, yuklash, yuklab olish)
+   ============================================================ */
+function readAsDataURL(file){
+  return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
+}
+function shrinkImage(file, maxSide=1100, q=0.78){
+  return new Promise(async res=>{
+    try{
+      const url = await readAsDataURL(file);
+      const img = new Image();
+      img.onload = ()=>{
+        let {width:w, height:h} = img;
+        const sc = Math.min(1, maxSide/Math.max(w,h));
+        const c = document.createElement('canvas');
+        c.width = Math.round(w*sc); c.height = Math.round(h*sc);
+        c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+        res(c.toDataURL('image/jpeg', q));
       };
+      img.onerror = ()=>res(url);
+      img.src = url;
+    }catch(e){ res(null); }
+  });
+}
 
-      // Faqat yangi IP'larni qo'shish
-      if (!state.visitors.some(v => v.ip === ip)) {
-        state.visitors.unshift(visitor);
-        saveState();
-      }
+/* Fayl → {kind,name,type,size,src|fid} ; iloji bo'lsa assets, aks holda db ichida */
+async function storeFile(file, opts={}){
+  const isImg = file.type.startsWith('image/');
+  const isVid = file.type.startsWith('video/');
+  const meta = { name:file.name, type:file.type, size:file.size, kind: isImg?'image':isVid?'video':'file' };
+
+  if(ASSETS){
+    try{
+      const up = await ASSETS.upload(file);
+      return Object.assign(meta, { src: up.url, aid: up.id, size: up.sizeBytes || file.size });
+    }catch(e){ /* pastdagi zaxira yo'lga o'tamiz */ }
+  }
+  if(isImg){
+    const d = await shrinkImage(file, opts.maxSide||1100, opts.q||0.78);
+    if(d && d.length < MAX_INLINE*1.37) return Object.assign(meta, { src:d, size:Math.round(d.length*0.75), type:'image/jpeg' });
+  }
+  if(file.size <= MAX_INLINE){
+    const d = await readAsDataURL(file);
+    if(DB && canWriteShared){
+      const fid = uid('f');
+      try{ await DB.doc('files/'+fid).set({ name:file.name, type:file.type, size:file.size, data:d, at:Date.now() });
+        fileCache[fid] = d;
+        return Object.assign(meta, { fid });
+      }catch(e){}
     }
+    return Object.assign(meta, { src:d });
+  }
+  showToast(`Fayl juda katta (${sizeStr(file.size)}). Cheklov: ${sizeStr(MAX_INLINE)}`,'error');
+  return null;
+}
 
-    function loadState() {
-      const saved = localStorage.getItem('portfolio_mhdv_storage');
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          state = { ...state, ...parsed };
-        } catch (e) {}
-      }
+async function resolveFileSrc(att){
+  if(!att) return null;
+  if(att.src) return att.src;
+  if(att.aid) return '/_blob/'+att.aid;
+  if(att.fid){
+    if(fileCache[att.fid]) return fileCache[att.fid];
+    if(DB){ try{ const s = await DB.doc('files/'+att.fid).get();
+      if(s.exists && s.data && s.data.data){ fileCache[att.fid]=s.data.data; return s.data.data; } }catch(e){} }
+  }
+  return null;
+}
+
+/* Yuklab olish tasdiqlash oynasi */
+let pendingDownload = null;
+function askDownload(att){
+  if(!att) return;
+  pendingDownload = att;
+  $('dlFileName').innerText = att.name || 'fayl';
+  $('dlFileMeta').innerText = [att.type||'', sizeStr(att.size)].filter(Boolean).join(' • ');
+  $('dlModal').classList.remove('hidden');
+}
+function closeDlModal(){ $('dlModal').classList.add('hidden'); pendingDownload=null; }
+async function confirmDownload(){
+  const att = pendingDownload; closeDlModal();
+  if(!att) return;
+  const src = await resolveFileSrc(att);
+  if(!src){ showToast('Fayl topilmadi','error'); return; }
+  try{
+    const blob = await (await fetch(src)).blob();
+    if(DOWNLOADS){
+      await DOWNLOADS.save({ filename: att.name||'fayl', data: blob });
+      showToast('Yuklab olindi','success'); return;
     }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = att.name||'fayl';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 4000);
+    showToast('Yuklab olindi','success');
+  }catch(e){
+    const a = document.createElement('a'); a.href=src; a.download=att.name||'fayl'; a.target='_blank';
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+}
 
-    function saveState() {
-      localStorage.setItem('portfolio_mhdv_storage', JSON.stringify(state));
-    }
+/* Lightbox */
+async function openLightbox(att){
+  const src = await resolveFileSrc(att);
+  if(!src) return;
+  $('lightboxBody').innerHTML = att.kind==='video'
+    ? `<video src="${src}" controls autoplay class="max-w-[92vw] max-h-[86vh] rounded-2xl"></video>`
+    : `<img src="${src}" class="max-w-[92vw] max-h-[86vh] rounded-2xl object-contain">`;
+  $('lightbox').classList.remove('hidden');
+}
+function closeLightbox(ev){
+  if(ev && ev.target && ev.target.closest && ev.target.closest('#lightboxBody')) return;
+  $('lightbox').classList.add('hidden'); $('lightboxBody').innerHTML='';
+}
 
-    // Render Funksiyalari
-    function renderApp() {
-      // Header & Hero
-      document.getElementById('brand-title').innerText = state.brand.title;
-      if (state.brand.logoImg) {
-        document.getElementById('brand-logo-img').src = state.brand.logoImg;
-        document.getElementById('brand-logo-img').classList.remove('hidden');
-        document.getElementById('brand-logo-text-icon').classList.add('hidden');
-      } else {
-        document.getElementById('brand-logo-text-icon').innerText = state.brand.title.charAt(0).toUpperCase();
-        document.getElementById('brand-logo-img').classList.add('hidden');
-        document.getElementById('brand-logo-text-icon').classList.remove('hidden');
-      }
-
-      document.getElementById('hero-name').innerText = state.hero.name;
-      document.getElementById('hero-role').innerText = state.hero.role;
-      document.getElementById('hero-bio').innerText = state.hero.bio;
-      document.getElementById('hero-avatar').src = state.hero.avatar;
-      document.getElementById('about-content').innerHTML = `<p>${state.about.replace(/\n/g, '<br>')}</p>`;
-
-      renderServices();
-      renderProjects();
-      renderSkills();
-      renderContacts();
-      renderChat();
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function renderServices() {
-      const container = document.getElementById('services-container');
-      container.innerHTML = state.services.map(s => `
-        <div class="glass-card p-6 rounded-2xl border border-violet-500/20 group relative overflow-hidden" data-aos="fade-up">
-          <div class="w-12 h-12 rounded-xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-cyan-400 mb-4 group-hover:scale-110 transition-transform">
-            <i data-lucide="${s.icon || 'star'}" class="w-6 h-6"></i>
-          </div>
-          <h4 class="text-lg font-bold text-white mb-2">${s.title}</h4>
-          <p class="text-xs text-slate-400 leading-relaxed mb-4">${s.desc}</p>
-          <a href="${s.link || '#contact'}" class="inline-flex items-center space-x-1 text-xs font-semibold text-cyan-400 hover:text-cyan-300">
-            <span>Batafsil ma'lumot</span>
-            <i data-lucide="arrow-right" class="w-3 h-3"></i>
-          </a>
-        </div>
-      `).join('');
-    }
-
-    function renderProjects() {
-      const container = document.getElementById('projects-container');
-      container.innerHTML = state.projects.map(p => `
-        <div class="glass-card rounded-2xl overflow-hidden border border-violet-500/20 flex flex-col group" data-aos="fade-up">
-          <div class="relative h-44 overflow-hidden bg-slate-900">
-            <img src="${p.img || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500'}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-[#070913]/80 border border-violet-500/30 text-[10px] font-mono text-cyan-300 uppercase">
-              ${p.type === 'website' ? 'Veb-Sayt' : 'Loyiha'}
-            </span>
-          </div>
-
-          <div class="p-5 flex-1 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-2">
-                <h4 class="text-base font-bold text-white group-hover:text-cyan-400 transition-colors">${p.title}</h4>
-                <a href="${p.link}" target="_blank" class="text-slate-400 hover:text-white" title="Havolani ochish">
-                  <i data-lucide="external-link" class="w-4 h-4"></i>
-                </a>
-              </div>
-              <p class="text-xs text-slate-400 leading-relaxed line-clamp-2 mb-4">${p.desc}</p>
-            </div>
-
-            <button onclick="handlePraverity('${p.type}', '${p.link}')" class="w-full py-2.5 rounded-xl bg-violet-600/20 hover:bg-violet-600/40 border border-violet-500/30 text-cyan-300 font-semibold text-xs transition-all flex items-center justify-center space-x-2">
-              <i data-lucide="${p.type === 'website' ? 'monitor' : 'arrow-up-right'}" class="w-4 h-4"></i>
-              <span>${p.type === 'website' ? 'Praverity (Ko\'rish)' : 'Loyihaga o\'tish'}</span>
-            </button>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    function handlePraverity(type, link) {
-      if (type === 'website') {
-        const modal = document.getElementById('praverity-modal');
-        const iframe = document.getElementById('praverity-iframe');
-        document.getElementById('iframe-loader').classList.remove('hidden');
-        document.getElementById('praverity-url-label').innerText = link;
-        document.getElementById('praverity-external-btn').href = link;
-        iframe.src = link;
-        modal.classList.remove('hidden');
-      } else {
-        window.open(link, '_blank');
-      }
-    }
-
-    function closePraverity() {
-      const modal = document.getElementById('praverity-modal');
-      document.getElementById('praverity-iframe').src = '';
-      modal.classList.add('hidden');
-    }
-
-    function renderSkills() {
-      const container = document.getElementById('skills-container');
-      const sortedSkills = [...state.skills].sort((a, b) => b.percent - a.percent);
-
-      container.innerHTML = sortedSkills.map(sk => {
-        let gradientColor = "from-cyan-500 to-violet-600";
-        let badgeColor = "text-cyan-300";
-        if (sk.percent < 50) {
-          gradientColor = "from-red-500 to-rose-600";
-          badgeColor = "text-red-400";
-        } else if (sk.percent < 75) {
-          gradientColor = "from-amber-400 to-orange-500";
-          badgeColor = "text-amber-300";
-        }
-
-        return `
-          <div class="glass-card p-4 rounded-xl border border-violet-500/15">
-            <div class="flex justify-between items-center mb-2">
-              <span class="text-xs font-semibold text-slate-200">${sk.name}</span>
-              <span class="text-xs font-mono font-bold ${badgeColor}">${sk.percent}%</span>
-            </div>
-            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-              <div class="h-full rounded-full bg-gradient-to-r ${gradientColor} transition-all duration-1000" style="width: ${sk.percent}%"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-
-    function renderContacts() {
-      const container = document.getElementById('contact-container');
-      container.innerHTML = state.contacts.map(c => `
-        <a href="${c.url}" target="_blank" class="glass-card p-4 rounded-2xl border border-violet-500/20 hover:border-cyan-400 text-center flex flex-col items-center justify-center group">
-          ${c.img ? `<img src="${c.img}" class="w-8 h-8 object-cover rounded-full mb-2">` : `<i data-lucide="send" class="w-7 h-7 text-cyan-400 mb-2 group-hover:scale-110 transition-transform"></i>`}
-          <span class="text-xs font-semibold text-slate-200">${c.name}</span>
-        </a>
-      `).join('');
-    }
-
-    // Realtime Chat boshqaruvi
-    function toggleChat() {
-      document.getElementById('chat-drawer').classList.toggle('hidden');
-    }
-
-    function handleChatFileUpload(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          tempUploads.chatImage = event.target.result;
-          document.getElementById('preview-img').src = event.target.result;
-          document.getElementById('chat-file-preview').classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function clearChatFile() {
-      tempUploads.chatImage = null;
-      document.getElementById('chat-file-preview').classList.add('hidden');
-    }
-
-    async function sendChatMessage() {
-      const input = document.getElementById('chat-input');
-      const text = input.value.trim();
-      const image = tempUploads.chatImage || null;
-
-      if (!text && !image) return;
-
-      const newMsg = {
-        sender: 'user',
-        userName: 'Foydalanuvchi',
-        text: text,
-        image: image,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      // Firebase orqali bulutga yuborish
-      if (window.sendChatMessageToCloud) {
-        await window.sendChatMessageToCloud(newMsg);
-      }
-
-      input.value = '';
-      clearChatFile();
-    }
-
-    function deleteChatMessage(msgId) {
-      if (window.deleteChatMessageFromCloud) {
-        window.deleteChatMessageFromCloud(msgId);
-      }
-    }
-
-    function renderChat() {
-      const box = document.getElementById('chat-messages');
-      if (!box) return;
-      box.innerHTML = state.chatMessages.map(m => {
-        const isUser = m.sender === 'user';
-        return `
-          <div class="flex flex-col ${isUser ? 'items-end' : 'items-start'} group">
-            <div class="flex items-center space-x-1 mb-0.5">
-              <span class="text-[10px] text-slate-500 font-mono">${m.time}</span>
-              <button onclick="deleteChatMessage('${m.id}')" class="opacity-0 group-hover:opacity-100 text-slate-500 hover:text-red-400 p-0.5 transition-opacity" title="O'chirish">
-                <i data-lucide="more-horizontal" class="w-3 h-3"></i>
-              </button>
-            </div>
-            
-            <div class="max-w-[85%] rounded-2xl p-2.5 ${isUser ? 'bg-emerald-600 text-white rounded-br-none' : 'bg-white text-slate-900 rounded-bl-none shadow-md'}">
-              ${m.image ? `<img src="${m.image}" class="w-full max-h-36 object-cover rounded-lg mb-1.5 border border-black/10">` : ''}
-              ${m.text ? `<p class="leading-relaxed break-words">${m.text}</p>` : ''}
-            </div>
-          </div>
-        `;
-      }).join('');
-      box.scrollTop = box.scrollHeight;
-      if (window.lucide) lucide.createIcons();
-    }
-
-    // Admin Boshqaruvi
-    function openAdminModal() {
-      document.getElementById('admin-login-modal').classList.remove('hidden');
-    }
-
-    function closeAdminModal() {
-      document.getElementById('admin-login-modal').classList.add('hidden');
-    }
-
-    function handleAdminLogin(e) {
-      e.preventDefault();
-      const user = document.getElementById('admin-user-input').value.trim();
-      const pass = document.getElementById('admin-pass-input').value.trim();
-
-      if ((user === MASTER_LOGIN && pass === MASTER_PASS) || (user === "admin" && pass === "1234")) {
-        closeAdminModal();
-        openAdminDashboard();
-      } else {
-        alert("Login yoki parol noto'g'ri!");
-      }
-    }
-
-    function openAdminDashboard() {
-      document.getElementById('admin-dashboard-modal').classList.remove('hidden');
-      loadAdminData();
-    }
-
-    function closeAdminDashboard() {
-      document.getElementById('admin-dashboard-modal').classList.add('hidden');
-    }
-
-    function switchAdminTab(tabName) {
-      document.querySelectorAll('.admin-content-pane').forEach(el => el.classList.add('hidden'));
-      document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('bg-violet-600/20', 'text-white'));
-
-      document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-      const activeBtn = document.querySelector(`.admin-tab-btn[data-tab="${tabName}"]`);
-      if (activeBtn) activeBtn.classList.add('bg-violet-600/20', 'text-white');
-
-      loadAdminData();
-    }
-
-    function uploadBase64(event, targetKey) {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          tempUploads[targetKey] = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function loadAdminData() {
-      document.getElementById('adm-brand-name').value = state.brand.title;
-      document.getElementById('adm-hero-name').value = state.hero.name;
-      document.getElementById('adm-hero-role').value = state.hero.role;
-      document.getElementById('adm-about-text').value = state.about;
-
-      // Xizmatlar ro'yxati
-      document.getElementById('adm-services-list').innerHTML = state.services.map(s => `
-        <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 flex justify-between items-center text-xs">
-          <div>
-            <p class="font-bold text-white">${s.title}</p>
-            <p class="text-slate-400">${s.desc}</p>
-          </div>
-          <button onclick="deleteService(${s.id})" class="text-red-400 hover:text-red-300 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-        </div>
-      `).join('');
-
-      // Loyihalar
-      document.getElementById('adm-projects-list').innerHTML = state.projects.map(p => `
-        <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 flex justify-between items-center text-xs">
-          <div class="flex items-center space-x-3">
-            <img src="${p.img || ''}" class="w-10 h-10 object-cover rounded-lg bg-slate-800">
-            <div>
-              <p class="font-bold text-white">${p.title} <span class="text-[10px] text-cyan-400">(${p.type})</span></p>
-              <p class="text-slate-400 truncate max-w-xs">${p.link}</p>
-            </div>
-          </div>
-          <button onclick="deleteProject(${p.id})" class="text-red-400 hover:text-red-300 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-        </div>
-      `).join('');
-
-      // Ko'nikmalar
-      document.getElementById('adm-skills-list').innerHTML = state.skills.map(sk => `
-        <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 flex justify-between items-center text-xs">
-          <span class="font-bold text-white">${sk.name} - ${sk.percent}%</span>
-          <button onclick="deleteSkill(${sk.id})" class="text-red-400 hover:text-red-300 p-1"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
-        </div>
-      `).join('');
-
-      // IP & Brauzer Analitikasi CRM
-      document.getElementById('crm-count-label').innerText = `Jami: ${state.visitors.length} ta`;
-      document.getElementById('crm-table-body').innerHTML = state.visitors.map(v => {
-        const isBlocked = state.blockedIPs.includes(v.ip);
-        return `
-          <tr class="hover:bg-violet-600/10">
-            <td class="p-3 font-mono text-cyan-400 font-semibold">${v.ip}</td>
-            <td class="p-3 font-mono text-slate-300">${v.device || 'Noma\'lum'}</td>
-            <td class="p-3 font-mono text-slate-400">${v.time}</td>
-            <td class="p-3">
-              <span class="px-2 py-0.5 rounded-full text-[10px] ${isBlocked ? 'bg-red-500/20 text-red-400' : 'bg-emerald-500/20 text-emerald-400'}">
-                ${isBlocked ? 'Bloklangan' : 'Faol'}
-              </span>
-            </td>
-            <td class="p-3 text-right">
-              <button onclick="toggleBlockIP('${v.ip}')" class="px-2.5 py-1 rounded-lg ${isBlocked ? 'bg-emerald-600/30 text-emerald-300' : 'bg-red-600/30 text-red-300'} text-[11px]">
-                ${isBlocked ? 'Ochish' : '404 Blok'}
-              </button>
-            </td>
-          </tr>
-        `;
-      }).join('');
-
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function saveHeroSettings() {
-      state.brand.title = document.getElementById('adm-brand-name').value.trim();
-      state.hero.name = document.getElementById('adm-hero-name').value.trim();
-      state.hero.role = document.getElementById('adm-hero-role').value.trim();
-
-      if (tempUploads.brandLogo) state.brand.logoImg = tempUploads.brandLogo;
-      if (tempUploads.heroAvatar) state.hero.avatar = tempUploads.heroAvatar;
-
-      saveState();
-      renderApp();
-      alert("Hero va brend ma'lumotlari yangilandi!");
-    }
-
-    function saveAboutText() {
-      state.about = document.getElementById('adm-about-text').value.trim();
-      saveState();
-      renderApp();
-      alert("Men haqimda matni saqlandi!");
-    }
-
-    function openAddServiceModal() {
-      const title = prompt("Xizmat nomi:");
-      if (!title) return;
-      const desc = prompt("Xizmat haqida ma'lumot:");
-      const link = prompt("Havola:", "#contact");
-      state.services.push({ id: Date.now(), title, desc: desc || "", icon: "zap", link: link || "#contact" });
-      saveState();
-      renderApp();
-      loadAdminData();
-    }
-
-    function deleteService(id) {
-      state.services = state.services.filter(s => s.id !== id);
-      saveState();
-      renderApp();
-      loadAdminData();
-    }
-
-    function openAddProjectModal() {
-      const title = prompt("Loyiha nomi:");
-      if (!title) return;
-      const type = confirm("Bu loyiha veb-saytmi? (Praverity mockupda ko'rsatish uchun OK bosing)") ? "website" : "other";
-      const link = prompt("Loyiha URL manzili:", "https://");
-      const desc = prompt("Loyiha haqida ma'lumot:");
-      state.projects.push({ id: Date.now(), title, type, link: link || "#", desc: desc || "", img: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600" });
-      saveState();
-      renderApp();
-      loadAdminData();
-    }
-
-    function deleteProject(id) {
-      state.projects = state.projects.filter(p => p.id !== id);
-      saveState();
-      renderApp();
-      loadAdminData();
-    }
-
-    function addSkill() {
-      const name = document.getElementById('adm-skill-name').value.trim();
-      const percent = parseInt(document.getElementById('adm-skill-percent').value);
-      if (!name || isNaN(percent)) return;
-      state.skills.push({ id: Date.now(), name, percent });
-      saveState();
-      renderApp();
-      loadAdminData();
-      document.getElementById('adm-skill-name').value = '';
-      document.getElementById('adm-skill-percent').value = '';
-    }
-
-    function deleteSkill(id) {
-      state.skills = state.skills.filter(s => s.id !== id);
-      saveState();
-      renderApp();
-      loadAdminData();
-    }
-
-    function addContactCard() {
-      const name = document.getElementById('adm-contact-name').value.trim();
-      const url = document.getElementById('adm-contact-url').value.trim();
-      if (!name) return;
-      state.contacts.push({ id: Date.now(), name, url: url || "#", img: tempUploads.tempContactImg || "" });
-      tempUploads.tempContactImg = null;
-      saveState();
-      renderApp();
-      loadAdminData();
-      document.getElementById('adm-contact-name').value = '';
-      document.getElementById('adm-contact-url').value = '';
-    }
-
-    function toggleBlockIP(ip) {
-      if (state.blockedIPs.includes(ip)) {
-        state.blockedIPs = state.blockedIPs.filter(item => item !== ip);
-      } else {
-        state.blockedIPs.push(ip);
-      }
-      saveState();
-      loadAdminData();
-    }
-
-    // Boshlang'ich yuklash
-    window.addEventListener('DOMContentLoaded', () => {
-      if (window.AOS) AOS.init({ duration: 800, once: true });
-      loadState();
-      trackVisitor();
-      renderApp();
+/* ============================================================
+   4) MA'LUMOT SAQLASH: server (db) + lokal zaxira
+   ============================================================ */
+function mergeDefaults(src){
+  const out = clone(DEFAULT);
+  if(src && typeof src==='object'){
+    Object.keys(out).forEach(k=>{
+      if(src[k]==null) return;
+      if(Array.isArray(out[k])) out[k] = Array.isArray(src[k]) ? src[k] : out[k];
+      else if(typeof out[k]==='object') out[k] = Object.assign({}, out[k], src[k]);
+      else out[k] = src[k];
     });
-  </script>
+  }
+  return out;
+}
+function localSave(){ try{ localStorage.setItem(LS_DATA, JSON.stringify(DATA)); }catch(e){} }
+function localLoad(){ try{ const s = localStorage.getItem(LS_DATA); return s?JSON.parse(s):null; }catch(e){ return null; } }
+
+let saveTimer = null, savingNow = false;
+function saveContent(immediate=false){
+  localSave();
+  clearTimeout(saveTimer);
+  const run = async ()=>{
+    if(!DB || !canWriteShared) { setSync('local'); return; }
+    const payload = clone(DATA);
+    const bytes = JSON.stringify(payload).length;
+    if(bytes > 250000){
+      setSync('err');
+      showToast("Kontent hajmi juda katta ("+sizeStr(bytes)+"). Rasmlarni kichikroq qiling.",'error');
+      return;
+    }
+    savingNow = true; setSync('saving');
+    try{ await DB.doc('site/content').set(payload); setSync('ok'); }
+    catch(e){
+      if(e && e.code==='invalid_argument'){ canWriteShared=false; setSync('readonly'); showToast("Serverga yozish huquqi yo'q — lokal saqlandi",'error'); }
+      else setSync('err');
+    }
+    savingNow = false;
+  };
+  if(immediate) run(); else saveTimer = setTimeout(run, 700);
+}
+
+function setSync(state){
+  const map = {
+    ok:['Server: sinxron','text-emerald-400'], saving:['Saqlanmoqda…','text-cyan-400'],
+    local:['Lokal rejim','text-amber-400'], readonly:['Faqat o\'qish','text-amber-400'],
+    err:['Xatolik','text-red-400'], init:['Ulanmoqda…','text-slate-400']
+  };
+  const [txt,cls] = map[state]||map.init;
+  const b = $('syncBadge'); if(b){ b.className = `px-2.5 py-1 rounded-lg border font-mono text-[11px] ${cls}`; b.style.borderColor='var(--line)'; b.innerText = txt; }
+  const a = $('adminSyncInfo'); if(a){ a.innerText = txt; }
+}
+
+/* Foydalanuvchi (qurilma) profilini serverga yozish */
+async function saveUser(u){
+  USERS[u.vid] = u;
+  try{ localStorage.setItem(LS_USERS, JSON.stringify(USERS)); }catch(e){}
+  if(DB && canWriteShared){ try{ await DB.doc('users/'+u.vid).set(clone(u)); }catch(e){} }
+  if(IS_ADMIN){ renderVisitors(); renderThreadList(); }
+}
+async function saveChat(vid){
+  try{ localStorage.setItem(LS_CHAT, JSON.stringify(CHATS)); }catch(e){}
+  if(DB && canWriteShared){ try{ await DB.doc('chats/'+vid).set({ msgs: (CHATS[vid]&&CHATS[vid].msgs)||[] }); }catch(e){} }
+}
+
+/* db ga ulanish va jonli kuzatuv */
+function waitClaude(ms=4000){
+  return new Promise(res=>{
+    if(window.claude && window.claude.use) return res(true);
+    const t0 = Date.now();
+    const iv = setInterval(()=>{
+      if(window.claude && window.claude.use){ clearInterval(iv); res(true); }
+      else if(Date.now()-t0 > ms){ clearInterval(iv); res(false); }
+    }, 150);
+  });
+}
+async function connectServer(){
+  setSync('init');
+  try{
+    await waitClaude();
+    if(window.claude && claude.use){
+      DB = await claude.use('db').catch(()=>null);
+      ASSETS = await claude.use('assets').catch(()=>null);
+      DOWNLOADS = await claude.use('downloads').catch(()=>null);
+      USERCAP = await claude.use('user').catch(()=>null);
+      if(USERCAP && USERCAP.can){ const w = await USERCAP.can('data.write'); if(w===false) canWriteShared=false; }
+    }
+  }catch(e){}
+  if(!DB){ setSync('local'); return; }
+
+  // Kontent
+  unsubs.push(DB.doc('site/content').onSnapshot(snap=>{
+    if(snap.exists && snap.data){
+      const incoming = mergeDefaults(snap.data);
+      if(!savingNow){ DATA = incoming; localSave(); renderAll(); if(IS_ADMIN) renderAdminActive(); }
+      setSync(canWriteShared?'ok':'readonly');
+    } else if(canWriteShared){
+      DB.doc('site/content').set(clone(DATA)).then(()=>setSync('ok')).catch(()=>setSync('readonly'));
+    }
+  }, e=>{ setSync(e && e.code==='revoked' ? 'local' : 'err'); }));
+
+  // Qurilmalar / foydalanuvchilar
+  unsubs.push(DB.collection('users').onSnapshot(qs=>{
+    const m = {}; qs.docs.forEach(d=>{ m[d.id] = Object.assign({vid:d.id}, d.data); });
+    USERS = m;
+    if(ME && USERS[ME.vid] && USERS[ME.vid].blocked) showBlocked();
+    if(IS_ADMIN){ renderVisitors(); renderThreadList(); }
+    updateChatBadge();
+  }, ()=>{}));
+
+  // Chatlar
+  unsubs.push(DB.collection('chats').onSnapshot(qs=>{
+    const m = {}; qs.docs.forEach(d=>{ m[d.id] = { msgs: (d.data&&d.data.msgs)||[] }; });
+    CHATS = m;
+    if(IS_ADMIN){ renderThreadList(); if(activeThread) renderAdminChat(); }
+    if(ME) renderUserChat();
+    updateChatBadge();
+  }, ()=>{}));
+}
+</script>
+<script>
+/* ============================================================
+   5) OMMAVIY QISM RENDERI
+   ============================================================ */
+const NAV = [
+  ['hero',"Bosh sahifa"],['projects',"Loyihalar"],['skills',"Ko'nikmalar"],
+  ['services',"Xizmatlar"],['timeline',"Tajriba"],['reviews',"Sharhlar"],
+  ['about',"Men haqimda"],['contact',"Bog'lanish"]
+];
+function renderNav(){
+  $('mainNav').innerHTML = NAV.map(([id,t])=>
+    `<a href="#${id}" class="px-3.5 py-1.5 rounded-full text-sm font-medium hover:bg-white/10 transition-all" style="color:var(--muted)">${t}</a>`).join('');
+  $('mobileMenu').innerHTML = NAV.map(([id,t])=>
+    `<a href="#${id}" class="mnav block px-4 py-2.5 rounded-xl hover:bg-white/10 font-medium text-sm">${t}</a>`).join('');
+  document.querySelectorAll('.mnav').forEach(a=>a.onclick=()=>$('mobileMenu').classList.add('hidden'));
+}
+
+function shapeCls(shape, base){
+  return shape==='circle' ? 'rounded-full' : shape==='square' ? 'rounded-none' : (base||'rounded-2xl');
+}
+
+function renderBrand(){
+  const s = DATA.site;
+  $('brandName').innerText = s.name || 'Portfolio';
+  $('brandTag').innerText = s.tag || '';
+  $('brandBadge').innerText = s.badge || '';
+  $('brandBadge').style.display = s.badge ? '' : 'none';
+  $('footerName').innerText = s.name || 'Portfolio';
+  $('footerYear').innerText = new Date().getFullYear();
+  document.title = (s.name||'Portfolio') + ' — ' + (s.tag||'');
+  const box = $('brandLogoBox'), inner = $('brandLogoInner');
+  const sh = s.logoShape || 'rounded';
+  box.className = `relative w-11 h-11 ${sh==='circle'?'rounded-full':sh==='square'?'rounded-lg':'rounded-2xl'} bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-[2px] shadow-lg shadow-cyan-500/20 transition-all group-hover:scale-105 group-hover:rotate-6`;
+  inner.className = `w-full h-full ${sh==='circle'?'rounded-full':sh==='square'?'rounded-md':'rounded-[14px]'} overflow-hidden flex items-center justify-center`;
+  if(s.logoImg){ $('brandLogoImg').src = s.logoImg; $('brandLogoImg').classList.remove('hidden'); $('brandLogoText').classList.add('hidden'); }
+  else { $('brandLogoImg').classList.add('hidden'); $('brandLogoText').classList.remove('hidden'); $('brandLogoText').innerText = s.logoText || 'M'; }
+}
+
+function renderHero(){
+  const h = DATA.hero;
+  $('heroNameText').innerText = h.name || '';
+  $('heroAvatarName').innerText = h.name || '';
+  $('heroRoleBadge').innerText = h.role || '';
+  $('heroAvatarRoleSub').innerText = h.role || '';
+  $('heroBioText').innerText = h.bio || '';
+  $('heroStatusText').innerText = h.status || '';
+  $('heroAvatarImg').src = h.avatar || 'https://placehold.co/600x600/0f172a/38bdf8?text=Developer';
+  const circle = (h.avatarShape||'circle')==='circle';
+  $('heroAvatarFrame').className = `relative w-64 h-64 sm:w-80 sm:h-80 ${circle?'rounded-full':'rounded-[2.5rem]'} p-2 bg-gradient-to-b from-white/20 via-cyan-500/20 to-purple-500/20 border border-white/20 shadow-2xl glass animate-float-slow`;
+  $('heroAvatarInner').className = `w-full h-full ${circle?'rounded-full':'rounded-[2rem]'} overflow-hidden relative border-4 border-slate-900/60 bg-slate-900`;
+  $('heroAura').className = `absolute inset-0 ${circle?'rounded-full':'rounded-[2.5rem]'} bg-gradient-to-tr from-cyan-500 to-purple-600 blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-500`;
+  const cols = ['text-cyan-400','text-purple-400','text-emerald-400','text-amber-400'];
+  $('heroStats').innerHTML = (h.stats||[]).map((st,i)=>`
+    <div class="p-3 rounded-2xl surface text-center sm:text-left">
+      <div class="text-2xl font-bold font-mono ${cols[i%4]}">${esc(st.val)}</div>
+      <div class="text-[11px]" style="color:var(--muted)">${esc(st.label)}</div>
+    </div>`).join('');
+}
+
+/* ---------- Loyihalar ---------- */
+let projFilter = 'all';
+const PTYPES = [['all',"Barchasi",'fa-layer-group'],['veb sayt',"Veb-saytlar",'fa-globe'],['boshqa',"Boshqa",'fa-cube'],['fayl',"Fayllar",'fa-folder-open']];
+function renderProjectFilters(){
+  $('projectFilterGroup').innerHTML = PTYPES.map(([k,t,ic])=>{
+    const on = projFilter===k;
+    return `<button onclick="filterProjects('${k}')" class="px-4 py-1.5 rounded-full text-xs font-medium border transition-all flex items-center gap-2 ${on?'bg-cyan-500/20 text-cyan-300 border-cyan-500/40':'border-white/10 hover:bg-white/10'}" style="${on?'':'color:var(--muted)'}">
+      <i class="fa-solid ${ic} text-[10px]"></i>${t}</button>`;
+  }).join('');
+}
+function filterProjects(k){ projFilter=k; renderProjectFilters(); renderProjects(); }
+
+function renderProjects(){
+  const list = (DATA.projects||[]).filter(p => projFilter==='all' || (p.type||'boshqa')===projFilter);
+  const g = $('projectsGrid');
+  if(!list.length){ g.innerHTML = `<div class="col-span-full p-10 rounded-3xl surface text-center text-sm" style="color:var(--muted)">Bu bo'limda hozircha loyiha yo'q.</div>`; return; }
+  const kinds = ['up','zoom','blur','swing','flip','left'];
+  g.innerHTML = list.map((p,i)=>{
+    const type = p.type||'boshqa';
+    const badge = type==='veb sayt' ? ['bg-cyan-500/15 text-cyan-300 border-cyan-500/30','fa-globe',"Veb-sayt"]
+      : type==='fayl' ? ['bg-amber-500/15 text-amber-300 border-amber-500/30','fa-file-arrow-down',"Fayl"]
+      : ['bg-purple-500/15 text-purple-300 border-purple-500/30','fa-cube',"Loyiha"];
+    const img = p.img || 'https://placehold.co/800x500/0f172a/38bdf8?text=Loyiha';
+    let actions = '';
+    if(type==='fayl' && p.file){
+      actions = `<button onclick="downloadProject('${p.id}')" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold flex items-center justify-center gap-2">
+        <i class="fa-solid fa-download"></i> Yuklab olish</button>
+        <span class="px-3 py-2.5 rounded-xl border text-[11px] font-mono" style="border-color:var(--line);color:var(--muted)">${esc(sizeStr(p.file.size))}</span>`;
+    } else if(p.link){
+      actions = `<button onclick="openWebsitePreview('${esc(p.link)}')" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold flex items-center justify-center gap-2">
+          <i class="fa-solid fa-eye"></i> Ko'rish</button>
+        <a href="${esc(p.link)}" target="_blank" rel="noopener noreferrer" class="px-3 py-2.5 rounded-xl border text-xs hover:bg-white/10" style="border-color:var(--line)"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+    } else {
+      actions = `<span class="flex-1 py-2.5 rounded-xl border text-xs text-center" style="border-color:var(--line);color:var(--muted)">Havola yo'q</span>`;
+    }
+    return `<article ${rv(kinds[i%kinds.length], (i%3)*90)} class="group rounded-3xl surface glass overflow-hidden tilt hover:border-cyan-500/40">
+      <div class="relative h-44 overflow-hidden cursor-pointer" onclick="openLightbox({kind:'image',src:'${esc(img)}',name:'${esc(p.name)}'})">
+        <img src="${esc(img)}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" onerror="this.src='https://placehold.co/800x500/0f172a/38bdf8?text=Loyiha'">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 to-transparent"></div>
+        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[10px] font-bold border ${badge[0]} flex items-center gap-1.5">
+          <i class="fa-solid ${badge[1]}"></i>${badge[2]}</span>
+      </div>
+      <div class="p-5 space-y-3">
+        <h3 class="font-bold text-lg leading-tight">${esc(p.name)}</h3>
+        <p class="text-xs leading-relaxed line-clamp-3" style="color:var(--muted)">${esc(p.desc)}</p>
+        ${p.tags?`<div class="flex flex-wrap gap-1.5">${String(p.tags).split(',').filter(Boolean).map(t=>`<span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono">${esc(t.trim())}</span>`).join('')}</div>`:''}
+        <div class="flex items-center gap-2 pt-1">${actions}</div>
+      </div>
+    </article>`;
+  }).join('');
+  initReveal();
+}
+function downloadProject(id){
+  const p = (DATA.projects||[]).find(x=>x.id===id);
+  if(p && p.file) askDownload(p.file); else showToast('Fayl biriktirilmagan','error');
+}
+
+/* ---------- Ko'nikmalar (yangi UI) ---------- */
+let skillCat = 'all';
+function skillColor(p){ return p>=90?['#22d3ee','text-cyan-400']:p>=75?['#818cf8','text-indigo-400']:p>=60?['#fbbf24','text-amber-400']:['#fb7185','text-rose-400']; }
+function skillLevel(p){ return p>=90?'Ekspert':p>=75?'Yuqori':p>=60?"O'rta":'Boshlang\'ich'; }
+function renderSkills(){
+  const all = DATA.skills||[];
+  const cats = ['all', ...Array.from(new Set(all.map(s=>s.cat||'Boshqa')))];
+  $('skillCatGroup').innerHTML = cats.map(c=>{
+    const on = skillCat===c;
+    return `<button onclick="setSkillCat('${esc(c)}')" class="px-4 py-1.5 rounded-full text-xs font-medium border ${on?'bg-cyan-500/20 text-cyan-300 border-cyan-500/40':'border-white/10 hover:bg-white/10'}" style="${on?'':'color:var(--muted)'}">${c==='all'?'Barchasi':esc(c)}</button>`;
+  }).join('');
+
+  const avg = all.length ? Math.round(all.reduce((a,s)=>a+(+s.percent||0),0)/all.length) : 0;
+  const exp = all.filter(s=>(+s.percent||0)>=90).length;
+  $('skillsSummary').innerHTML = [
+    ['fa-layer-group','Jami ko\'nikma', all.length, 'text-cyan-400'],
+    ['fa-star','Ekspert daraja', exp, 'text-amber-400'],
+    ['fa-chart-simple','O\'rtacha ko\'rsatkich', avg+'%', 'text-emerald-400'],
+    ['fa-folder-tree','Kategoriyalar', cats.length-1, 'text-purple-400']
+  ].map(([ic,l,v,c])=>`<div class="p-4 rounded-2xl surface flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center ${c}"><i class="fa-solid ${ic}"></i></div>
+      <div><div class="text-lg font-bold font-mono ${c}">${v}</div><div class="text-[11px]" style="color:var(--muted)">${l}</div></div>
+    </div>`).join('');
+
+  const list = all.filter(s=> skillCat==='all' || (s.cat||'Boshqa')===skillCat)
+                  .slice().sort((a,b)=>(+b.percent||0)-(+a.percent||0));
+  $('skillsList').innerHTML = list.map((s,i)=>{
+    const p = Math.max(0,Math.min(100,+s.percent||0));
+    const [hex,txt] = skillColor(p);
+    const R=26, C=2*Math.PI*R, off = C - (p/100)*C;
+    return `<div ${rv('flip',(i%3)*80)} class="p-5 rounded-3xl surface glass tilt flex items-center gap-4">
+      <div class="relative w-[68px] h-[68px] shrink-0">
+        <svg viewBox="0 0 64 64" class="w-full h-full -rotate-90">
+          <circle cx="32" cy="32" r="${R}" fill="none" stroke="rgba(148,163,184,.18)" stroke-width="6"/>
+          <circle class="ring-progress" cx="32" cy="32" r="${R}" fill="none" stroke="${hex}" stroke-width="6" stroke-linecap="round"
+            stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/>
+        </svg>
+        <div class="absolute inset-0 flex items-center justify-center text-xs font-bold font-mono ${txt}">${p}%</div>
+      </div>
+      <div class="min-w-0 flex-1">
+        <div class="flex items-center gap-2">
+          <i class="${esc(s.icon||'fa-solid fa-code')} ${txt}"></i>
+          <h4 class="font-bold text-sm truncate">${esc(s.name)}</h4>
+        </div>
+        <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+          <span class="px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-[10px] font-mono">${esc(s.cat||'Boshqa')}</span>
+          <span class="text-[11px] font-semibold ${txt}">${skillLevel(p)}</span>
+        </div>
+      </div>
+    </div>`;
+  }).join('') || `<div class="col-span-full p-8 rounded-3xl surface text-center text-sm" style="color:var(--muted)">Ko'nikma topilmadi.</div>`;
+  initReveal();
+}
+function setSkillCat(c){ skillCat=c; renderSkills(); }
+
+/* ---------- Xizmatlar / Tajriba / Sharhlar ---------- */
+function renderServices(){
+  $('servicesGrid').innerHTML = (DATA.services||[]).map((s,i)=>`
+    <div ${rv(i%2?'right':'left',(i%3)*70)} class="p-6 rounded-3xl surface glass tilt space-y-3 hover:border-purple-500/40">
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-500/20 to-cyan-500/20 border border-white/10 flex items-center justify-center text-purple-300 text-xl">
+        <i class="${esc(s.icon||'fa-solid fa-star')}"></i></div>
+      <h3 class="font-bold text-lg">${esc(s.title)}</h3>
+      <p class="text-xs leading-relaxed" style="color:var(--muted)">${esc(s.desc)}</p>
+      ${s.price?`<div class="pt-2 text-xs font-mono text-cyan-400 border-t" style="border-color:var(--line)">${esc(s.price)}</div>`:''}
+    </div>`).join('');
+  initReveal();
+}
+function renderTimeline(){
+  $('timelineList').innerHTML = `<div class="absolute left-0 sm:left-3 top-2 bottom-2 w-[2px] bg-gradient-to-b from-cyan-500 via-indigo-500 to-transparent"></div>` +
+    (DATA.timeline||[]).map((t,i)=>`
+    <div ${rv('left',i*80)} class="relative pl-6 sm:pl-8">
+      <div class="absolute -left-[7px] sm:left-0 top-5 w-3.5 h-3.5 rounded-full bg-cyan-400 ring-4" style="--tw-ring-color:var(--bg)"></div>
+      <div class="p-5 rounded-3xl surface glass tilt">
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-[11px] font-mono">${esc(t.year)}</span>
+          <span class="text-[11px]" style="color:var(--muted)">${esc(t.place||'')}</span>
+        </div>
+        <h4 class="font-bold">${esc(t.title)}</h4>
+        <p class="text-xs mt-1 leading-relaxed" style="color:var(--muted)">${esc(t.desc||'')}</p>
+      </div>
+    </div>`).join('');
+  initReveal();
+}
+function renderReviews(){
+  $('reviewsGrid').innerHTML = (DATA.reviews||[]).map((r,i)=>`
+    <div ${rv('zoom',(i%3)*80)} class="p-6 rounded-3xl surface glass tilt space-y-3">
+      <div class="flex items-center gap-3">
+        ${r.avatar?`<img src="${esc(r.avatar)}" class="w-11 h-11 rounded-2xl object-cover">`
+          :`<div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 text-white font-bold flex items-center justify-center">${esc((r.name||'?').charAt(0))}</div>`}
+        <div><div class="font-bold text-sm">${esc(r.name)}</div><div class="text-[11px]" style="color:var(--muted)">${esc(r.role||'')}</div></div>
+      </div>
+      <div class="text-amber-400 text-xs">${'★'.repeat(Math.max(1,Math.min(5,+r.rating||5)))}<span class="opacity-30">${'★'.repeat(5-Math.max(1,Math.min(5,+r.rating||5)))}</span></div>
+      <p class="text-xs leading-relaxed" style="color:var(--muted)">“${esc(r.text)}”</p>
+    </div>`).join('');
+  initReveal();
+}
+
+/* ---------- Men haqimda ---------- */
+function renderAbout(){
+  const a = DATA.about||{};
+  $('aboutContentText').innerHTML = (a.paragraphs||[]).map(p=>`<p style="color:var(--muted)">${esc(p.text)}</p>`).join('');
+  const img = $('aboutImg');
+  if(a.img){ img.src = a.img; img.classList.remove('hidden'); img.onclick=()=>openLightbox({kind:'image',src:a.img,name:'about'}); img.style.cursor='zoom-in'; }
+  else img.classList.add('hidden');
+  const cols = ['text-cyan-400','text-purple-400','text-emerald-400','text-amber-400'];
+  $('aboutHighlights').innerHTML = (a.highlights||[]).map((h,i)=>`
+    <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
+      <div class="${cols[i%4]} font-bold text-sm flex items-center gap-2"><i class="${esc(h.icon||'fa-solid fa-star')}"></i> ${esc(h.title)}</div>
+      <p class="text-xs" style="color:var(--muted)">${esc(h.text)}</p>
+    </div>`).join('');
+  $('aboutExtras').innerHTML = (a.extras||[]).map((h,i)=>`
+    <div ${rv('up',i*60)} class="p-5 rounded-3xl surface glass tilt space-y-1">
+      <div class="${cols[(i+2)%4]} font-bold text-sm flex items-center gap-2"><i class="${esc(h.icon||'fa-solid fa-star')}"></i> ${esc(h.title)}</div>
+      <p class="text-xs" style="color:var(--muted)">${esc(h.text)}</p>
+    </div>`).join('');
+  $('aboutInfoList').innerHTML = (a.info||[]).map(it=>`
+    <li class="flex justify-between gap-3 py-2 border-b" style="border-color:var(--line)">
+      <span style="color:var(--muted)">${esc(it.k)}:</span><span class="font-medium text-right">${esc(it.v)}</span></li>`).join('');
+  initReveal();
+}
+
+/* ---------- Ijtimoiy tarmoqlar ---------- */
+const SOC_COLORS = { blue:'from-blue-500/20 to-blue-600/10 text-blue-300 border-blue-500/30',
+  sky:'from-sky-500/20 to-sky-600/10 text-sky-300 border-sky-500/30',
+  purple:'from-purple-500/20 to-fuchsia-600/10 text-purple-300 border-purple-500/30',
+  slate:'from-slate-500/20 to-slate-600/10 text-slate-300 border-slate-400/30',
+  emerald:'from-emerald-500/20 to-emerald-600/10 text-emerald-300 border-emerald-500/30',
+  amber:'from-amber-500/20 to-orange-600/10 text-amber-300 border-amber-500/30',
+  rose:'from-rose-500/20 to-red-600/10 text-rose-300 border-rose-500/30' };
+function renderSocials(){
+  $('socialCardsGrid').innerHTML = (DATA.socials||[]).map((s,i)=>`
+    <a href="${esc(s.link)}" target="_blank" rel="noopener noreferrer" ${rv('zoom',(i%4)*70)}
+      class="p-5 rounded-3xl bg-gradient-to-br ${SOC_COLORS[s.color]||SOC_COLORS.slate} border glass tilt flex items-center gap-3">
+      <i class="${esc(s.icon||'fa-solid fa-link')} text-2xl"></i>
+      <div class="min-w-0"><div class="font-bold text-sm truncate">${esc(s.name)}</div>
+        <div class="text-[11px] truncate opacity-70">${esc(String(s.link).replace(/^https?:\/\//,''))}</div></div>
+      <i class="fa-solid fa-arrow-up-right-from-square ml-auto text-xs opacity-60"></i>
+    </a>`).join('');
+  initReveal();
+}
+
+function renderAll(){
+  renderBrand(); renderHero(); renderProjectFilters(); renderProjects();
+  renderSkills(); renderServices(); renderTimeline(); renderReviews();
+  renderAbout(); renderSocials(); initReveal();
+}
+
+/* ============================================================
+   6) SAYT KO'RISH OYNASI
+   ============================================================ */
+function openWebsitePreview(url){
+  if(!url) return;
+  $('previewModalUrlDisplay').innerText = url;
+  $('previewModalExternalLink').href = url;
+  $('previewIframeLoader').classList.remove('hidden');
+  $('previewIframe').src = url;
+  $('websitePreviewModal').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+}
+function closeWebsitePreview(){
+  $('websitePreviewModal').classList.add('hidden'); $('previewIframe').src='';
+  document.body.style.overflow='';
+}
+
+/* ============================================================
+   7) FOYDALANUVCHI RO'YXATDAN O'TISHI (ism + 9 xonali raqam)
+   ============================================================ */
+function deviceInfo(){
+  const ua = navigator.userAgent;
+  const br = /Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Chrome\//.test(ua)?'Chrome':/Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'Boshqa';
+  const os = /Windows NT 10/.test(ua)?'Windows 10/11':/Windows/.test(ua)?'Windows':/Android/.test(ua)?'Android':/iPhone|iPad|iPod/.test(ua)?'iOS':/Mac OS X/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'Noma\'lum';
+  return {
+    browser: br, os,
+    device: /Mobi|Android|iPhone/.test(ua) ? 'Telefon' : /iPad|Tablet/.test(ua) ? 'Planshet' : 'Kompyuter',
+    screen: `${screen.width}×${screen.height}`,
+    lang: navigator.language || '—',
+    tz: (Intl.DateTimeFormat().resolvedOptions().timeZone) || '—',
+    cores: navigator.hardwareConcurrency || '—',
+    mem: navigator.deviceMemory ? navigator.deviceMemory+' GB' : '—',
+    touch: (navigator.maxTouchPoints||0) > 0 ? 'Ha' : "Yo'q",
+    online: navigator.onLine ? 'Onlayn' : 'Oflayn',
+    ua
+  };
+}
+function loadVisitor(){
+  try{ const s = localStorage.getItem(LS_VISITOR); return s?JSON.parse(s):null; }catch(e){ return null; }
+}
+function showGate(){ $('gateModal').classList.remove('hidden'); document.body.style.overflow='hidden'; initReveal(); }
+function hideGate(){ $('gateModal').classList.add('hidden'); document.body.style.overflow=''; }
+
+async function registerVisitor(name, phone){
+  const prev = loadVisitor();
+  const vid = (prev && prev.vid) || uid('u');
+  ME = { vid, name, phone };
+  try{ localStorage.setItem(LS_VISITOR, JSON.stringify(ME)); }catch(e){}
+  const d = deviceInfo();
+  const old = USERS[vid] || {};
+  await saveUser({
+    vid, name, phone: '+998'+phone,
+    device:`${d.browser} / ${d.os}`, kind:d.device, screen:d.screen, lang:d.lang, tz:d.tz,
+    cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
+    first: old.first || Date.now(), last: Date.now(),
+    visits: (old.visits||0) + 1,
+    blocked: !!old.blocked,
+    lastText: old.lastText||'', lastAt: old.lastAt||0,
+    unreadAdmin: old.unreadAdmin||0, unreadUser: old.unreadUser||0
+  });
+  updateUserChip();
+  hideGate();
+  renderUserChat();
+}
+function updateUserChip(){
+  const c = $('userChip');
+  if(!ME){ c.classList.add('hidden'); return; }
+  c.classList.remove('hidden'); c.classList.add('sm:flex');
+  $('userChipAv').innerText = (ME.name||'U').charAt(0).toUpperCase();
+  $('userChipName').innerText = ME.name;
+  $('userChipPhone').innerText = '+998 '+ME.phone;
+}
+function logoutVisitor(){
+  if(!confirm("Chiqmoqchimisiz? Keyingi kirishda ism va raqam qaytadan so'raladi.")) return;
+  try{ localStorage.removeItem(LS_VISITOR); }catch(e){}
+  ME = null; closeChat(); updateUserChip(); showGate();
+}
+function showBlocked(){ $('blockedScreen').classList.remove('hidden'); document.body.style.overflow='hidden'; }
+
+/* ============================================================
+   8) FOYDALANUVCHI CHATI
+   ============================================================ */
+let attach = { user:null, admin:null };
+function openChat(){
+  if(!ME){ showGate(); showToast("Avval ism va raqamingizni kiriting",'info'); return; }
+  const d = $('chatDrawer');
+  d.classList.remove('translate-y-[130%]','opacity-0','pointer-events-none');
+  renderUserChat(); markRead('user');
+  setTimeout(()=>$('chatInput').focus(),250);
+}
+function closeChat(){
+  const d = $('chatDrawer');
+  d.classList.add('translate-y-[130%]','opacity-0','pointer-events-none');
+}
+function chatOpen(){ return !$('chatDrawer').classList.contains('pointer-events-none'); }
+
+function myMsgs(){ return (ME && CHATS[ME.vid] && CHATS[ME.vid].msgs) || []; }
+
+const ATT = {};
+async function attachHtml(m, mine){
+  if(!m.att) return '';
+  ATT[m.id] = m.att;
+  const src = await resolveFileSrc(m.att);
+  if(m.att.kind==='image' && src) return `<img src="${src}" class="rounded-xl max-h-52 w-auto cursor-zoom-in mb-1" onclick="openLightbox(ATT['${m.id}'])">`;
+  if(m.att.kind==='video' && src) return `<video src="${src}" class="rounded-xl max-h-52 mb-1" controls></video>
+    <button onclick="openLightbox(ATT['${m.id}'])" class="text-[10px] underline opacity-70 mb-1"><i class="fa-solid fa-expand"></i> Katta ko'rish</button>`;
+  return `<div class="flex items-center gap-2 p-2 rounded-xl bg-black/20 border border-white/10 mb-1">
+    <i class="fa-solid fa-file text-cyan-300"></i>
+    <div class="min-w-0"><div class="text-[11px] font-semibold truncate max-w-[150px]">${esc(m.att.name)}</div>
+      <div class="text-[10px] opacity-60">${esc(sizeStr(m.att.size))}</div></div>
+    <button onclick="askDownload(ATT['${m.id}'])" class="ml-auto w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-300 text-xs"><i class="fa-solid fa-download"></i></button>
+  </div>`;
+}
+
+async function bubbleHtml(m, viewerIsAdmin){
+  const mine = viewerIsAdmin ? m.from==='admin' : m.from==='user';
+  const att = await attachHtml(m, mine);
+  return `<div class="flex ${mine?'justify-end':'justify-start'}">
+    <div class="chat-bubble max-w-[80%] px-3.5 py-2.5 rounded-2xl text-sm shadow ${mine
+      ? 'bg-gradient-to-r from-cyan-500 to-indigo-600 text-white rounded-br-md'
+      : 'bg-white/8 border border-white/10 rounded-bl-md'}">
+      ${att}
+      ${m.text?`<div class="whitespace-pre-wrap break-words">${linkify(m.text)}</div>`:''}
+      <div class="text-[10px] opacity-60 mt-1 text-right font-mono">${timeStr(m.at)}</div>
+    </div></div>`;
+}
+
+async function renderUserChat(){
+  if(!ME) return;
+  const box = $('chatMessages'); if(!box) return;
+  const msgs = myMsgs();
+  if(!msgs.length){
+    box.innerHTML = `<div class="text-center py-10 px-4 text-xs" style="color:var(--muted)">
+      <div class="w-14 h-14 mx-auto rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 text-xl mb-3"><i class="fa-regular fa-comments"></i></div>
+      Savolingizni yozing — xabaringiz faqat admin tomonidan ko'riladi.</div>`;
+    return;
+  }
+  const html = await Promise.all(msgs.map(m=>bubbleHtml(m,false)));
+  box.innerHTML = html.join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+async function pickAttach(ev, who){
+  const f = ev.target.files && ev.target.files[0]; if(!f) return;
+  showToast('Fayl tayyorlanmoqda…','info');
+  const att = await storeFile(f);
+  ev.target.value='';
+  if(!att) return;
+  attach[who] = att;
+  const bar = who==='user'?$('chatAttachBar'):$('aChatAttachBar');
+  const prev = who==='user'?$('chatAttachPrev'):$('aChatAttachPrev');
+  const src = await resolveFileSrc(att);
+  prev.innerHTML = (att.kind==='image'&&src)
+    ? `<img src="${src}" class="w-10 h-10 rounded-lg object-cover"><span class="truncate max-w-[160px]">${esc(att.name)}</span>`
+    : `<i class="fa-solid ${att.kind==='video'?'fa-film':'fa-file'} text-cyan-300"></i><span class="truncate max-w-[180px]">${esc(att.name)}</span><span class="opacity-60">${esc(sizeStr(att.size))}</span>`;
+  bar.classList.remove('hidden');
+}
+function clearAttach(who){
+  attach[who]=null;
+  (who==='user'?$('chatAttachBar'):$('aChatAttachBar')).classList.add('hidden');
+}
+
+async function sendMessage(from, vid, text, att){
+  if(!text && !att) return;
+  if(!CHATS[vid]) CHATS[vid] = { msgs: [] };
+  CHATS[vid].msgs.push({ id: uid('m'), from, text: text||'', att: att||null, at: Date.now() });
+  if(CHATS[vid].msgs.length > 300) CHATS[vid].msgs = CHATS[vid].msgs.slice(-300);
+  const u = USERS[vid] || { vid, name:'Mehmon', phone:'', first:Date.now(), visits:1 };
+  u.lastText = text ? text.slice(0,60) : (att?('📎 '+att.name):'');
+  u.lastAt = Date.now();
+  if(from==='user') u.unreadAdmin = (u.unreadAdmin||0)+1; else u.unreadUser = (u.unreadUser||0)+1;
+  await saveChat(vid);
+  await saveUser(u);
+  if(from==='user'){ renderUserChat(); } else { renderAdminChat(); renderThreadList(); }
+  updateChatBadge();
+}
+
+async function markRead(side){
+  if(side==='user'){
+    if(!ME) return; const u = USERS[ME.vid]; if(!u || !u.unreadUser) return;
+    u.unreadUser = 0; await saveUser(u);
+  } else {
+    if(!activeThread) return; const u = USERS[activeThread]; if(!u || !u.unreadAdmin) return;
+    u.unreadAdmin = 0; await saveUser(u);
+  }
+  updateChatBadge();
+}
+function updateChatBadge(){
+  const b = $('chatBadge'); if(!b) return;
+  let n = 0;
+  if(IS_ADMIN) n = Object.values(USERS).reduce((a,u)=>a+(u.unreadAdmin||0),0);
+  else if(ME && USERS[ME.vid]) n = USERS[ME.vid].unreadUser||0;
+  if(n>0 && !chatOpen()){ b.classList.remove('hidden'); b.innerText = n>99?'99+':n; } else b.classList.add('hidden');
+  if(n>0 && chatOpen() && !IS_ADMIN) markRead('user');
+}
+
+async function handleDirectContact(ev){
+  ev.preventDefault();
+  const name = $('contactFormName').value.trim();
+  const contact = $('contactFormContact').value.trim();
+  const msg = $('contactFormMsg').value.trim();
+  if(!ME){ showGate(); return; }
+  await sendMessage('user', ME.vid, `📩 Bog'lanish formasi\nIsm: ${name}\nAloqa: ${contact}\nXabar: ${msg}`, null);
+  ev.target.reset();
+  showToast('Xabaringiz adminga yuborildi','success');
+}
+</script>
+<script>
+/* ============================================================
+   9) ADMIN PANEL
+   ============================================================ */
+const TABS = [
+  ['site',"Sayt & Logo",'fa-shapes'], ['hero',"Hero bo'limi",'fa-user-astronaut'],
+  ['projects',"Loyihalar",'fa-diagram-project'], ['skills',"Ko'nikmalar",'fa-chart-simple'],
+  ['services',"Xizmatlar",'fa-briefcase'], ['timeline',"Tajriba",'fa-timeline'],
+  ['reviews',"Sharhlar",'fa-star'], ['about',"Men haqimda",'fa-address-card'],
+  ['contact',"Aloqa",'fa-share-nodes'], ['visitors',"Foydalanuvchilar",'fa-users-viewfinder'],
+  ['chat',"Chat",'fa-comments'], ['settings',"Sozlamalar",'fa-gear']
+];
+let activeTab = 'site';
+
+function openAdminLogin(){ $('adminLoginModal').classList.remove('hidden'); setTimeout(()=>$('adminLoginUser').focus(),100); }
+function closeAdminLogin(){ $('adminLoginModal').classList.add('hidden'); $('adminLoginForm').reset(); }
+function togglePass(){
+  const i = $('adminLoginPass'); const e = $('passEye');
+  if(i.type==='password'){ i.type='text'; e.className='fa-regular fa-eye-slash'; }
+  else { i.type='password'; e.className='fa-regular fa-eye'; }
+}
+function openAdminPanel(){
+  IS_ADMIN = true;
+  $('adminPanel').classList.remove('hidden');
+  document.body.style.overflow='hidden';
+  renderAdminTabs(); switchTab(activeTab);
+  updateChatBadge();
+}
+function closeAdminPanel(){ $('adminPanel').classList.add('hidden'); document.body.style.overflow=''; }
+function adminLogout(){ IS_ADMIN=false; activeThread=null; closeAdminPanel(); showToast('Paneldan chiqdingiz','info'); updateChatBadge(); }
+
+function renderAdminTabs(){
+  $('adminTabs').innerHTML = TABS.map(([k,t,ic])=>{
+    const un = k==='chat' ? Object.values(USERS).reduce((a,u)=>a+(u.unreadAdmin||0),0) : 0;
+    return `<button onclick="switchTab('${k}')" class="tabbtn ${activeTab===k?'active':''} px-3.5 py-2 rounded-2xl border text-xs font-semibold whitespace-nowrap flex items-center gap-2" style="border-color:var(--line)">
+      <i class="fa-solid ${ic} text-[11px]"></i>${t}
+      ${un?`<span class="px-1.5 py-0.5 rounded-md bg-emerald-500 text-white text-[10px]">${un}</span>`:''}</button>`;
+  }).join('');
+}
+function switchTab(k){
+  activeTab = k;
+  document.querySelectorAll('.apane').forEach(p=>p.classList.add('hidden'));
+  $('pane-'+k).classList.remove('hidden');
+  renderAdminTabs();
+  renderAdminActive();
+}
+function renderAdminActive(){
+  if(!IS_ADMIN) return;
+  const f = { site:renderPaneSite, hero:renderPaneHero, projects:renderPaneProjects, skills:renderPaneSkills,
+    services:renderPaneServices, timeline:renderPaneTimeline, reviews:renderPaneReviews, about:renderPaneAbout,
+    contact:renderPaneContact, visitors:renderVisitors, chat:renderPaneChat, settings:renderPaneSettings }[activeTab];
+  if(f) f();
+}
+
+/* ---------- Tahrirlash yordamchilari ---------- */
+let renderTimer = null;
+function onEdit(path, val){
+  setPath(path, val);
+  saveContent();
+  clearTimeout(renderTimer);
+  renderTimer = setTimeout(renderAll, 220);
+}
+async function onEditFile(input, path, opts){
+  const f = input.files && input.files[0]; if(!f) return;
+  showToast('Yuklanmoqda…','info');
+  const att = await storeFile(f, Object.assign({maxSide:820,q:0.72}, opts||{}));
+  input.value='';
+  if(!att) return;
+  if(opts && opts.asFile){ onEdit(path, att); }
+  else { const src = await resolveFileSrc(att); onEdit(path, src); }
+  renderAdminActive();
+  showToast('Yuklandi','success');
+}
+function card(inner, cls=''){ return `<div class="p-5 rounded-3xl surface glass space-y-4 ${cls}">${inner}</div>`; }
+function head(t, s){ return `<div class="mb-4"><h3 class="text-lg font-bold">${t}</h3>${s?`<p class="text-xs mt-0.5" style="color:var(--muted)">${s}</p>`:''}</div>`; }
+const IN = 'w-full px-3.5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400';
+
+function fld(path, f, val){
+  const lbl = `<label class="block text-[11px] font-semibold mb-1.5" style="color:var(--muted)">${f.l}</label>`;
+  const v = val==null?'':val;
+  if(f.t==='area') return `<div>${lbl}<textarea rows="${f.rows||3}" class="${IN}" oninput="onEdit('${path}',this.value)">${esc(v)}</textarea></div>`;
+  if(f.t==='num') return `<div>${lbl}<input type="number" min="0" max="${f.max||100}" value="${esc(v)}" class="${IN}" oninput="onEdit('${path}',+this.value)"></div>`;
+  if(f.t==='sel') return `<div>${lbl}<select class="${IN}" onchange="onEdit('${path}',this.value)">
+    ${f.opts.map(o=>{const [k,t]=Array.isArray(o)?o:[o,o]; return `<option value="${esc(k)}" ${k===v?'selected':''}>${esc(t)}</option>`;}).join('')}</select></div>`;
+  if(f.t==='icon') return `<div>${lbl}<div class="flex items-center gap-2">
+      <span class="w-10 h-10 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400"><i class="${esc(v||'fa-solid fa-star')}"></i></span>
+      <input value="${esc(v)}" placeholder="fa-solid fa-star" class="${IN} font-mono text-xs" oninput="onEdit('${path}',this.value)"></div></div>`;
+  if(f.t==='img') return `<div>${lbl}
+    <div class="flex items-start gap-3">
+      <div class="w-20 h-20 shrink-0 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
+        ${v?`<img src="${esc(v)}" class="w-full h-full object-cover cursor-zoom-in" onclick="openLightbox({kind:'image',src:this.src,name:'rasm'})">`:`<i class="fa-regular fa-image text-slate-500"></i>`}</div>
+      <div class="flex-1 space-y-2">
+        <label class="block">
+          <span class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-semibold cursor-pointer inline-flex items-center gap-2">
+            <i class="fa-solid fa-upload"></i> Fayldan tanlash</span>
+          <input type="file" accept="image/*" class="hidden" onchange="onEditFile(this,'${path}')"></label>
+        <input value="${esc(v)}" placeholder="yoki rasm havolasi (URL)" class="${IN} text-xs" oninput="onEdit('${path}',this.value)">
+        ${v?`<button onclick="onEdit('${path}','');renderAdminActive()" class="text-[11px] text-red-400 hover:underline"><i class="fa-solid fa-trash"></i> Rasmni olib tashlash</button>`:''}
+      </div></div></div>`;
+  if(f.t==='file'){
+    const at = v && v.name ? v : null;
+    return `<div>${lbl}
+      <div class="p-3 rounded-2xl border border-white/10 bg-white/5 space-y-2">
+        ${at?`<div class="flex items-center gap-2 text-xs"><i class="fa-solid fa-file text-amber-400"></i>
+            <span class="font-semibold truncate">${esc(at.name)}</span><span class="opacity-60">${esc(sizeStr(at.size))}</span>
+            <button onclick="onEdit('${path}',null);renderAdminActive()" class="ml-auto text-red-400"><i class="fa-solid fa-xmark"></i></button></div>`
+          :`<p class="text-[11px]" style="color:var(--muted)">Fayl biriktirilmagan</p>`}
+        <label class="block"><span class="px-3 py-2 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-semibold cursor-pointer inline-flex items-center gap-2">
+          <i class="fa-solid fa-paperclip"></i> Fayl yuklash</span>
+          <input type="file" class="hidden" onchange="onEditFile(this,'${path}',{asFile:true})"></label>
+      </div></div>`;
+  }
+  return `<div>${lbl}<input value="${esc(v)}" placeholder="${esc(f.ph||'')}" class="${IN}" oninput="onEdit('${path}',this.value)"></div>`;
+}
+
+function objEditor(base, obj, fields, cols=2){
+  return `<div class="grid grid-cols-1 ${cols===2?'sm:grid-cols-2':''} gap-4">
+    ${fields.map(f=>`<div class="${f.full?'sm:col-span-2':''}">${fld(base+'.'+f.k, f, obj[f.k])}</div>`).join('')}</div>`;
+}
+
+/* Massiv tahrirlagichi */
+function arrEditor(key, fields, opts={}){
+  const arr = DATA[key]||[];
+  return `
+  <div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
+    <div><h3 class="text-lg font-bold">${opts.title||key}</h3>
+      <p class="text-xs" style="color:var(--muted)">Jami: ${arr.length} ta</p></div>
+    <button onclick="arrAdd('${key}')" class="px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-xs font-bold flex items-center gap-2">
+      <i class="fa-solid fa-plus"></i> Yangi qo'shish</button>
+  </div>
+  <div class="space-y-4">
+    ${arr.map((it,i)=>card(`
+      <div class="flex items-center justify-between gap-2 pb-3 border-b" style="border-color:var(--line)">
+        <span class="text-xs font-mono px-2 py-1 rounded-lg bg-white/5 border border-white/10">#${i+1}</span>
+        <div class="flex items-center gap-1.5">
+          <button onclick="arrMove('${key}',${i},-1)" ${i===0?'disabled':''} class="w-8 h-8 rounded-lg border disabled:opacity-30" style="border-color:var(--line)"><i class="fa-solid fa-arrow-up text-[11px]"></i></button>
+          <button onclick="arrMove('${key}',${i},1)" ${i===arr.length-1?'disabled':''} class="w-8 h-8 rounded-lg border disabled:opacity-30" style="border-color:var(--line)"><i class="fa-solid fa-arrow-down text-[11px]"></i></button>
+          <button onclick="arrDel('${key}',${i})" class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400"><i class="fa-solid fa-trash text-[11px]"></i></button>
+        </div>
+      </div>
+      ${objEditor(key+'.'+i, it, fields, opts.cols||2)}
+    `)).join('') || `<div class="p-8 rounded-3xl surface text-center text-sm" style="color:var(--muted)">Hozircha bo'sh. "Yangi qo'shish" tugmasini bosing.</div>`}
+  </div>`;
+}
+const NEW_ITEM = {
+  projects: ()=>({id:uid('p'),name:"Yangi loyiha",desc:"Qisqa tavsif",type:"veb sayt",link:"",img:"",file:null,tags:""}),
+  skills: ()=>({id:uid('s'),name:"Yangi ko'nikma",cat:"Boshqa",icon:"fa-solid fa-code",percent:70}),
+  services: ()=>({id:uid('sv'),icon:"fa-solid fa-star",title:"Yangi xizmat",desc:"Tavsif",price:""}),
+  timeline: ()=>({id:uid('t'),year:"2026",title:"Yangi bosqich",place:"",desc:""}),
+  reviews: ()=>({id:uid('r'),name:"Mijoz",role:"",rating:5,text:"Sharh matni",avatar:""}),
+  socials: ()=>({id:uid('c'),name:"Yangi tarmoq",link:"https://",color:"slate",icon:"fa-solid fa-link"})
+};
+function arrAdd(key){
+  if(!DATA[key]) DATA[key]=[];
+  DATA[key].push(NEW_ITEM[key]?NEW_ITEM[key]():{id:uid()});
+  saveContent(true); renderAll(); renderAdminActive(); showToast("Qo'shildi",'success');
+}
+function arrDel(key,i){
+  if(!confirm("O'chirilsinmi?")) return;
+  DATA[key].splice(i,1); saveContent(true); renderAll(); renderAdminActive();
+}
+function arrMove(key,i,d){
+  const a=DATA[key], j=i+d; if(j<0||j>=a.length) return;
+  [a[i],a[j]]=[a[j],a[i]]; saveContent(true); renderAll(); renderAdminActive();
+}
+/* about ichidagi massivlar */
+function subAdd(sub, item){ if(!DATA.about[sub]) DATA.about[sub]=[]; DATA.about[sub].push(item); saveContent(true); renderAll(); renderAdminActive(); }
+function subDel(sub,i){ if(!confirm("O'chirilsinmi?")) return; DATA.about[sub].splice(i,1); saveContent(true); renderAll(); renderAdminActive(); }
+function statAdd(){ DATA.hero.stats.push({id:uid('st'),val:"0",label:"Yangi"}); saveContent(true); renderAll(); renderAdminActive(); }
+function statDel(i){ DATA.hero.stats.splice(i,1); saveContent(true); renderAll(); renderAdminActive(); }
+
+/* ---------- Panellar ---------- */
+function renderPaneSite(){
+  $('pane-site').innerHTML =
+    head("Sayt nomi va logotip","Bu yerda o'zgartirilgan nom, badge va logo saytning yuqori qismida hamda footerda ko'rinadi.") +
+    card(objEditor('site', DATA.site, [
+      {k:'name',l:'Sayt nomi',t:'text'}, {k:'tag',l:'Qisqa izoh (tagline)',t:'text'},
+      {k:'badge',l:'Badge (masalan v3.0)',t:'text'}, {k:'logoText',l:'Logo harfi (rasm bo\'lmasa)',t:'text'},
+      {k:'logoShape',l:'Logo shakli',t:'sel',opts:[['rounded','Yumaloqlangan kvadrat'],['circle','Dumaloq'],['square','To\'rtburchak']]},
+      {k:'logoImg',l:'Logo rasmi',t:'img',full:true}
+    ])) +
+    `<div class="mt-4">${card(`<h4 class="font-bold text-sm mb-3">Ko'rinish namunasi</h4>
+      <div class="flex items-center gap-3">
+        <div class="w-14 h-14 ${DATA.site.logoShape==='circle'?'rounded-full':DATA.site.logoShape==='square'?'rounded-md':'rounded-2xl'} overflow-hidden bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center text-white text-xl font-extrabold">
+          ${DATA.site.logoImg?`<img src="${esc(DATA.site.logoImg)}" class="w-full h-full object-cover">`:esc(DATA.site.logoText||'M')}</div>
+        <div><div class="font-bold">${esc(DATA.site.name)} <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-500/10 text-cyan-400 font-mono">${esc(DATA.site.badge||'')}</span></div>
+          <div class="text-[11px] font-mono uppercase" style="color:var(--muted)">${esc(DATA.site.tag||'')}</div></div>
+      </div>`)}</div>`;
+}
+function renderPaneHero(){
+  const st = DATA.hero.stats||[];
+  $('pane-hero').innerHTML =
+    head("Hero bo'limi","Ism, kasb, qisqa ma'lumot, rasm va statistik ko'rsatkichlar.") +
+    card(objEditor('hero', DATA.hero, [
+      {k:'name',l:'Ism-familiya',t:'text'}, {k:'role',l:'Kasb / lavozim',t:'text'},
+      {k:'status',l:'Holat matni',t:'text'},
+      {k:'avatarShape',l:'Rasm shakli',t:'sel',opts:[['circle','Dumaloq'],['square','To\'rtburchak']]},
+      {k:'bio',l:'Qisqa ma\'lumot',t:'area',rows:4,full:true},
+      {k:'avatar',l:'Profil rasmi',t:'img',full:true}
+    ])) +
+    `<div class="mt-4">${card(`
+      <div class="flex items-center justify-between"><h4 class="font-bold text-sm">Statistika kartalari</h4>
+        <button onclick="statAdd()" class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-plus"></i> Qo'shish</button></div>
+      <div class="space-y-3">${st.map((s,i)=>`<div class="flex items-end gap-2">
+        <div class="w-28">${fld('hero.stats.'+i+'.val',{l:'Qiymat',t:'text'},s.val)}</div>
+        <div class="flex-1">${fld('hero.stats.'+i+'.label',{l:'Izoh',t:'text'},s.label)}</div>
+        <button onclick="statDel(${i})" class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400"><i class="fa-solid fa-trash text-xs"></i></button>
+      </div>`).join('')}</div>`)}</div>`;
+}
+function renderPaneProjects(){
+  $('pane-projects').innerHTML = arrEditor('projects', [
+    {k:'name',l:'Loyiha nomi',t:'text'},
+    {k:'type',l:'Turi',t:'sel',opts:[['veb sayt','Veb-sayt'],['boshqa','Boshqa loyiha'],['fayl','Yangisi → Fayl (yuklab olinadigan)']]},
+    {k:'desc',l:'Tavsif',t:'area',full:true},
+    {k:'link',l:'Havola (veb-sayt uchun)',t:'text'},
+    {k:'tags',l:'Teglar (vergul bilan)',t:'text'},
+    {k:'img',l:'Loyiha rasmi',t:'img',full:true},
+    {k:'file',l:'Yuklab olinadigan fayl ("fayl" turi uchun)',t:'file',full:true}
+  ], {title:"Loyihalar boshqaruvi"});
+}
+function renderPaneSkills(){
+  $('pane-skills').innerHTML = arrEditor('skills', [
+    {k:'name',l:'Ko\'nikma nomi',t:'text'}, {k:'cat',l:'Kategoriya',t:'text',ph:'Frontend / AI / Backend'},
+    {k:'icon',l:'Ikonka',t:'icon'}, {k:'percent',l:'Foiz (0-100)',t:'num'}
+  ], {title:"Ko'nikmalar"});
+}
+function renderPaneServices(){
+  $('pane-services').innerHTML = arrEditor('services', [
+    {k:'title',l:'Xizmat nomi',t:'text'}, {k:'icon',l:'Ikonka',t:'icon'},
+    {k:'desc',l:'Tavsif',t:'area',full:true}, {k:'price',l:'Narx / shart',t:'text'}
+  ], {title:"Xizmatlar"});
+}
+function renderPaneTimeline(){
+  $('pane-timeline').innerHTML = arrEditor('timeline', [
+    {k:'year',l:'Yil / davr',t:'text'}, {k:'place',l:'Joy / kompaniya',t:'text'},
+    {k:'title',l:'Lavozim yoki bosqich',t:'text',full:true}, {k:'desc',l:'Tavsif',t:'area',full:true}
+  ], {title:"Tajriba & Ta'lim"});
+}
+function renderPaneReviews(){
+  $('pane-reviews').innerHTML = arrEditor('reviews', [
+    {k:'name',l:'Mijoz ismi',t:'text'}, {k:'role',l:'Kasbi',t:'text'},
+    {k:'rating',l:'Baho (1-5)',t:'num',max:5}, {k:'text',l:'Sharh',t:'area',full:true},
+    {k:'avatar',l:'Rasm',t:'img',full:true}
+  ], {title:"Mijozlar sharhi"});
+}
+function renderPaneAbout(){
+  const a = DATA.about;
+  const block = (sub, title, fields, mk) => card(`
+    <div class="flex items-center justify-between"><h4 class="font-bold text-sm">${title}</h4>
+      <button onclick='subAdd("${sub}", ${JSON.stringify(mk).replace(/'/g,"&#39;")})' class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-plus"></i> Qo'shish</button></div>
+    <div class="space-y-4">${(a[sub]||[]).map((it,i)=>`
+      <div class="p-3 rounded-2xl border border-white/10 bg-white/5 space-y-3">
+        <div class="flex justify-end"><button onclick="subDel('${sub}',${i})" class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400"><i class="fa-solid fa-trash text-[11px]"></i></button></div>
+        ${fields.map(f=>fld(`about.${sub}.${i}.${f.k}`, f, it[f.k])).join('')}
+      </div>`).join('')}</div>`);
+  $('pane-about').innerHTML =
+    head("Men haqimda","Matnlar, qo'shimcha kartalar va ma'lumotlar ro'yxati — xohlaganingizcha qo'shing.") +
+    card(fld('about.img',{l:'Bo\'lim rasmi',t:'img'}, a.img)) +
+    `<div class="mt-4">${block('paragraphs',"Matn paragraflari",[{k:'text',l:'Matn',t:'area',rows:4}],{id:'ap'+Date.now(),text:"Yangi paragraf"})}</div>` +
+    `<div class="mt-4">${block('highlights',"Asosiy kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}],{id:'ah'+Date.now(),icon:'fa-solid fa-star',title:"Yangi karta",text:"Tavsif"})}</div>` +
+    `<div class="mt-4">${block('extras',"Qo'shimcha kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}],{id:'ax'+Date.now(),icon:'fa-solid fa-bolt',title:"Yangi qo'shimcha",text:"Tavsif"})}</div>` +
+    `<div class="mt-4">${block('info',"Asosiy ma'lumotlar ro'yxati",[{k:'k',l:'Nomi',t:'text'},{k:'v',l:'Qiymati',t:'text'}],{id:'ai'+Date.now(),k:"Yangi",v:"Qiymat"})}</div>`;
+}
+function renderPaneContact(){
+  $('pane-contact').innerHTML = arrEditor('socials', [
+    {k:'name',l:'Nomi',t:'text'}, {k:'link',l:'Havola',t:'text'},
+    {k:'icon',l:'Ikonka',t:'icon'},
+    {k:'color',l:'Rang',t:'sel',opts:[['blue','Ko\'k'],['sky','Moviy'],['purple','Siyoh'],['slate','Kulrang'],['emerald','Yashil'],['amber','Sariq'],['rose','Qizil']]}
+  ], {title:"Ijtimoiy tarmoqlar"});
+}
+
+/* ---------- Foydalanuvchilar / qurilmalar ---------- */
+async function refreshVisitors(){
+  if(DB){
+    try{
+      const qs = await DB.collection('users').get();
+      const m = {}; qs.docs.forEach(d=>{ m[d.id]=Object.assign({vid:d.id}, d.data); });
+      USERS = m; showToast('Yangilandi','success');
+    }catch(e){ showToast('Serverdan olinmadi','error'); }
+  } else showToast('Lokal rejim','info');
+  renderVisitors();
+}
+async function toggleBlock(vid){
+  const u = USERS[vid]; if(!u) return;
+  u.blocked = !u.blocked; await saveUser(u);
+  showToast(u.blocked?'Bloklandi':'Blokdan chiqarildi', u.blocked?'error':'success');
+  renderVisitors();
+}
+async function deleteUser(vid){
+  if(!confirm("Foydalanuvchi va uning barcha ma'lumotlari o'chirilsinmi?")) return;
+  delete USERS[vid]; delete CHATS[vid];
+  if(activeThread===vid) activeThread=null;
+  if(DB && canWriteShared){ try{ await DB.doc('users/'+vid).delete(); await DB.doc('chats/'+vid).delete(); }catch(e){} }
+  renderVisitors(); renderThreadList();
+}
+function renderVisitors(){
+  const pane = $('pane-visitors'); if(!pane) return;
+  const list = Object.values(USERS).sort((a,b)=>(b.last||0)-(a.last||0));
+  pane.innerHTML =
+    `<div class="flex items-center justify-between mb-4 gap-3 flex-wrap">
+      <div><h3 class="text-lg font-bold">Kirgan foydalanuvchilar</h3>
+        <p class="text-xs" style="color:var(--muted)">Faqat haqiqiy kirishlar. Sahifa yangilanganda soxta yozuv qo'shilmaydi.</p></div>
+      <button onclick="refreshVisitors()" class="px-4 py-2.5 rounded-2xl border text-xs font-bold flex items-center gap-2" style="border-color:var(--line)">
+        <i class="fa-solid fa-rotate"></i> Yangilash</button>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+      ${[['Jami',list.length,'text-cyan-400'],['Bugun',list.filter(u=>(Date.now()-(u.last||0))<86400000).length,'text-emerald-400'],
+         ['Bloklangan',list.filter(u=>u.blocked).length,'text-red-400'],['Yozganlar',list.filter(u=>u.lastAt).length,'text-purple-400']]
+        .map(([l,v,c])=>`<div class="p-4 rounded-2xl surface"><div class="text-2xl font-bold font-mono ${c}">${v}</div><div class="text-[11px]" style="color:var(--muted)">${l}</div></div>`).join('')}
+    </div>
+    <div class="space-y-3">${list.length?list.map(u=>`
+      <div class="p-4 rounded-3xl surface glass ${u.blocked?'border-red-500/40':''}">
+        <div class="flex items-start gap-3 flex-wrap">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
+          <div class="flex-1 min-w-[160px]">
+            <div class="font-bold text-sm flex items-center gap-2">${esc(u.name||'Mehmon')}
+              ${u.blocked?'<span class="px-2 py-0.5 rounded-md bg-red-500/20 text-red-400 text-[10px]">BLOK</span>':''}</div>
+            <a href="tel:${esc(u.phone||'')}" class="text-xs font-mono text-cyan-400">${esc(u.phone||'—')}</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <button onclick="openThreadFromUsers('${u.vid}')" class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-regular fa-comment"></i></button>
+            <button onclick="toggleBlock('${u.vid}')" class="px-3 py-2 rounded-xl ${u.blocked?'bg-emerald-500/15 border-emerald-500/30 text-emerald-300':'bg-amber-500/15 border-amber-500/30 text-amber-300'} border text-xs font-bold"><i class="fa-solid ${u.blocked?'fa-lock-open':'fa-ban'}"></i></button>
+            <button onclick="deleteUser('${u.vid}')" class="px-3 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-[11px]">
+          ${[['Qurilma',u.kind],['Brauzer / OS',u.device],['Ekran',u.screen],['Til',u.lang],['Vaqt mintaqasi',u.tz],
+             ['Yadrolar',u.cores],['Xotira',u.mem],['Sensorli',u.touch],
+             ['Birinchi kirish',dateStr(u.first)],['Oxirgi faollik',dateStr(u.last)],['Kirishlar soni',u.visits||1],
+             ['Oxirgi xabar', u.lastAt?agoStr(u.lastAt):'—']]
+            .map(([l,v])=>`<div class="p-2 rounded-xl bg-white/5 border border-white/10"><div class="opacity-60">${l}</div><div class="font-semibold truncate">${esc(v==null||v===''?'—':v)}</div></div>`).join('')}
+        </div>
+        <details class="mt-2"><summary class="text-[11px] cursor-pointer" style="color:var(--muted)">To'liq User-Agent</summary>
+          <p class="text-[10px] font-mono break-all mt-1 opacity-70">${esc(u.ua||'—')}</p></details>
+      </div>`).join('')
+      :`<div class="p-10 rounded-3xl surface text-center text-sm" style="color:var(--muted)">Hozircha hech kim kirmagan.</div>`}
+    </div>`;
+}
+function openThreadFromUsers(vid){ activeThread = vid; switchTab('chat'); }
+
+/* ---------- Admin chat ---------- */
+function renderPaneChat(){
+  $('pane-chat').innerHTML = `
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 h-[calc(100vh-220px)] min-h-[460px]">
+      <div class="lg:col-span-4 rounded-3xl surface glass flex flex-col overflow-hidden">
+        <div class="p-4 border-b" style="border-color:var(--line)">
+          <h4 class="font-bold text-sm">Foydalanuvchilar</h4>
+          <p class="text-[11px]" style="color:var(--muted)">Oxirgi yozganlar eng tepada</p>
+          <input id="threadSearch" oninput="renderThreadList()" placeholder="Qidirish..." class="${IN} mt-3 text-xs">
+        </div>
+        <div id="threadList" class="flex-1 overflow-y-auto p-3 space-y-2"></div>
+      </div>
+      <div class="lg:col-span-8 rounded-3xl surface glass flex flex-col overflow-hidden">
+        <div id="aChatHead" class="p-4 border-b flex items-center justify-between gap-2" style="border-color:var(--line)"></div>
+        <div id="aChatMessages" class="flex-1 overflow-y-auto p-4 space-y-3"></div>
+        <div id="aChatAttachBar" class="hidden px-3 py-2 border-t flex items-center gap-3" style="border-color:var(--line)">
+          <div id="aChatAttachPrev" class="flex items-center gap-2 text-xs min-w-0"></div>
+          <button onclick="clearAttach('admin')" class="ml-auto w-7 h-7 rounded-lg bg-red-500/10 text-red-400 text-xs"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <form id="aChatForm" class="p-3 border-t flex items-center gap-2" style="border-color:var(--line)">
+          <input type="file" id="aChatFileInput" class="hidden" onchange="pickAttach(event,'admin')">
+          <button type="button" onclick="document.getElementById('aChatFileInput').click()" class="w-10 h-10 shrink-0 rounded-2xl border" style="border-color:var(--line)"><i class="fa-solid fa-paperclip"></i></button>
+          <input id="aChatInput" placeholder="Javob yozing..." class="flex-1 min-w-0 px-4 py-2.5 rounded-2xl bg-white/5 border border-white/10 text-sm focus:outline-none focus:border-cyan-400">
+          <button type="submit" class="w-10 h-10 shrink-0 rounded-2xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+        </form>
+      </div>
+    </div>`;
+  $('aChatForm').onsubmit = async ev=>{
+    ev.preventDefault();
+    if(!activeThread){ showToast('Avval foydalanuvchini tanlang','error'); return; }
+    const t = $('aChatInput').value.trim(); const a = attach.admin;
+    if(!t && !a) return;
+    $('aChatInput').value=''; clearAttach('admin');
+    await sendMessage('admin', activeThread, t, a);
+  };
+  renderThreadList(); renderAdminChat();
+}
+function threadTone(u){
+  const un = u.unreadAdmin||0;
+  if(un>0) return ['bg-gradient-to-r from-emerald-500/20 to-cyan-500/10 border-emerald-500/40','text-emerald-300'];
+  if(u.lastAt && (Date.now()-u.lastAt) < 3600000) return ['bg-cyan-500/10 border-cyan-500/30','text-cyan-300'];
+  if(u.lastAt) return ['bg-white/5 border-white/10','text-slate-200'];
+  return ['bg-transparent border-white/5','text-slate-400'];
+}
+function renderThreadList(){
+  const box = $('threadList'); if(!box) return;
+  const q = ($('threadSearch') && $('threadSearch').value.trim().toLowerCase()) || '';
+  let list = Object.values(USERS);
+  if(q) list = list.filter(u => (u.name||'').toLowerCase().includes(q) || (u.phone||'').includes(q));
+  list.sort((a,b)=> (b.lastAt||0)-(a.lastAt||0) || (b.last||0)-(a.last||0));
+  box.innerHTML = list.length ? list.map(u=>{
+    const [bg,tx] = threadTone(u);
+    const un = u.unreadAdmin||0;
+    const on = activeThread===u.vid;
+    return `<button onclick="openThread('${u.vid}')" class="w-full text-left p-3 rounded-2xl border ${bg} ${on?'ring-2 ring-cyan-400/60':''} transition-all">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white text-xs font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
+        <div class="min-w-0 flex-1">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-xs truncate ${tx}">${esc(u.name||'Mehmon')}</span>
+            ${u.blocked?'<i class="fa-solid fa-ban text-red-400 text-[10px]"></i>':''}
+            <span class="ml-auto text-[10px] opacity-60 font-mono">${u.lastAt?agoStr(u.lastAt):''}</span>
+          </div>
+          <div class="text-[11px] truncate ${u.lastText?'opacity-80':'opacity-40 italic'}">${esc(u.lastText||'Hali xabar yozmagan')}</div>
+        </div>
+        ${un?`<span class="w-5 h-5 shrink-0 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center">${un}</span>`:''}
+      </div></button>`;
+  }).join('') : `<p class="text-xs text-center py-8" style="color:var(--muted)">Foydalanuvchi yo'q</p>`;
+  renderAdminTabs();
+}
+function openThread(vid){ activeThread = vid; renderThreadList(); renderAdminChat(); markRead('admin'); }
+
+async function clearThread(){
+  if(!activeThread) return;
+  if(!confirm("Suhbat tarixi o'chirilsinmi? (Foydalanuvchi ro'yxatda qoladi)")) return;
+  CHATS[activeThread] = { msgs: [] };
+  const u = USERS[activeThread]; if(u){ u.lastText=''; u.lastAt=0; u.unreadAdmin=0; u.unreadUser=0; await saveUser(u); }
+  await saveChat(activeThread);
+  renderAdminChat(); renderThreadList();
+  showToast('Suhbat tozalandi','success');
+}
+async function renderAdminChat(){
+  const hd = $('aChatHead'), box = $('aChatMessages');
+  if(!hd || !box) return;
+  if(!activeThread || !USERS[activeThread]){
+    hd.innerHTML = `<span class="text-xs" style="color:var(--muted)">Foydalanuvchini tanlang</span>`;
+    box.innerHTML = `<div class="h-full flex flex-col items-center justify-center text-center gap-3" style="color:var(--muted)">
+      <i class="fa-regular fa-comments text-4xl opacity-40"></i><p class="text-xs">Chapdagi ro'yxatdan foydalanuvchini tanlang</p></div>`;
+    return;
+  }
+  const u = USERS[activeThread];
+  hd.innerHTML = `
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
+      <div class="min-w-0"><div class="font-bold text-sm truncate">${esc(u.name||'Mehmon')}</div>
+        <div class="text-[11px] font-mono truncate" style="color:var(--muted)">${esc(u.phone||'')} • ${esc(u.device||'')}</div></div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button onclick="toggleBlock('${u.vid}')" class="px-3 py-2 rounded-xl border text-xs" style="border-color:var(--line)"><i class="fa-solid ${u.blocked?'fa-lock-open':'fa-ban'}"></i></button>
+      <button onclick="clearThread()" class="px-3 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs"><i class="fa-solid fa-trash"></i><span class="hidden sm:inline ml-1">Chatni o'chirish</span></button>
+    </div>`;
+  const msgs = (CHATS[activeThread] && CHATS[activeThread].msgs) || [];
+  if(!msgs.length){ box.innerHTML = `<p class="text-xs text-center py-10" style="color:var(--muted)">Xabarlar yo'q</p>`; return; }
+  const html = await Promise.all(msgs.map(m=>bubbleHtml(m,true)));
+  box.innerHTML = html.join('');
+  box.scrollTop = box.scrollHeight;
+}
+
+/* ---------- Sozlamalar ---------- */
+function renderPaneSettings(){
+  $('pane-settings').innerHTML =
+    head("Sozlamalar","Kirish ma'lumotlari va zaxira nusxa.") +
+    card(`<h4 class="font-bold text-sm">Admin kirish ma'lumotlari</h4>
+      ${objEditor('auth', DATA.auth, [{k:'login',l:'Login',t:'text'},{k:'pass',l:'Parol',t:'text'}])}
+      <p class="text-[11px]" style="color:var(--muted)">O'zgartirgach yangi login/parol darhol kuchga kiradi.</p>`) +
+    `<div class="mt-4">${card(`<h4 class="font-bold text-sm">Ma'lumotlar</h4>
+      <div class="flex flex-wrap gap-2">
+        <button onclick="exportData()" class="px-4 py-2.5 rounded-2xl border text-xs font-bold" style="border-color:var(--line)"><i class="fa-solid fa-file-export"></i> Zaxira (JSON)</button>
+        <label class="px-4 py-2.5 rounded-2xl border text-xs font-bold cursor-pointer" style="border-color:var(--line)"><i class="fa-solid fa-file-import"></i> Tiklash
+          <input type="file" accept="application/json" class="hidden" onchange="importData(this)"></label>
+        <button onclick="resetData()" class="px-4 py-2.5 rounded-2xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-bold"><i class="fa-solid fa-rotate-left"></i> Standart holatga qaytarish</button>
+      </div>`)}</div>` +
+    `<div class="mt-4">${card(`<h4 class="font-bold text-sm">Server holati</h4>
+      <ul class="text-xs space-y-1.5" style="color:var(--muted)">
+        <li>Ma'lumotlar bazasi: <b class="${DB?'text-emerald-400':'text-amber-400'}">${DB?'ulangan':'lokal rejim'}</b></li>
+        <li>Fayl xotirasi (assets): <b class="${ASSETS?'text-emerald-400':'text-amber-400'}">${ASSETS?'faol':'mavjud emas — fayllar baza ichida saqlanadi'}</b></li>
+        <li>Yozish huquqi: <b class="${canWriteShared?'text-emerald-400':'text-red-400'}">${canWriteShared?'bor':"yo'q"}</b></li>
+      </ul>`)}</div>`;
+}
+function exportData(){
+  const blob = new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='portfolio-backup.json'; a.click();
+}
+function importData(input){
+  const f = input.files[0]; if(!f) return;
+  const r = new FileReader();
+  r.onload = ()=>{ try{ DATA = mergeDefaults(JSON.parse(r.result)); saveContent(true); renderAll(); renderAdminActive(); showToast('Tiklandi','success'); }
+    catch(e){ showToast('Fayl noto\'g\'ri','error'); } };
+  r.readAsText(f); input.value='';
+}
+function resetData(){
+  if(!confirm("Barcha kontent standart holatga qaytarilsinmi?")) return;
+  DATA = clone(DEFAULT); saveContent(true); renderAll(); renderAdminActive();
+}
+function adminSaveAll(){ saveContent(true); showToast('Serverga saqlandi','success'); }
+
+/* ============================================================
+   10) MAVZU (TUN/KUN)
+   ============================================================ */
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.classList.toggle('dark', t==='dark');
+  $('themeIcon').className = t==='dark' ? 'fa-solid fa-moon' : 'fa-solid fa-sun';
+  try{ localStorage.setItem(LS_THEME,t); }catch(e){}
+}
+
+/* ============================================================
+   11) ISHGA TUSHIRISH
+   ============================================================ */
+function initEvents(){
+  // Mavzu
+  $('themeToggleBtn').onclick = ()=> applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
+  // Mobil menyu
+  $('mobileMenuBtn').onclick = ()=> $('mobileMenu').classList.toggle('hidden');
+  // Chat
+  $('openChatBtn').onclick = ()=> chatOpen() ? closeChat() : openChat();
+  $('chatForm').onsubmit = async ev=>{
+    ev.preventDefault();
+    if(!ME){ showGate(); return; }
+    const t = $('chatInput').value.trim(); const a = attach.user;
+    if(!t && !a) return;
+    $('chatInput').value=''; clearAttach('user');
+    await sendMessage('user', ME.vid, t, a);
+  };
+  // Gate forma
+  $('gateForm').onsubmit = async ev=>{
+    ev.preventDefault();
+    const name = $('gateName').value.trim();
+    const phone = $('gatePhone').value.replace(/\D/g,'');
+    if(name.length < 2){ showToast('Ismingizni to\'liq kiriting','error'); return; }
+    if(phone.length !== 9){
+      $('gatePhoneHint').innerHTML = `<b class="text-red-400">Raqam aniq 9 ta sondan iborat bo'lishi kerak (hozir: ${phone.length} ta)</b>`;
+      showToast('Telefon raqam 9 ta son bo\'lishi kerak','error'); return;
+    }
+    await registerVisitor(name, phone);
+    showToast(`Xush kelibsiz, ${name}!`,'success');
+  };
+  $('gatePhone').addEventListener('input', e=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,9); });
+  // Admin kirish: logotipni 2 marta bosish yoki Ctrl+Shift+A
+  $('brandLogo').ondblclick = openAdminLogin;
+  document.addEventListener('keydown', e=>{
+    if(e.ctrlKey && e.shiftKey && (e.key==='A'||e.key==='a')){ e.preventDefault(); openAdminLogin(); }
+    if(e.key==='Escape'){ closeLightbox(); closeWebsitePreview(); closeDlModal(); }
+  });
+  $('adminLoginForm').onsubmit = ev=>{
+    ev.preventDefault();
+    const l = $('adminLoginUser').value.trim(), p = $('adminLoginPass').value;
+    if(l===DATA.auth.login && p===DATA.auth.pass){ closeAdminLogin(); openAdminPanel(); showToast('Xush kelibsiz, admin','success'); }
+    else showToast("Login yoki parol noto'g'ri",'error');
+  };
+  // Havola bosilganda mobil menyuni yopish
+  window.addEventListener('hashchange', ()=> $('mobileMenu').classList.add('hidden'));
+}
+
+async function init(){
+  // Mavzu
+  let th = 'dark'; try{ th = localStorage.getItem(LS_THEME) || 'dark'; }catch(e){}
+  applyTheme(th);
+
+  // Kontent: lokal → keyin serverdan yangilanadi
+  DATA = mergeDefaults(localLoad());
+  try{ USERS = JSON.parse(localStorage.getItem(LS_USERS)||'{}'); }catch(e){ USERS={}; }
+  try{ CHATS = JSON.parse(localStorage.getItem(LS_CHAT)||'{}'); }catch(e){ CHATS={}; }
+
+  renderNav(); renderAll(); initEvents(); initReveal();
+
+  // Foydalanuvchi holati
+  ME = loadVisitor();
+  if(ME){ updateUserChip(); } else { showGate(); }
+
+  // Serverga ulanish
+  await connectServer();
+
+  // Kirish faktini yozish (faqat haqiqiy foydalanuvchi, sahifa yangilanishi soxta yozuv yaratmaydi)
+  if(ME){
+    const u = USERS[ME.vid];
+    if(u && u.blocked){ showBlocked(); return; }
+    const d = deviceInfo();
+    await saveUser(Object.assign({}, u||{}, {
+      vid: ME.vid, name: ME.name, phone: u&&u.phone ? u.phone : ('+998'+(ME.phone||'')),
+      device:`${d.browser} / ${d.os}`, kind:d.device, screen:d.screen, lang:d.lang, tz:d.tz,
+      cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
+      first: (u&&u.first)||Date.now(), last: Date.now(), visits: ((u&&u.visits)||0)+1,
+      blocked: !!(u&&u.blocked)
+    }));
+    renderUserChat();
+  }
+  updateChatBadge();
+}
+document.addEventListener('DOMContentLoaded', init);
+</script>
 </body>
 </html>
