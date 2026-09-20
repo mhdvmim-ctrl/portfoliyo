@@ -6,6 +6,12 @@
 <title>MHDV</title>
 <link id="faviconLink" rel="icon" href="./my logo.jpg">
 <script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Firebase kutubxonalari -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-storage-compat.js"></script>
+
 <script>
 tailwind.config = { darkMode:'class', theme:{ extend:{
   colors:{ brand:{50:'#ecfeff',100:'#cffafe',300:'#67e8f9',400:'#22d3ee',500:'#06b6d4',600:'#0891b2'} },
@@ -22,12 +28,21 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
+  /* Telefonda yon tomonga qochib ketmasligini ta'minlash uchun xossalar */
+  html, body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden !important;
+    position: relative;
+  }
+  
   :root{
     box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
+    /* Glass effekti shaffofligini o'zgartirish uchun CSS o'zgaruvchisi */
+    --glass-op: 0.15;
+    
     --bg:#020617; --bg2:#0f172a; --fg:#e2e8f0; --muted:#94a3b8;
-    --card:rgba(15,23,42,.62); --line:rgba(255,255,255,.10);
+    --card:rgba(15,23,42, var(--glass-op)); --line:rgba(255,255,255,.10);
     --c1:#22d3ee; --c2:#6366f1; --c3:#a855f7;
     --c1r:34,211,238; --c2r:99,102,241; --c3r:168,85,247;
     --font-main:'Plus Jakarta Sans',sans-serif;
@@ -35,9 +50,9 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
     --btn-track:normal; --btn-weight:600;
   }
   html[data-theme="light"]{ --bg:#f1f5f9; --bg2:#ffffff; --fg:#0f172a; --muted:#475569;
-    --card:rgba(255,255,255,.72); --line:rgba(15,23,42,.10); }
+    --card:rgba(255,255,255, var(--glass-op)); --line:rgba(15,23,42,.10); }
 
-  /* ===== UI DIZAYN — 6 ta mavzu (rang, shakl, shrift birgalikda o'zgaradi) ===== */
+  /* ===== UI DIZAYN — 6 ta mavzu ===== */
   html[data-style="2"]{ --c1:#fb923c; --c2:#f43f5e; --c3:#f59e0b; --c1r:251,146,60; --c2r:244,63,94; --c3r:245,158,11;
     --font-main:'Poppins',sans-serif; --r-md:999px; --r-lg:999px; --r-xl:1.25rem; --r-2xl:1.5rem; --r-3xl:1.75rem; --btn-weight:700; }
   html[data-style="3"]{ --c1:#34d399; --c2:#10b981; --c3:#22d3ee; --c1r:52,211,153; --c2r:16,185,129; --c3r:34,211,238;
@@ -54,7 +69,6 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   html[data-theme="dark"][data-style="5"]{ --bg:#020a17; --bg2:#071b30; }
   html[data-theme="dark"][data-style="6"]{ --bg:#0a0a0a; --bg2:#161616; }
 
-  /* Tailwind utillarini brend o'zgaruvchisi orqali qayta ranglash (barcha temalar uchun umumiy) */
   .t1{ color:var(--c1)!important } .t2{ color:var(--c2)!important } .t3{ color:var(--c3)!important }
   .text-cyan-400,.text-cyan-300,.text-cyan-200,.text-cyan-400\/90,.text-indigo-400{ color:var(--c1)!important }
   .text-purple-400,.text-purple-300{ color:var(--c3)!important }
@@ -87,11 +101,11 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   .from-purple-500\/20.to-cyan-500\/20{ background-image:linear-gradient(to top right,rgba(var(--c3r),.2),rgba(var(--c1r),.2))!important }
   .from-cyan-500.via-indigo-500{ background-image:linear-gradient(to bottom,var(--c1),var(--c2))!important }
   .from-emerald-500\/20.to-cyan-500\/10{ background-image:linear-gradient(to right,rgba(52,211,153,.2),rgba(var(--c1r),.1))!important }
-  html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px); }
+  
+  html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 140px); }
   body{ font-family:var(--font-main); background:var(--bg); color:var(--fg);
     transition:background-color .35s ease,color .35s ease, font-family .3s ease; }
   .font-mono{ font-family:'JetBrains Mono',monospace; }
-  /* Radius va tugma uslubi — UI dizaynga qarab o'zgaradi */
   .rounded-md{ border-radius:var(--r-md)!important }
   .rounded-lg{ border-radius:var(--r-lg)!important }
   .rounded-xl{ border-radius:var(--r-xl)!important }
@@ -100,13 +114,12 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   button,.tabbtn,a.font-semibold,a.font-bold,.font-bold{ letter-spacing:var(--btn-track); }
   button{ font-weight:var(--btn-weight); }
   .surface{ background:var(--card); border:1px solid var(--line); }
-  .glass{ backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+  .glass{ backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); }
   ::-webkit-scrollbar{ width:8px;height:8px }
   ::-webkit-scrollbar-track{ background:transparent }
   ::-webkit-scrollbar-thumb{ background:rgba(148,163,184,.32);border-radius:9999px }
   ::-webkit-scrollbar-thumb:hover{ background:rgba(148,163,184,.6) }
 
-  /* ===== Yangi reveal animatsiya tizimi (AOS o'rniga) ===== */
   [data-rv]{ opacity:0; will-change:transform,opacity,filter; transition:opacity .75s cubic-bezier(.16,1,.3,1), transform .75s cubic-bezier(.16,1,.3,1), filter .75s ease; }
   [data-rv="up"]{ transform:translateY(46px) }
   [data-rv="down"]{ transform:translateY(-38px) }
@@ -131,7 +144,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   .tabbtn.active{ background:linear-gradient(90deg,#06b6d4,#6366f1); color:#fff; border-color:transparent }
 </style>
 </head>
-<body class="min-h-screen relative overflow-x-hidden selection:bg-cyan-500 selection:text-white">
+<body class="min-h-screen relative overflow-x-hidden selection:bg-cyan-500 selection:text-white w-full max-w-full">
 
 <!-- ===== Ambient fon ===== -->
 <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
@@ -190,8 +203,8 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   </div>
 </div>
 
-<!-- ===== Header ===== -->
-<header class="sticky z-40 w-full border-b glass" style="top:env(safe-area-inset-top,0px);border-color:var(--line);background:var(--card)">
+<!-- ===== Fixed Header ===== -->
+<header class="fixed z-50 left-0 w-full border-b glass transition-all" style="top:0; padding-top:env(safe-area-inset-top,0px); border-color:var(--line);background:var(--card)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
 
     <div class="flex items-center gap-3 cursor-pointer select-none group shrink-0" id="brandLogo" title="Logotipni 2 marta bosing">
@@ -204,27 +217,15 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
       </div>
       <div class="hidden xs:block">
         <span class="text-lg font-bold tracking-tight group-hover:text-cyan-400 transition-colors flex items-center gap-1.5">
-          <span id="brandName">Portfolio</span>
+          <span id="brandName">MHDV</span>
           <span id="brandBadge" class="text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 font-mono">v3.0</span>
         </span>
         <p id="brandTag" class="text-[11px] tracking-wider font-mono uppercase" style="color:var(--muted)">Developer Hub</p>
       </div>
     </div>
 
-    <nav id="mainNav" class="hidden lg:flex items-center gap-1 p-1.5 rounded-full border glass" style="border-color:var(--line);background:var(--card)"></nav>
-
+    <!-- O'ng tomondagi boshqaruv (Profil tugmasi bilan) -->
     <div class="flex items-center gap-2">
-      <div id="userChip" class="hidden sm:flex items-center gap-2 pl-2 pr-1 py-1 rounded-2xl border" style="border-color:var(--line);background:var(--card)">
-        <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white text-xs font-bold flex items-center justify-center" id="userChipAv">U</div>
-        <div class="leading-tight pr-1">
-          <div class="text-xs font-semibold max-w-[90px] truncate" id="userChipName">Mehmon</div>
-          <div class="text-[10px] font-mono" style="color:var(--muted)" id="userChipPhone">+998</div>
-        </div>
-        <button onclick="logoutVisitor()" title="Chiqish" class="w-7 h-7 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-xs flex items-center justify-center">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </button>
-      </div>
-
       <button id="themeToggleBtn" class="w-10 h-10 rounded-2xl border hover:bg-white/10 flex items-center justify-center" style="border-color:var(--line);background:var(--card)" title="Mavzu">
         <i class="fa-solid fa-moon" id="themeIcon"></i>
       </button>
@@ -234,15 +235,34 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
         <span id="chatBadge" class="hidden absolute -top-1 -right-1 min-w-[20px] h-5 px-1 bg-emerald-500 text-white rounded-full text-[10px] font-bold flex items-center justify-center ring-2" style="--tw-ring-color:var(--bg)">0</span>
       </button>
 
-      <button id="mobileMenuBtn" class="lg:hidden w-10 h-10 rounded-2xl border flex items-center justify-center" style="border-color:var(--line);background:var(--card)">
-        <i class="fa-solid fa-bars text-lg"></i>
+      <!-- Profil / Akaunt tugmasi -->
+      <button id="profileMenuBtn" class="w-10 h-10 rounded-2xl border flex items-center justify-center relative hover:bg-white/10 transition-colors" style="border-color:var(--line);background:var(--card)" title="Akaunt">
+        <i class="fa-solid fa-user text-lg text-cyan-400"></i>
       </button>
     </div>
   </div>
-  <div id="mobileMenu" class="hidden lg:hidden px-4 pt-2 pb-5 border-t glass space-y-1.5" style="border-color:var(--line);background:var(--card)"></div>
 </header>
 
-<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-20 space-y-28">
+<!-- ===== Profil tahrirlash oynasi (Dropdown) ===== -->
+<div id="profileDropdown" class="hidden fixed z-[9000] right-4 sm:right-8 w-64 rounded-3xl glass shadow-2xl border p-5 space-y-4 transition-all" style="top:calc(env(safe-area-inset-top,0px) + 85px); border-color:var(--line); background:var(--card)">
+  <div class="text-center space-y-2">
+    <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-tr from-cyan-500 to-purple-600 text-white flex items-center justify-center text-2xl font-bold" id="pdAvatar">U</div>
+    <div class="space-y-1">
+      <input id="pdName" type="text" onchange="editMyProfile('name', this.value)" placeholder="Ismingiz" class="w-full bg-transparent text-center font-bold text-lg border-b border-transparent focus:border-cyan-400 focus:outline-none pb-1 transition-colors" title="Tahrirlash uchun ustiga bosing">
+      <input id="pdPhone" type="text" onchange="editMyProfile('phone', this.value)" placeholder="Raqam" class="w-full bg-transparent text-center text-sm font-mono text-cyan-400 border-b border-transparent focus:border-cyan-400 focus:outline-none pb-1 transition-colors" title="Tahrirlash uchun ustiga bosing">
+    </div>
+    <p class="text-[10px] text-slate-400 mt-1">O'zgartirish uchun yozuv ustiga bosing</p>
+  </div>
+  <button onclick="logoutVisitor()" class="w-full py-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 text-sm font-bold flex justify-center items-center gap-2 transition-colors">
+    <i class="fa-solid fa-arrow-right-from-bracket"></i> Chiqish
+  </button>
+</div>
+
+<!-- ===== Kichik Ikonkali Navigatsiya (Fixed) ===== -->
+<nav id="iconNav" class="fixed z-40 left-0 w-full glass border-b overflow-x-auto noscb flex items-center justify-start sm:justify-center gap-3 sm:gap-6 px-4 py-2 transition-all" style="top:calc(env(safe-area-inset-top,0px) + 80px); border-color:var(--line); background:var(--card)"></nav>
+
+<!-- Content padding bilan qo'shildi (Header va nav joyini qoplash uchun) -->
+<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-40 pb-20 space-y-28 w-full max-w-full overflow-hidden">
 
 <!-- ===== HERO ===== -->
 <section id="hero" class="min-h-[78vh] flex items-center py-6">
@@ -253,7 +273,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
       </div>
       <h1 data-rv="up" data-rv-d="80" class="text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight leading-tight">
         Salom, men <br/>
-        <span id="heroNameText" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">Muhammad Amin</span>
+        <span id="heroNameText" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">Mahmudxonov Ibrohimxon</span>
       </h1>
       <p id="heroBioText" data-rv="blur" data-rv-d="160" class="text-base sm:text-lg max-w-2xl leading-relaxed mx-auto lg:mx-0" style="color:var(--muted)"></p>
       <div data-rv="up" data-rv-d="240" class="flex flex-wrap items-center justify-center lg:justify-start gap-3 pt-2">
@@ -399,7 +419,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
     <div>
       <span class="text-sm font-bold flex items-center justify-center sm:justify-start gap-2">
-        <span class="w-2 h-2 rounded-full bg-cyan-400"></span><span id="footerName">Portfolio</span></span>
+        <span class="w-2 h-2 rounded-full bg-cyan-400"></span><span id="footerName">MHDV</span></span>
       <p class="text-xs mt-1" style="color:var(--muted)">Barcha huquqlar himoyalangan &copy; <span id="footerYear"></span></p>
     </div>
     <div class="flex items-center gap-3 text-xs" style="color:var(--muted)">
@@ -555,7 +575,7 @@ const LS_VISITOR = 'pf_v3_visitor';
 const LS_CHAT = 'pf_v3_chat_local';
 const LS_USERS = 'pf_v3_users_local';
 const LS_THEME = 'pf_v3_theme';
-const MAX_INLINE = 190 * 1024; // db hujjatiga sig'adigan fayl hajmi
+const MAX_INLINE = 190 * 1024; 
 
 const THEMES = [
   null,
@@ -566,15 +586,18 @@ const THEMES = [
   { id:5, name:"Ocean Blue",    c1:"#38bdf8", c2:"#3b82f6", c3:"#06b6d4", desc:"Sovuq — okean ko'k" },
   { id:6, name:"Mono Slate",    c1:"#e2e8f0", c2:"#94a3b8", c3:"#64748b", desc:"Minimal — oq-kulrang" }
 ];
-function applyDesignTheme(id){
+
+function applyDesignTheme(id, glassPct){
   id = +id || 1;
   document.documentElement.setAttribute('data-style', id);
+  let g = glassPct != null ? +glassPct : 15;
+  document.documentElement.style.setProperty('--glass-op', (g / 100).toFixed(2));
 }
 
 const DEFAULT = {
-  site: { name:"Portfolio", tag:"Developer Hub", badge:"v3.0", logoText:"M", logoImg:"", logoShape:"rounded", uiStyle:1 },
+  site: { name:"MHDV", tag:"Developer Hub", badge:"v3.0", logoText:"M", logoImg:"", logoShape:"rounded", uiStyle:1, glass: 15 },
   hero: {
-    name:"Muhammad Amin", role:"Frontend & AI Manager", status:"Faol ishlamoqda",
+    name:"Mahmudxonov Ibrohimxon", role:"Frontend & AI Manager", status:"Faol ishlamoqda",
     avatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
     avatarShape:"circle",
     bio:"Foydalanuvchiga zavq ulashuvchi zamonaviy veb ilovalar, intellektual AI yechimlari va yuqori tezlikka ega arxitekturalar yaratuvchisi.",
@@ -596,7 +619,7 @@ const DEFAULT = {
       {id:'ax2',icon:"fa-solid fa-shield-halved",title:"Xavfsizlik",text:"Ma'lumotlar xavfsizligi va himoyaga alohida e'tibor."}
     ],
     info:[
-      {id:'ai1',k:"Manzil",v:"O'zbekiston, Toshkent"},
+      {id:'ai1',k:"Manzil",v:"O'zbekiston, Namangan, Kosonsoy"},
       {id:'ai2',k:"Kasb",v:"Frontend & AI Manager"},
       {id:'ai3',k:"Ish holati",v:"Frilans & loyihalar ochiq"},
       {id:'ai4',k:"Tillar",v:"O'zbek, Rus, Ingliz"}
@@ -644,9 +667,9 @@ const DEFAULT = {
    ============================================================ */
 let DATA = null;
 let DB = null, ASSETS = null, DOWNLOADS = null, USERCAP = null;
-let USERS = {};              // vid -> foydalanuvchi ma'lumoti
-let CHATS = {};              // vid -> {msgs:[...]}
-let ME = null;               // {vid,name,phone}
+let USERS = {};              
+let CHATS = {};              
+let ME = null;               
 let IS_ADMIN = false;
 let canWriteShared = true;
 let activeThread = null;
@@ -681,7 +704,6 @@ function showToast(msg, type='info'){
   setTimeout(()=>{ t.classList.add('opacity-0','translate-y-2'); setTimeout(()=>t.remove(),300); }, 3200);
 }
 
-/* Yo'l bo'yicha qiymat olish/yozish: "hero.name", "projects.2.img" */
 function getPath(path){ return path.split('.').reduce((o,k)=> (o==null?o:o[k]), DATA); }
 function setPath(path, val){
   const ks = path.split('.'); let o = DATA;
@@ -689,7 +711,6 @@ function setPath(path, val){
   o[ks[ks.length-1]] = val;
 }
 
-/* Reveal animatsiyalari */
 let rvObserver = null;
 function initReveal(){
   if(rvObserver) rvObserver.disconnect();
@@ -706,14 +727,13 @@ function initReveal(){
 }
 function rv(kind='up', delay=0){ return `data-rv="${kind}" data-rv-d="${delay}"`; }
 
-/* Havolalarni aniqlash */
 function linkify(text){
   return esc(text).replace(/(https?:\/\/[^\s<]+)/g, u =>
     `<a href="${u}" target="_blank" rel="noopener noreferrer" class="text-cyan-300 hover:text-cyan-200">${u}</a>`);
 }
 
 /* ============================================================
-   3) FAYL BILAN ISHLASH (rasm siqish, yuklash, yuklab olish)
+   3) FAYL BILAN ISHLASH
    ============================================================ */
 function readAsDataURL(file){
   return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=rej; r.readAsDataURL(file); });
@@ -737,7 +757,6 @@ function shrinkImage(file, maxSide=1100, q=0.78){
   });
 }
 
-/* Fayl → {kind,name,type,size,src|fid} ; iloji bo'lsa assets, aks holda db ichida */
 async function storeFile(file, opts={}){
   const isImg = file.type.startsWith('image/');
   const isVid = file.type.startsWith('video/');
@@ -747,7 +766,7 @@ async function storeFile(file, opts={}){
     try{
       const up = await ASSETS.upload(file);
       return Object.assign(meta, { src: up.url, aid: up.id, size: up.sizeBytes || file.size });
-    }catch(e){ /* pastdagi zaxira yo'lga o'tamiz */ }
+    }catch(e){ }
   }
   if(isImg){
     const d = await shrinkImage(file, opts.maxSide||1100, opts.q||0.78);
@@ -775,12 +794,11 @@ async function resolveFileSrc(att){
   if(att.fid){
     if(fileCache[att.fid]) return fileCache[att.fid];
     if(DB){ try{ const s = await DB.doc('files/'+att.fid).get();
-      if(s.exists && s.data && s.data.data){ fileCache[att.fid]=s.data.data; return s.data.data; } }catch(e){} }
+      if(s.exists && s.data() && s.data().data){ fileCache[att.fid]=s.data().data; return s.data().data; } }catch(e){} }
   }
   return null;
 }
 
-/* Yuklab olish tasdiqlash oynasi */
 let pendingDownload = null;
 function askDownload(att){
   if(!att) return;
@@ -812,7 +830,6 @@ async function confirmDownload(){
   }
 }
 
-/* Lightbox */
 async function openLightbox(att){
   const src = await resolveFileSrc(att);
   if(!src) return;
@@ -827,7 +844,7 @@ function closeLightbox(ev){
 }
 
 /* ============================================================
-   4) MA'LUMOT SAQLASH: server (db) + lokal zaxira
+   4) MA'LUMOT SAQLASH
    ============================================================ */
 function mergeDefaults(src){
   const out = clone(DEFAULT);
@@ -879,7 +896,6 @@ function setSync(state){
   const a = $('adminSyncInfo'); if(a){ a.innerText = txt; }
 }
 
-/* Foydalanuvchi (qurilma) profilini serverga yozish */
 async function saveUser(u){
   USERS[u.vid] = u;
   try{ localStorage.setItem(LS_USERS, JSON.stringify(USERS)); }catch(e){}
@@ -891,54 +907,58 @@ async function saveChat(vid){
   if(DB && canWriteShared){ try{ await DB.doc('chats/'+vid).set({ msgs: (CHATS[vid]&&CHATS[vid].msgs)||[] }); }catch(e){} }
 }
 
-/* db ga ulanish va jonli kuzatuv */
-function waitClaude(ms=4000){
-  return new Promise(res=>{
-    if(window.claude && window.claude.use) return res(true);
-    const t0 = Date.now();
-    const iv = setInterval(()=>{
-      if(window.claude && window.claude.use){ clearInterval(iv); res(true); }
-      else if(Date.now()-t0 > ms){ clearInterval(iv); res(false); }
-    }, 150);
-  });
-}
 async function connectServer(){
   setSync('init');
   try{
-    await waitClaude();
-    if(window.claude && claude.use){
-      DB = await claude.use('db').catch(()=>null);
-      ASSETS = await claude.use('assets').catch(()=>null);
-      DOWNLOADS = await claude.use('downloads').catch(()=>null);
-      USERCAP = await claude.use('user').catch(()=>null);
-      if(USERCAP && USERCAP.can){ const w = await USERCAP.can('data.write'); if(w===false) canWriteShared=false; }
-    }
-  }catch(e){}
+    const firebaseConfig = {
+      apiKey: "AIzaSyAKp-OYabFgC2BCEYxrZKYdq8_XUy2b3zc",
+      authDomain: "portfoliyo-c2103.firebaseapp.com",
+      projectId: "portfoliyo-c2103",
+      storageBucket: "portfoliyo-c2103.firebasestorage.app",
+      messagingSenderId: "285640353556",
+      appId: "1:285640353556:web:783f863a8d4b7fb9d8c401",
+      measurementId: "G-1V78RDGJE3"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    DB = firebase.firestore();
+    const storage = firebase.storage();
+    ASSETS = {
+      upload: async (file) => {
+        const ref = storage.ref('files/' + Date.now() + '_' + file.name);
+        await ref.put(file);
+        const url = await ref.getDownloadURL();
+        return { url, id: ref.fullPath, sizeBytes: file.size };
+      }
+    };
+    canWriteShared = true;
+  }catch(e){
+    console.error("Firebase ulanish xatosi:", e);
+    setSync('local');
+    return;
+  }
+
   if(!DB){ setSync('local'); return; }
 
-  // Kontent
   unsubs.push(DB.doc('site/content').onSnapshot(snap=>{
-    if(snap.exists && snap.data){
-      const incoming = mergeDefaults(snap.data);
+    if(snap.exists && snap.data()){
+      const incoming = mergeDefaults(snap.data());
       if(!savingNow){ DATA = incoming; localSave(); renderAll(); if(IS_ADMIN) renderAdminActive(); }
       setSync(canWriteShared?'ok':'readonly');
     } else if(canWriteShared){
       DB.doc('site/content').set(clone(DATA)).then(()=>setSync('ok')).catch(()=>setSync('readonly'));
     }
-  }, e=>{ setSync(e && e.code==='revoked' ? 'local' : 'err'); }));
+  }, e=>{ setSync(e && e.code==='permission-denied' ? 'readonly' : 'err'); }));
 
-  // Qurilmalar / foydalanuvchilar
   unsubs.push(DB.collection('users').onSnapshot(qs=>{
-    const m = {}; qs.docs.forEach(d=>{ m[d.id] = Object.assign({vid:d.id}, d.data); });
+    const m = {}; qs.docs.forEach(d=>{ m[d.id] = Object.assign({vid:d.id}, d.data()); });
     USERS = m;
     if(ME && USERS[ME.vid] && USERS[ME.vid].blocked) showBlocked();
     if(IS_ADMIN){ renderVisitors(); renderThreadList(); }
     updateChatBadge();
   }, ()=>{}));
 
-  // Chatlar
   unsubs.push(DB.collection('chats').onSnapshot(qs=>{
-    const m = {}; qs.docs.forEach(d=>{ m[d.id] = { msgs: (d.data&&d.data.msgs)||[] }; });
+    const m = {}; qs.docs.forEach(d=>{ m[d.id] = { msgs: (d.data()&&d.data().msgs)||[] }; });
     CHATS = m;
     if(IS_ADMIN){ renderThreadList(); if(activeThread) renderAdminChat(); }
     if(ME) renderUserChat();
@@ -951,30 +971,26 @@ async function connectServer(){
    5) OMMAVIY QISM RENDERI
    ============================================================ */
 const NAV = [
-  ['hero',"Bosh sahifa"],['projects',"Loyihalar"],['skills',"Ko'nikmalar"],
-  ['services',"Xizmatlar"],['timeline',"Tajriba"],['reviews',"Sharhlar"],
-  ['about',"Men haqimda"],['contact',"Bog'lanish"]
+  ['hero',"fa-house"],['projects',"fa-diagram-project"],['skills',"fa-chart-simple"],
+  ['services',"fa-briefcase"],['timeline',"fa-timeline"],['reviews',"fa-star"],
+  ['about',"fa-address-card"],['contact',"fa-share-nodes"]
 ];
 function renderNav(){
-  $('mainNav').innerHTML = NAV.map(([id,t])=>
-    `<a href="#${id}" class="px-3.5 py-1.5 rounded-full text-sm font-medium hover:bg-white/10 transition-all" style="color:var(--muted)">${t}</a>`).join('');
-  $('mobileMenu').innerHTML = NAV.map(([id,t])=>
-    `<a href="#${id}" class="mnav block px-4 py-2.5 rounded-xl hover:bg-white/10 font-medium text-sm">${t}</a>`).join('');
-  document.querySelectorAll('.mnav').forEach(a=>a.onclick=()=>$('mobileMenu').classList.add('hidden'));
-}
-
-function shapeCls(shape, base){
-  return shape==='circle' ? 'rounded-full' : shape==='square' ? 'rounded-none' : (base||'rounded-2xl');
+  const inav = $('iconNav');
+  if(inav) {
+    inav.innerHTML = NAV.map(([id,ic])=>
+      `<a href="#${id}" class="w-10 h-10 shrink-0 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-cyan-400 transition-all text-lg"><i class="fa-solid ${ic}"></i></a>`).join('');
+  }
 }
 
 function renderBrand(){
   const s = DATA.site;
-  applyDesignTheme(s.uiStyle||1);
-  $('brandName').innerText = s.name || 'Portfolio';
+  applyDesignTheme(s.uiStyle||1, s.glass!=null?s.glass:15);
+  $('brandName').innerText = s.name || 'MHDV';
   $('brandTag').innerText = s.tag || '';
   $('brandBadge').innerText = s.badge || '';
   $('brandBadge').style.display = s.badge ? '' : 'none';
-  $('footerName').innerText = s.name || 'Portfolio';
+  $('footerName').innerText = s.name || 'MHDV';
   $('footerYear').innerText = new Date().getFullYear();
   const box = $('brandLogoBox'), inner = $('brandLogoInner');
   const sh = s.logoShape || 'rounded';
@@ -1062,7 +1078,6 @@ function downloadProject(id){
   if(p && p.file) askDownload(p.file); else showToast('Fayl biriktirilmagan','error');
 }
 
-/* ---------- Ko'nikmalar (yangi UI) ---------- */
 let skillCat = 'all';
 function skillColor(p){ return p>=90?['#22d3ee','text-cyan-400']:p>=75?['#818cf8','text-indigo-400']:p>=60?['#fbbf24','text-amber-400']:['#fb7185','text-rose-400']; }
 function skillLevel(p){ return p>=90?'Ekspert':p>=75?'Yuqori':p>=60?"O'rta":'Boshlang\'ich'; }
@@ -1117,7 +1132,6 @@ function renderSkills(){
 }
 function setSkillCat(c){ skillCat=c; renderSkills(); }
 
-/* ---------- Xizmatlar / Tajriba / Sharhlar ---------- */
 function renderServices(){
   $('servicesGrid').innerHTML = (DATA.services||[]).map((s,i)=>`
     <div ${rv(i%2?'right':'left',(i%3)*70)} class="p-6 rounded-3xl surface glass tilt space-y-3 hover:border-purple-500/40">
@@ -1159,7 +1173,6 @@ function renderReviews(){
   initReveal();
 }
 
-/* ---------- Men haqimda ---------- */
 function renderAbout(){
   const a = DATA.about||{};
   $('aboutContentText').innerHTML = (a.paragraphs||[]).map(p=>`<p style="color:var(--muted)">${esc(p.text)}</p>`).join('');
@@ -1167,6 +1180,16 @@ function renderAbout(){
   if(a.img){ img.src = a.img; img.classList.remove('hidden'); img.onclick=()=>openLightbox({kind:'image',src:a.img,name:'about'}); img.style.cursor='zoom-in'; }
   else img.classList.add('hidden');
   const cols = ['text-cyan-400','text-purple-400','text-emerald-400','text-amber-400'];
+  
+  const block = (sub, title, fields) => card(`
+    <div class="flex items-center justify-between"><h4 class="font-bold text-sm">${title}</h4>
+      <button onclick="subAdd('${sub}')" class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-plus"></i> Qo'shish</button></div>
+    <div class="space-y-4">${(a[sub]||[]).map((it,i)=>`
+      <div class="p-3 rounded-2xl border border-white/10 bg-white/5 space-y-3">
+        <div class="flex justify-end"><button onclick="subDel('${sub}',${i})" class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400"><i class="fa-solid fa-trash text-[11px]"></i></button></div>
+        ${fields.map(f=>fld(`about.${sub}.${i}.${f.k}`, f, it[f.k])).join('')}
+      </div>`).join('')}</div>`);
+
   $('aboutHighlights').innerHTML = (a.highlights||[]).map((h,i)=>`
     <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-1">
       <div class="${cols[i%4]} font-bold text-sm flex items-center gap-2"><i class="${esc(h.icon||'fa-solid fa-star')}"></i> ${esc(h.title)}</div>
@@ -1180,10 +1203,19 @@ function renderAbout(){
   $('aboutInfoList').innerHTML = (a.info||[]).map(it=>`
     <li class="flex justify-between gap-3 py-2 border-b" style="border-color:var(--line)">
       <span style="color:var(--muted)">${esc(it.k)}:</span><span class="font-medium text-right">${esc(it.v)}</span></li>`).join('');
-  initReveal();
+  
+  const paneAbout = $('pane-about');
+  if (paneAbout) {
+    paneAbout.innerHTML =
+      head("Men haqimda","Matnlar, qo'shimcha kartalar va ma'lumotlar ro'yxati — xohlaganingizcha qo'shing.") +
+      card(fld('about.img',{l:'Bo\'lim rasmi',t:'img'}, a.img)) +
+      `<div class="mt-4">${block('paragraphs',"Matn paragraflari",[{k:'text',l:'Matn',t:'area',rows:4}])}</div>` +
+      `<div class="mt-4">${block('highlights',"Asosiy kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}])}</div>` +
+      `<div class="mt-4">${block('extras',"Qo'shimcha kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}])}</div>` +
+      `<div class="mt-4">${block('info',"Asosiy ma'lumotlar ro'yxati",[{k:'k',l:'Nomi',t:'text'},{k:'v',l:'Qiymati',t:'text'}])}</div>`;
+  }
 }
 
-/* ---------- Ijtimoiy tarmoqlar ---------- */
 const SOC_COLORS = { blue:'from-blue-500/20 to-blue-600/10 text-blue-300 border-blue-500/30',
   sky:'from-sky-500/20 to-sky-600/10 text-sky-300 border-sky-500/30',
   purple:'from-purple-500/20 to-fuchsia-600/10 text-purple-300 border-purple-500/30',
@@ -1227,7 +1259,7 @@ function closeWebsitePreview(){
 }
 
 /* ============================================================
-   7) FOYDALANUVCHI RO'YXATDAN O'TISHI (ism + 9 xonali raqam)
+   7) FOYDALANUVCHI RO'YXATDAN O'TISHI
    ============================================================ */
 function deviceInfo(){
   const ua = navigator.userAgent;
@@ -1289,18 +1321,35 @@ async function registerVisitor(name, phone){
   hideGate();
   renderUserChat();
 }
+
 function updateUserChip(){
-  const c = $('userChip');
-  if(!ME){ c.classList.add('hidden'); return; }
-  c.classList.remove('hidden'); c.classList.add('sm:flex');
-  $('userChipAv').innerText = (ME.name||'U').charAt(0).toUpperCase();
-  $('userChipName').innerText = ME.name;
-  $('userChipPhone').innerText = '+998 '+ME.phone;
+  if(ME){
+    const av = $('pdAvatar'); if(av) av.innerText = (ME.name||'U').charAt(0).toUpperCase();
+    const nm = $('pdName'); if(nm) nm.value = ME.name;
+    const ph = $('pdPhone'); if(ph) ph.value = ME.phone;
+  }
 }
+
+function editMyProfile(field, val){
+  if(!ME) return;
+  val = val.trim(); if(!val) return;
+  if(field==='phone') val = val.replace(/\D/g,'').slice(-9);
+  ME[field] = val;
+  try{ localStorage.setItem(LS_VISITOR, JSON.stringify(ME)); }catch(e){}
+  updateUserChip();
+  if(USERS[ME.vid]){ 
+    USERS[ME.vid][field] = field==='phone'?('+998'+val):val; 
+    saveUser(USERS[ME.vid]); 
+  }
+  showToast("Ma'lumot yangilandi",'success');
+}
+
 function logoutVisitor(){
   if(!confirm("Chiqmoqchimisiz? Keyingi kirishda ism va raqam qaytadan so'raladi.")) return;
   try{ localStorage.removeItem(LS_VISITOR); }catch(e){}
-  ME = null; closeChat(); updateUserChip(); showGate();
+  ME = null; closeChat();
+  const drop = $('profileDropdown'); if(drop) drop.classList.add('hidden');
+  showGate();
 }
 function showBlocked(){ $('blockedScreen').classList.remove('hidden'); document.body.style.overflow='hidden'; }
 
@@ -1577,17 +1626,18 @@ function arrEditor(key, fields, opts={}){
     `)).join('') || `<div class="p-8 rounded-3xl surface text-center text-sm" style="color:var(--muted)">Hozircha bo'sh. "Yangi qo'shish" tugmasini bosing.</div>`}
   </div>`;
 }
-const NEW_ITEM = {
-  projects: ()=>({id:uid('p'),name:"Yangi loyiha",desc:"Qisqa tavsif",type:"veb sayt",link:"",img:"",file:null,tags:""}),
-  skills: ()=>({id:uid('s'),name:"Yangi ko'nikma",cat:"Boshqa",icon:"fa-solid fa-code",percent:70}),
-  services: ()=>({id:uid('sv'),icon:"fa-solid fa-star",title:"Yangi xizmat",desc:"Tavsif",price:""}),
-  timeline: ()=>({id:uid('t'),year:"2026",title:"Yangi bosqich",place:"",desc:""}),
-  reviews: ()=>({id:uid('r'),name:"Mijoz",role:"",rating:5,text:"Sharh matni",avatar:""}),
-  socials: ()=>({id:uid('c'),name:"Yangi tarmoq",link:"https://",color:"slate",icon:"fa-solid fa-link"})
-};
+
 function arrAdd(key){
   if(!DATA[key]) DATA[key]=[];
-  DATA[key].push(NEW_ITEM[key]?NEW_ITEM[key]():{id:uid()});
+  let item = {id:uid()};
+  if(key === 'projects') item = {id:uid('p'),name:"Yangi loyiha",desc:"Qisqa tavsif",type:"veb sayt",link:"",img:"",file:null,tags:""};
+  else if(key === 'skills') item = {id:uid('s'),name:"Yangi ko'nikma",cat:"Boshqa",icon:"fa-solid fa-code",percent:70};
+  else if(key === 'services') item = {id:uid('sv'),icon:"fa-solid fa-star",title:"Yangi xizmat",desc:"Tavsif",price:""};
+  else if(key === 'timeline') item = {id:uid('t'),year:new Date().getFullYear().toString(),title:"Yangi bosqich",place:"",desc:""};
+  else if(key === 'reviews') item = {id:uid('r'),name:"Mijoz",role:"",rating:5,text:"Sharh matni",avatar:""};
+  else if(key === 'socials') item = {id:uid('c'),name:"Yangi tarmoq",link:"https://",color:"slate",icon:"fa-solid fa-link"};
+
+  DATA[key].push(item);
   saveContent(true); renderAll(); renderAdminActive(); showToast("Qo'shildi",'success');
 }
 function arrDel(key,i){
@@ -1598,8 +1648,19 @@ function arrMove(key,i,d){
   const a=DATA[key], j=i+d; if(j<0||j>=a.length) return;
   [a[i],a[j]]=[a[j],a[i]]; saveContent(true); renderAll(); renderAdminActive();
 }
-/* about ichidagi massivlar */
-function subAdd(sub, item){ if(!DATA.about[sub]) DATA.about[sub]=[]; DATA.about[sub].push(item); saveContent(true); renderAll(); renderAdminActive(); }
+
+function subAdd(sub){ 
+  if(!DATA.about[sub]) DATA.about[sub]=[]; 
+  let item = {};
+  if(sub === 'paragraphs') item = {id:'ap'+Date.now(), text:"Yangi paragraf"};
+  else if(sub === 'highlights') item = {id:'ah'+Date.now(), icon:'fa-solid fa-star', title:"Yangi karta", text:"Tavsif"};
+  else if(sub === 'extras') item = {id:'ax'+Date.now(), icon:'fa-solid fa-bolt', title:"Yangi qo'shimcha", text:"Tavsif"};
+  else if(sub === 'info') item = {id:'ai'+Date.now(), k:"Yangi", v:"Qiymat"};
+  
+  DATA.about[sub].push(item); 
+  saveContent(true); renderAll(); renderAdminActive(); 
+}
+
 function subDel(sub,i){ if(!confirm("O'chirilsinmi?")) return; DATA.about[sub].splice(i,1); saveContent(true); renderAll(); renderAdminActive(); }
 function statAdd(){ DATA.hero.stats.push({id:uid('st'),val:"0",label:"Yangi"}); saveContent(true); renderAll(); renderAdminActive(); }
 function statDel(i){ DATA.hero.stats.splice(i,1); saveContent(true); renderAll(); renderAdminActive(); }
@@ -1612,6 +1673,7 @@ function renderPaneSite(){
       {k:'name',l:'Sayt nomi',t:'text'}, {k:'tag',l:'Qisqa izoh (tagline)',t:'text'},
       {k:'badge',l:'Badge (masalan v3.0)',t:'text'}, {k:'logoText',l:'Logo harfi (rasm bo\'lmasa)',t:'text'},
       {k:'logoShape',l:'Logo shakli',t:'sel',opts:[['rounded','Yumaloqlangan kvadrat'],['circle','Dumaloq'],['square','To\'rtburchak']]},
+      {k:'glass',l:'Glass shaffofligi (foiz 0-100)',t:'num'},
       {k:'logoImg',l:'Logo rasmi',t:'img',full:true}
     ])) +
     `<div class="mt-4">${card(`<h4 class="font-bold text-sm mb-3">Ko'rinish namunasi</h4>
@@ -1622,11 +1684,11 @@ function renderPaneSite(){
           <div class="text-[11px] font-mono uppercase" style="color:var(--muted)">${esc(DATA.site.tag||'')}</div></div>
       </div>`)}</div>`;
 }
-/* ---------- UI Dizayn (6 ta tema) ---------- */
+
 function chooseUiStyle(id){
   DATA.site.uiStyle = id;
   saveContent(true);
-  applyDesignTheme(id);
+  applyDesignTheme(id, DATA.site.glass != null ? DATA.site.glass : 15);
   renderAdminActive();
   showToast('Dizayn barcha qurilmalarda yangilanmoqda','success');
 }
@@ -1712,24 +1774,30 @@ function renderPaneReviews(){
     {k:'avatar',l:'Rasm',t:'img',full:true}
   ], {title:"Mijozlar sharhi"});
 }
+
 function renderPaneAbout(){
   const a = DATA.about;
-  const block = (sub, title, fields, mk) => card(`
+  const block = (sub, title, fields) => card(`
     <div class="flex items-center justify-between"><h4 class="font-bold text-sm">${title}</h4>
-      <button onclick='subAdd("${sub}", ${JSON.stringify(mk).replace(/'/g,"&#39;")})' class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-plus"></i> Qo'shish</button></div>
+      <button onclick="subAdd('${sub}')" class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-solid fa-plus"></i> Qo'shish</button></div>
     <div class="space-y-4">${(a[sub]||[]).map((it,i)=>`
       <div class="p-3 rounded-2xl border border-white/10 bg-white/5 space-y-3">
         <div class="flex justify-end"><button onclick="subDel('${sub}',${i})" class="w-8 h-8 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400"><i class="fa-solid fa-trash text-[11px]"></i></button></div>
         ${fields.map(f=>fld(`about.${sub}.${i}.${f.k}`, f, it[f.k])).join('')}
       </div>`).join('')}</div>`);
-  $('pane-about').innerHTML =
-    head("Men haqimda","Matnlar, qo'shimcha kartalar va ma'lumotlar ro'yxati — xohlaganingizcha qo'shing.") +
-    card(fld('about.img',{l:'Bo\'lim rasmi',t:'img'}, a.img)) +
-    `<div class="mt-4">${block('paragraphs',"Matn paragraflari",[{k:'text',l:'Matn',t:'area',rows:4}],{id:'ap'+Date.now(),text:"Yangi paragraf"})}</div>` +
-    `<div class="mt-4">${block('highlights',"Asosiy kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}],{id:'ah'+Date.now(),icon:'fa-solid fa-star',title:"Yangi karta",text:"Tavsif"})}</div>` +
-    `<div class="mt-4">${block('extras',"Qo'shimcha kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}],{id:'ax'+Date.now(),icon:'fa-solid fa-bolt',title:"Yangi qo'shimcha",text:"Tavsif"})}</div>` +
-    `<div class="mt-4">${block('info',"Asosiy ma'lumotlar ro'yxati",[{k:'k',l:'Nomi',t:'text'},{k:'v',l:'Qiymati',t:'text'}],{id:'ai'+Date.now(),k:"Yangi",v:"Qiymat"})}</div>`;
+      
+  const paneAbout = $('pane-about');
+  if (paneAbout) {
+    paneAbout.innerHTML =
+      head("Men haqimda","Matnlar, qo'shimcha kartalar va ma'lumotlar ro'yxati — xohlaganingizcha qo'shing.") +
+      card(fld('about.img',{l:'Bo\'lim rasmi',t:'img'}, a.img)) +
+      `<div class="mt-4">${block('paragraphs',"Matn paragraflari",[{k:'text',l:'Matn',t:'area',rows:4}])}</div>` +
+      `<div class="mt-4">${block('highlights',"Asosiy kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}])}</div>` +
+      `<div class="mt-4">${block('extras',"Qo'shimcha kartalar",[{k:'icon',l:'Ikonka',t:'icon'},{k:'title',l:'Sarlavha',t:'text'},{k:'text',l:'Matn',t:'area'}])}</div>` +
+      `<div class="mt-4">${block('info',"Asosiy ma'lumotlar ro'yxati",[{k:'k',l:'Nomi',t:'text'},{k:'v',l:'Qiymati',t:'text'}])}</div>`;
+  }
 }
+
 function renderPaneContact(){
   $('pane-contact').innerHTML = arrEditor('socials', [
     {k:'name',l:'Nomi',t:'text'}, {k:'link',l:'Havola',t:'text'},
@@ -1823,7 +1891,7 @@ async function refreshVisitors(){
   if(DB){
     try{
       const qs = await DB.collection('users').get();
-      const m = {}; qs.docs.forEach(d=>{ m[d.id]=Object.assign({vid:d.id}, d.data); });
+      const m = {}; qs.docs.forEach(d=>{ m[d.id]=Object.assign({vid:d.id}, d.data()); });
       USERS = m; showToast('Yangilandi','success');
     }catch(e){ showToast('Serverdan olinmadi','error'); }
   } else showToast('Lokal rejim','info');
@@ -1862,9 +1930,7 @@ function renderVisitors(){
         <div class="flex items-start gap-3 flex-wrap">
           <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
           <div class="flex-1 min-w-[160px]">
-            <div class="font-bold text-sm flex items-center gap-2">${esc(u.name||'Mehmon')}
-              ${u.blocked?'<span class="px-2 py-0.5 rounded-md bg-red-500/20 text-red-400 text-[10px]">BLOK</span>':''}</div>
-            <a href="tel:${esc(u.phone||'')}" class="text-xs font-mono text-cyan-400">${esc(u.phone||'—')}</a>
+            <a href="tel:${esc(u.phone || '')}" class="text-xs font-mono text-cyan-400">${esc(u.phone || '—')}</a>
           </div>
           <div class="flex items-center gap-2">
             <button onclick="openThreadFromUsers('${u.vid}')" class="px-3 py-2 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold"><i class="fa-regular fa-comment"></i></button>
@@ -1936,7 +2002,7 @@ function threadTone(u){
 }
 function renderThreadList(){
   const box = $('threadList'); if(!box) return;
-  const q = ($('threadSearch') && $('threadSearch').value.trim().toLowerCase()) || '';
+  const q = ($('threadSearch') &&$('threadSearch').value.trim().toLowerCase()) || '';
   let list = Object.values(USERS);
   if(q) list = list.filter(u => (u.name||'').toLowerCase().includes(q) || (u.phone||'').includes(q));
   list.sort((a,b)=> (b.lastAt||0)-(a.lastAt||0) || (b.last||0)-(a.last||0));
@@ -1949,11 +2015,11 @@ function renderThreadList(){
         <div class="w-9 h-9 shrink-0 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white text-xs font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-2">
-            <span class="font-bold text-xs truncate ${tx}">${esc(u.name||'Mehmon')}</span>
+            <span class="font-bold text-xs truncate ${tx}">${esc(u.name || 'Mehmon')}</span>
             ${u.blocked?'<i class="fa-solid fa-ban text-red-400 text-[10px]"></i>':''}
             <span class="ml-auto text-[10px] opacity-60 font-mono">${u.lastAt?agoStr(u.lastAt):''}</span>
           </div>
-          <div class="text-[11px] truncate ${u.lastText?'opacity-80':'opacity-40 italic'}">${esc(u.lastText||'Hali xabar yozmagan')}</div>
+          <div class="text-[11px] truncate ${u.lastText?'opacity-80':'opacity-40 italic'}">${esc(u.lastText || 'Hali xabar yozmagan')}</div>
         </div>
         ${un?`<span class="w-5 h-5 shrink-0 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center">${un}</span>`:''}
       </div></button>`;
@@ -1972,7 +2038,7 @@ async function clearThread(){
   showToast('Suhbat tozalandi','success');
 }
 async function renderAdminChat(){
-  const hd = $('aChatHead'), box = $('aChatMessages');
+  const hd = $('aChatHead'), box =$('aChatMessages');
   if(!hd || !box) return;
   if(!activeThread || !USERS[activeThread]){
     hd.innerHTML = `<span class="text-xs" style="color:var(--muted)">Foydalanuvchini tanlang</span>`;
@@ -1984,8 +2050,8 @@ async function renderAdminChat(){
   hd.innerHTML = `
     <div class="flex items-center gap-3 min-w-0">
       <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-500 to-purple-600 text-white font-bold flex items-center justify-center">${esc((u.name||'?').charAt(0).toUpperCase())}</div>
-      <div class="min-w-0"><div class="font-bold text-sm truncate">${esc(u.name||'Mehmon')}</div>
-        <div class="text-[11px] font-mono truncate" style="color:var(--muted)">${esc(u.phone||'')} • ${esc(u.device||'')}</div></div>
+      <div class="min-w-0"><div class="font-bold text-sm truncate">${esc(u.name || 'Mehmon')}</div>
+        <div class="text-[11px] font-mono truncate" style="color:var(--muted)">${esc(u.phone || '')} • ${esc(u.device || '')}</div></div>
     </div>
     <div class="flex items-center gap-2">
       <button onclick="toggleBlock('${u.vid}')" class="px-3 py-2 rounded-xl border text-xs" style="border-color:var(--line)"><i class="fa-solid ${u.blocked?'fa-lock-open':'fa-ban'}"></i></button>
@@ -2052,8 +2118,7 @@ function applyTheme(t){
 function initEvents(){
   // Mavzu
   $('themeToggleBtn').onclick = ()=> applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
-  // Mobil menyu
-  $('mobileMenuBtn').onclick = ()=> $('mobileMenu').classList.toggle('hidden');
+  
   // Chat
   $('openChatBtn').onclick = ()=> chatOpen() ? closeChat() : openChat();
   $('chatForm').onsubmit = async ev=>{
@@ -2064,6 +2129,24 @@ function initEvents(){
     $('chatInput').value=''; clearAttach('user');
     await sendMessage('user', ME.vid, t, a);
   };
+
+  // Profil (Akaunt) dropdown toggle
+  $('profileMenuBtn').onclick = (e) => {
+    e.stopPropagation();
+    if(!ME){ showGate(); return; }
+    $('profileDropdown').classList.toggle('hidden');
+    updateUserChip();
+  };
+  
+  // Tashqariga bosilganda profil oynasini yopish
+  document.addEventListener('click', (e) => {
+    const btn = $('profileMenuBtn');
+    const drop = $('profileDropdown');
+    if(btn && drop && !btn.contains(e.target) && !drop.contains(e.target)) {
+      drop.classList.add('hidden');
+    }
+  });
+
   // Gate forma
   $('gateForm').onsubmit = async ev=>{
     ev.preventDefault();
@@ -2078,20 +2161,22 @@ function initEvents(){
     showToast(`Xush kelibsiz, ${name}!`,'success');
   };
   $('gatePhone').addEventListener('input', e=>{ e.target.value = e.target.value.replace(/\D/g,'').slice(0,9); });
+
   // Admin kirish: logotipni 2 marta bosish yoki Ctrl+Shift+A
   $('brandLogo').ondblclick = openAdminLogin;
   document.addEventListener('keydown', e=>{
     if(e.ctrlKey && e.shiftKey && (e.key==='A'||e.key==='a')){ e.preventDefault(); openAdminLogin(); }
-    if(e.key==='Escape'){ closeLightbox(); closeWebsitePreview(); closeDlModal(); }
+    if(e.key==='Escape'){ 
+      closeLightbox(); closeWebsitePreview(); closeDlModal(); 
+      const drop = $('profileDropdown'); if(drop) drop.classList.add('hidden');
+    }
   });
   $('adminLoginForm').onsubmit = ev=>{
     ev.preventDefault();
-    const l = $('adminLoginUser').value.trim(), p = $('adminLoginPass').value;
+    const l = $('adminLoginUser').value.trim(), p =$('adminLoginPass').value;
     if(l===DATA.auth.login && p===DATA.auth.pass){ closeAdminLogin(); openAdminPanel(); showToast('Xush kelibsiz, admin','success'); }
     else showToast("Login yoki parol noto'g'ri",'error');
   };
-  // Havola bosilganda mobil menyuni yopish
-  window.addEventListener('hashchange', ()=> $('mobileMenu').classList.add('hidden'));
 }
 
 async function init(){
@@ -2113,7 +2198,7 @@ async function init(){
   // Serverga ulanish
   await connectServer();
 
-  // Kirish faktini yozish (faqat haqiqiy foydalanuvchi, sahifa yangilanishi soxta yozuv yaratmaydi)
+  // Kirish faktini yozish (faqat haqiqiy foydalanuvchi)
   if(ME){
     const u = USERS[ME.vid];
     if(u && u.blocked){ showBlocked(); return; }
@@ -2130,7 +2215,7 @@ async function init(){
     }));
     renderUserChat();
   }
-  applyDesignTheme(DATA.site.uiStyle||1);
+  applyDesignTheme(DATA.site.uiStyle||1, DATA.site.glass!=null?DATA.site.glass:15);
   updateChatBadge();
 }
 document.addEventListener('DOMContentLoaded', init);
