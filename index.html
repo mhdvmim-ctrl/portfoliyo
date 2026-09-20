@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Portfolio &amp; Creative Hub</title>
+<title>MHDV</title>
+<link id="faviconLink" rel="icon" href="./my logo.jpg">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
 tailwind.config = { darkMode:'class', theme:{ extend:{
@@ -19,7 +20,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=Manrope:wght@300;400;500;600;700;800&family=Sora:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     box-sizing:border-box;
@@ -27,13 +28,77 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
     padding-bottom:env(safe-area-inset-bottom,0px);
     --bg:#020617; --bg2:#0f172a; --fg:#e2e8f0; --muted:#94a3b8;
     --card:rgba(15,23,42,.62); --line:rgba(255,255,255,.10);
+    --c1:#22d3ee; --c2:#6366f1; --c3:#a855f7;
+    --c1r:34,211,238; --c2r:99,102,241; --c3r:168,85,247;
+    --font-main:'Plus Jakarta Sans',sans-serif;
+    --r-md:.375rem; --r-lg:.5rem; --r-xl:.75rem; --r-2xl:1rem; --r-3xl:1.5rem;
+    --btn-track:normal; --btn-weight:600;
   }
   html[data-theme="light"]{ --bg:#f1f5f9; --bg2:#ffffff; --fg:#0f172a; --muted:#475569;
     --card:rgba(255,255,255,.72); --line:rgba(15,23,42,.10); }
+
+  /* ===== UI DIZAYN — 6 ta mavzu (rang, shakl, shrift birgalikda o'zgaradi) ===== */
+  html[data-style="2"]{ --c1:#fb923c; --c2:#f43f5e; --c3:#f59e0b; --c1r:251,146,60; --c2r:244,63,94; --c3r:245,158,11;
+    --font-main:'Poppins',sans-serif; --r-md:999px; --r-lg:999px; --r-xl:1.25rem; --r-2xl:1.5rem; --r-3xl:1.75rem; --btn-weight:700; }
+  html[data-style="3"]{ --c1:#34d399; --c2:#10b981; --c3:#22d3ee; --c1r:52,211,153; --c2r:16,185,129; --c3r:34,211,238;
+    --font-main:'Manrope',sans-serif; --r-md:.5rem; --r-lg:.75rem; --r-xl:1rem; --r-2xl:1.25rem; --r-3xl:1.75rem; --btn-weight:600; }
+  html[data-style="4"]{ --c1:#a78bfa; --c2:#8b5cf6; --c3:#ec4899; --c1r:167,139,250; --c2r:139,92,246; --c3r:236,72,153;
+    --font-main:'Sora',sans-serif; --r-md:.75rem; --r-lg:1rem; --r-xl:1.5rem; --r-2xl:2rem; --r-3xl:2.5rem; --btn-weight:600; }
+  html[data-style="5"]{ --c1:#38bdf8; --c2:#3b82f6; --c3:#06b6d4; --c1r:56,189,248; --c2r:59,130,246; --c3r:6,182,212;
+    --font-main:'Outfit',sans-serif; --r-md:.25rem; --r-lg:.375rem; --r-xl:.6rem; --r-2xl:.85rem; --r-3xl:1.1rem; --btn-weight:500; }
+  html[data-style="6"]{ --c1:#e2e8f0; --c2:#94a3b8; --c3:#64748b; --c1r:226,232,240; --c2r:148,163,184; --c3r:100,116,139;
+    --font-main:'Space Grotesk',sans-serif; --r-md:0px; --r-lg:.125rem; --r-xl:.25rem; --r-2xl:.375rem; --r-3xl:.5rem; --btn-track:.03em; --btn-weight:700; }
+  html[data-theme="dark"][data-style="2"]{ --bg:#170a06; --bg2:#241009; }
+  html[data-theme="dark"][data-style="3"]{ --bg:#031311; --bg2:#06231b; }
+  html[data-theme="dark"][data-style="4"]{ --bg:#0c0620; --bg2:#160a32; }
+  html[data-theme="dark"][data-style="5"]{ --bg:#020a17; --bg2:#071b30; }
+  html[data-theme="dark"][data-style="6"]{ --bg:#0a0a0a; --bg2:#161616; }
+
+  /* Tailwind utillarini brend o'zgaruvchisi orqali qayta ranglash (barcha temalar uchun umumiy) */
+  .t1{ color:var(--c1)!important } .t2{ color:var(--c2)!important } .t3{ color:var(--c3)!important }
+  .text-cyan-400,.text-cyan-300,.text-cyan-200,.text-cyan-400\/90,.text-indigo-400{ color:var(--c1)!important }
+  .text-purple-400,.text-purple-300{ color:var(--c3)!important }
+  .bg-cyan-400{ background-color:var(--c1)!important }
+  .bg-cyan-500{ background-color:var(--c1)!important }
+  .bg-cyan-600\/90{ background-color:rgba(var(--c1r),.9)!important }
+  .bg-cyan-500\/10{ background-color:rgba(var(--c1r),.10)!important }
+  .bg-cyan-500\/15{ background-color:rgba(var(--c1r),.15)!important }
+  .bg-cyan-500\/20{ background-color:rgba(var(--c1r),.20)!important }
+  .bg-purple-500\/15{ background-color:rgba(var(--c3r),.15)!important }
+  .bg-purple-600\/15{ background-color:rgba(var(--c3r),.15)!important }
+  .border-cyan-400{ border-color:var(--c1)!important }
+  .border-cyan-400\/40{ border-color:rgba(var(--c1r),.4)!important }
+  .border-cyan-500\/20{ border-color:rgba(var(--c1r),.2)!important }
+  .border-cyan-500\/30{ border-color:rgba(var(--c1r),.3)!important }
+  .border-cyan-500\/40{ border-color:rgba(var(--c1r),.4)!important }
+  .border-purple-500\/30{ border-color:rgba(var(--c3r),.3)!important }
+  .border-purple-500\/40{ border-color:rgba(var(--c3r),.4)!important }
+  .ring-cyan-400\/60{ --tw-ring-color:rgba(var(--c1r),.6)!important }
+  .shadow-cyan-500\/20{ box-shadow:0 10px 25px -5px rgba(var(--c1r),.2),0 8px 10px -6px rgba(var(--c1r),.2)!important }
+  .shadow-cyan-500\/25{ box-shadow:0 10px 25px -5px rgba(var(--c1r),.25),0 8px 10px -6px rgba(var(--c1r),.25)!important }
+  .from-cyan-400.via-indigo-500.to-purple-500{ background-image:linear-gradient(to right,var(--c1),var(--c2),var(--c3))!important }
+  .from-cyan-500.via-indigo-500.to-purple-600{ background-image:linear-gradient(to top right,var(--c1),var(--c2),var(--c3))!important }
+  .from-cyan-500.to-purple-600{ background-image:linear-gradient(to top right,var(--c1),var(--c3))!important }
+  .from-cyan-500.to-indigo-600{ background-image:linear-gradient(to right,var(--c1),var(--c2))!important }
+  .from-cyan-400.to-purple-400{ background-image:linear-gradient(to top right,var(--c1),var(--c3))!important }
+  .from-cyan-500\/20.to-purple-500\/20{ background-image:linear-gradient(to right,rgba(var(--c1r),.2),rgba(var(--c3r),.2))!important }
+  .from-cyan-400.via-indigo-300.to-purple-400{ background-image:linear-gradient(to right,var(--c1),var(--c2),var(--c3))!important }
+  .from-cyan-500\/5.to-purple-500\/5{ background-image:linear-gradient(to bottom,rgba(var(--c1r),.05),rgba(var(--c3r),.05))!important }
+  .from-purple-500\/20.to-cyan-500\/20{ background-image:linear-gradient(to top right,rgba(var(--c3r),.2),rgba(var(--c1r),.2))!important }
+  .from-cyan-500.via-indigo-500{ background-image:linear-gradient(to bottom,var(--c1),var(--c2))!important }
+  .from-emerald-500\/20.to-cyan-500\/10{ background-image:linear-gradient(to right,rgba(52,211,153,.2),rgba(var(--c1r),.1))!important }
   html{ scroll-padding-top:calc(env(safe-area-inset-top,0px) + 96px); }
-  body{ font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--fg);
-    transition:background-color .35s ease,color .35s ease; }
+  body{ font-family:var(--font-main); background:var(--bg); color:var(--fg);
+    transition:background-color .35s ease,color .35s ease, font-family .3s ease; }
   .font-mono{ font-family:'JetBrains Mono',monospace; }
+  /* Radius va tugma uslubi — UI dizaynga qarab o'zgaradi */
+  .rounded-md{ border-radius:var(--r-md)!important }
+  .rounded-lg{ border-radius:var(--r-lg)!important }
+  .rounded-xl{ border-radius:var(--r-xl)!important }
+  .rounded-2xl{ border-radius:var(--r-2xl)!important }
+  .rounded-3xl{ border-radius:var(--r-3xl)!important }
+  button,.tabbtn,a.font-semibold,a.font-bold,.font-bold{ letter-spacing:var(--btn-track); }
+  button{ font-weight:var(--btn-weight); }
   .surface{ background:var(--card); border:1px solid var(--line); }
   .glass{ backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
   ::-webkit-scrollbar{ width:8px;height:8px }
@@ -465,6 +530,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
   <div class="flex-1 overflow-y-auto">
     <div class="max-w-6xl mx-auto p-4 sm:p-6 pb-24">
       <div id="pane-site" class="apane hidden"></div>
+      <div id="pane-ui" class="apane hidden"></div>
       <div id="pane-hero" class="apane hidden"></div>
       <div id="pane-projects" class="apane hidden"></div>
       <div id="pane-skills" class="apane hidden"></div>
@@ -473,6 +539,7 @@ tailwind.config = { darkMode:'class', theme:{ extend:{
       <div id="pane-reviews" class="apane hidden"></div>
       <div id="pane-about" class="apane hidden"></div>
       <div id="pane-contact" class="apane hidden"></div>
+      <div id="pane-stats" class="apane hidden"></div>
       <div id="pane-visitors" class="apane hidden"></div>
       <div id="pane-chat" class="apane hidden"></div>
       <div id="pane-settings" class="apane hidden"></div>
@@ -490,8 +557,22 @@ const LS_USERS = 'pf_v3_users_local';
 const LS_THEME = 'pf_v3_theme';
 const MAX_INLINE = 190 * 1024; // db hujjatiga sig'adigan fayl hajmi
 
+const THEMES = [
+  null,
+  { id:1, name:"Cyber Cyan",    c1:"#22d3ee", c2:"#6366f1", c3:"#a855f7", desc:"Standart — moviy-siyoh-binafsha" },
+  { id:2, name:"Sunset Ember",  c1:"#fb923c", c2:"#f43f5e", c3:"#f59e0b", desc:"Iliq — apelsin-pushti-sariq" },
+  { id:3, name:"Emerald Forest",c1:"#34d399", c2:"#10b981", c3:"#22d3ee", desc:"Tabiiy — zumrad-moviy" },
+  { id:4, name:"Royal Violet",  c1:"#a78bfa", c2:"#8b5cf6", c3:"#ec4899", desc:"Hashamatli — binafsha-pushti" },
+  { id:5, name:"Ocean Blue",    c1:"#38bdf8", c2:"#3b82f6", c3:"#06b6d4", desc:"Sovuq — okean ko'k" },
+  { id:6, name:"Mono Slate",    c1:"#e2e8f0", c2:"#94a3b8", c3:"#64748b", desc:"Minimal — oq-kulrang" }
+];
+function applyDesignTheme(id){
+  id = +id || 1;
+  document.documentElement.setAttribute('data-style', id);
+}
+
 const DEFAULT = {
-  site: { name:"Portfolio", tag:"Developer Hub", badge:"v3.0", logoText:"M", logoImg:"", logoShape:"rounded" },
+  site: { name:"Portfolio", tag:"Developer Hub", badge:"v3.0", logoText:"M", logoImg:"", logoShape:"rounded", uiStyle:1 },
   hero: {
     name:"Muhammad Amin", role:"Frontend & AI Manager", status:"Faol ishlamoqda",
     avatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
@@ -888,13 +969,13 @@ function shapeCls(shape, base){
 
 function renderBrand(){
   const s = DATA.site;
+  applyDesignTheme(s.uiStyle||1);
   $('brandName').innerText = s.name || 'Portfolio';
   $('brandTag').innerText = s.tag || '';
   $('brandBadge').innerText = s.badge || '';
   $('brandBadge').style.display = s.badge ? '' : 'none';
   $('footerName').innerText = s.name || 'Portfolio';
   $('footerYear').innerText = new Date().getFullYear();
-  document.title = (s.name||'Portfolio') + ' — ' + (s.tag||'');
   const box = $('brandLogoBox'), inner = $('brandLogoInner');
   const sh = s.logoShape || 'rounded';
   box.className = `relative w-11 h-11 ${sh==='circle'?'rounded-full':sh==='square'?'rounded-lg':'rounded-2xl'} bg-gradient-to-tr from-cyan-500 via-indigo-500 to-purple-600 p-[2px] shadow-lg shadow-cyan-500/20 transition-all group-hover:scale-105 group-hover:rotate-6`;
@@ -1152,16 +1233,29 @@ function deviceInfo(){
   const ua = navigator.userAgent;
   const br = /Edg\//.test(ua)?'Edge':/OPR\//.test(ua)?'Opera':/Chrome\//.test(ua)?'Chrome':/Firefox\//.test(ua)?'Firefox':/Safari\//.test(ua)?'Safari':'Boshqa';
   const os = /Windows NT 10/.test(ua)?'Windows 10/11':/Windows/.test(ua)?'Windows':/Android/.test(ua)?'Android':/iPhone|iPad|iPod/.test(ua)?'iOS':/Mac OS X/.test(ua)?'macOS':/Linux/.test(ua)?'Linux':'Noma\'lum';
+  let conn = '—';
+  try{ const c = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if(c) conn = (c.effectiveType||'—') + (c.downlink?(' • '+c.downlink+'Mb/s'):''); }catch(e){}
+  let orient = '—';
+  try{ orient = (screen.orientation && screen.orientation.type) || (window.innerWidth>window.innerHeight?'landscape':'portrait'); }catch(e){}
   return {
     browser: br, os,
     device: /Mobi|Android|iPhone/.test(ua) ? 'Telefon' : /iPad|Tablet/.test(ua) ? 'Planshet' : 'Kompyuter',
     screen: `${screen.width}×${screen.height}`,
+    viewport: `${window.innerWidth}×${window.innerHeight}`,
     lang: navigator.language || '—',
     tz: (Intl.DateTimeFormat().resolvedOptions().timeZone) || '—',
     cores: navigator.hardwareConcurrency || '—',
     mem: navigator.deviceMemory ? navigator.deviceMemory+' GB' : '—',
     touch: (navigator.maxTouchPoints||0) > 0 ? 'Ha' : "Yo'q",
     online: navigator.onLine ? 'Onlayn' : 'Oflayn',
+    platform: navigator.platform || '—',
+    pixelRatio: window.devicePixelRatio || 1,
+    connection: conn,
+    orientation: orient,
+    referrer: document.referrer ? document.referrer.slice(0,80) : "To'g'ridan-to'g'ri",
+    cookies: navigator.cookieEnabled ? 'Yoqilgan' : "O'chirilgan",
+    colorPref: window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? "Tungi (tizim)" : "Kunduzgi (tizim)",
     ua
   };
 }
@@ -1178,12 +1272,15 @@ async function registerVisitor(name, phone){
   try{ localStorage.setItem(LS_VISITOR, JSON.stringify(ME)); }catch(e){}
   const d = deviceInfo();
   const old = USERS[vid] || {};
+  const log = (old.visitLog||[]).concat(Date.now()).slice(-40);
   await saveUser({
     vid, name, phone: '+998'+phone,
-    device:`${d.browser} / ${d.os}`, kind:d.device, screen:d.screen, lang:d.lang, tz:d.tz,
-    cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
+    device:`${d.browser} / ${d.os}`, browser:d.browser, os:d.os, kind:d.device, screen:d.screen, viewport:d.viewport,
+    lang:d.lang, tz:d.tz, cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
+    platform:d.platform, pixelRatio:d.pixelRatio, connection:d.connection, orientation:d.orientation,
+    referrer:d.referrer, cookies:d.cookies, colorPref:d.colorPref,
     first: old.first || Date.now(), last: Date.now(),
-    visits: (old.visits||0) + 1,
+    visits: (old.visits||0) + 1, visitLog: log,
     blocked: !!old.blocked,
     lastText: old.lastText||'', lastAt: old.lastAt||0,
     unreadAdmin: old.unreadAdmin||0, unreadUser: old.unreadUser||0
@@ -1340,11 +1437,12 @@ async function handleDirectContact(ev){
    9) ADMIN PANEL
    ============================================================ */
 const TABS = [
-  ['site',"Sayt & Logo",'fa-shapes'], ['hero',"Hero bo'limi",'fa-user-astronaut'],
+  ['site',"Sayt & Logo",'fa-shapes'], ['ui',"UI Dizayn",'fa-palette'], ['hero',"Hero bo'limi",'fa-user-astronaut'],
   ['projects',"Loyihalar",'fa-diagram-project'], ['skills',"Ko'nikmalar",'fa-chart-simple'],
   ['services',"Xizmatlar",'fa-briefcase'], ['timeline',"Tajriba",'fa-timeline'],
   ['reviews',"Sharhlar",'fa-star'], ['about',"Men haqimda",'fa-address-card'],
-  ['contact',"Aloqa",'fa-share-nodes'], ['visitors',"Foydalanuvchilar",'fa-users-viewfinder'],
+  ['contact',"Aloqa",'fa-share-nodes'], ['stats',"Statistika",'fa-chart-line'],
+  ['visitors',"Foydalanuvchilar",'fa-users-viewfinder'],
   ['chat',"Chat",'fa-comments'], ['settings',"Sozlamalar",'fa-gear']
 ];
 let activeTab = 'site';
@@ -1383,9 +1481,9 @@ function switchTab(k){
 }
 function renderAdminActive(){
   if(!IS_ADMIN) return;
-  const f = { site:renderPaneSite, hero:renderPaneHero, projects:renderPaneProjects, skills:renderPaneSkills,
+  const f = { site:renderPaneSite, ui:renderPaneUi, hero:renderPaneHero, projects:renderPaneProjects, skills:renderPaneSkills,
     services:renderPaneServices, timeline:renderPaneTimeline, reviews:renderPaneReviews, about:renderPaneAbout,
-    contact:renderPaneContact, visitors:renderVisitors, chat:renderPaneChat, settings:renderPaneSettings }[activeTab];
+    contact:renderPaneContact, stats:renderPaneStats, visitors:renderVisitors, chat:renderPaneChat, settings:renderPaneSettings }[activeTab];
   if(f) f();
 }
 
@@ -1524,6 +1622,40 @@ function renderPaneSite(){
           <div class="text-[11px] font-mono uppercase" style="color:var(--muted)">${esc(DATA.site.tag||'')}</div></div>
       </div>`)}</div>`;
 }
+/* ---------- UI Dizayn (6 ta tema) ---------- */
+function chooseUiStyle(id){
+  DATA.site.uiStyle = id;
+  saveContent(true);
+  applyDesignTheme(id);
+  renderAdminActive();
+  showToast('Dizayn barcha qurilmalarda yangilanmoqda','success');
+}
+function renderPaneUi(){
+  const cur = DATA.site.uiStyle || 1;
+  $('pane-ui').innerHTML =
+    head("UI Dizaynni almashtirish","Quyidagi 6 ta tayyor dizayndan birini tanlang. Tanlangan dizayn serverga saqlanadi va saytga kirgan BARCHA foydalanuvchilarda (qaysi qurilmadan kirishidan qat'iy nazar) avtomatik almashadi.") +
+    `<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      ${THEMES.slice(1).map(t=>{
+        const on = cur===t.id;
+        return `<button onclick="chooseUiStyle(${t.id})" class="text-left p-5 rounded-3xl border-2 transition-all ${on?'border-white/70 scale-[1.02]':'border-white/10 hover:border-white/30'}" style="background:linear-gradient(160deg, rgba(255,255,255,.04), transparent)">
+          <div class="h-20 rounded-2xl mb-4 relative overflow-hidden" style="background:${t.c1}">
+            <div class="absolute inset-0" style="background:linear-gradient(120deg,${t.c1},${t.c2},${t.c3})"></div>
+            <div class="absolute bottom-2 right-2 flex gap-1.5">
+              <span class="w-4 h-4 rounded-full border border-white/40" style="background:${t.c1}"></span>
+              <span class="w-4 h-4 rounded-full border border-white/40" style="background:${t.c2}"></span>
+              <span class="w-4 h-4 rounded-full border border-white/40" style="background:${t.c3}"></span>
+            </div>
+            ${on?`<span class="absolute top-2 left-2 px-2 py-1 rounded-lg bg-black/50 text-white text-[10px] font-bold flex items-center gap-1"><i class="fa-solid fa-check"></i> Faol</span>`:''}
+          </div>
+          <div class="font-bold text-sm">${t.id}. ${t.name}</div>
+          <div class="text-[11px] mt-0.5" style="color:var(--muted)">${t.desc}</div>
+        </button>`;
+      }).join('')}
+    </div>
+    <div class="mt-5">${card(`<h4 class="font-bold text-sm mb-1 flex items-center gap-2"><i class="fa-solid fa-mobile-screen-button text-cyan-400"></i> Moslashuvchanlik</h4>
+      <p class="text-xs" style="color:var(--muted)">Sayt barcha ekran o'lchamlariga (telefon, planshet, kompyuter) avtomatik moslashadi. Tanlangan dizayn tun/kun rejimi bilan birga ishlaydi va real vaqt rejimida barcha qurilmalarga tarqatiladi.</p>`)}</div>`;
+}
+
 function renderPaneHero(){
   const st = DATA.hero.stats||[];
   $('pane-hero').innerHTML =
@@ -1606,6 +1738,86 @@ function renderPaneContact(){
   ], {title:"Ijtimoiy tarmoqlar"});
 }
 
+/* ---------- Statistika ---------- */
+function barRow(label, val, max, color){
+  const pct = max>0 ? Math.round((val/max)*100) : 0;
+  return `<div class="space-y-1">
+    <div class="flex items-center justify-between text-xs"><span style="color:var(--muted)">${esc(label)}</span><span class="font-bold font-mono">${val}</span></div>
+    <div class="h-2.5 rounded-full bg-white/5 overflow-hidden"><div class="h-full rounded-full" style="width:${pct}%;background:${color}"></div></div>
+  </div>`;
+}
+function countBy(list, key){
+  const m = {};
+  list.forEach(u=>{ const k = u[key]||"Noma'lum"; m[k]=(m[k]||0)+1; });
+  return Object.entries(m).sort((a,b)=>b[1]-a[1]);
+}
+function renderPaneStats(){
+  const list = Object.values(USERS);
+  const chatsList = Object.values(CHATS);
+  const now = Date.now();
+  const totalVisits = list.reduce((a,u)=>a+(u.visits||1),0);
+  const today = list.filter(u=>(now-(u.last||0))<86400000).length;
+  const week = list.filter(u=>(now-(u.last||0))<7*86400000).length;
+  const returning = list.filter(u=>(u.visits||1)>1).length;
+  const blocked = list.filter(u=>u.blocked).length;
+  const totalMsgs = chatsList.reduce((a,c)=>a+((c.msgs||[]).length),0);
+  const activeThreads = chatsList.filter(c=>(c.msgs||[]).length>0).length;
+
+  const byDevice = countBy(list,'kind');
+  const byBrowser = countBy(list,'browser');
+  const byOs = countBy(list,'os');
+  const maxDevice = Math.max(1,...byDevice.map(x=>x[1]));
+  const maxBrowser = Math.max(1,...byBrowser.map(x=>x[1]));
+  const maxOs = Math.max(1,...byOs.map(x=>x[1]));
+  const colors = ['var(--c1)','var(--c2)','var(--c3)','#f59e0b','#10b981','#f43f5e'];
+
+  // so'nggi 7 kun bo'yicha tashriflar
+  const days = [];
+  for(let i=6;i>=0;i--){
+    const d = new Date(now - i*86400000);
+    const key = d.toLocaleDateString('uz-UZ',{day:'2-digit',month:'2-digit'});
+    const dayStart = new Date(d.getFullYear(),d.getMonth(),d.getDate()).getTime();
+    const dayEnd = dayStart + 86400000;
+    let count = 0;
+    list.forEach(u=> (u.visitLog||[]).forEach(ts=>{ if(ts>=dayStart && ts<dayEnd) count++; }));
+    days.push([key,count]);
+  }
+  const maxDay = Math.max(1,...days.map(d=>d[1]));
+
+  $('pane-stats').innerHTML =
+    head("Sayt statistikasi","Tashriflar, qurilmalar va faollik haqida umumiy ko'rsatkichlar.") +
+    `<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-5">
+      ${[['fa-users',"Jami foydalanuvchi",list.length,'var(--c1)'],
+         ['fa-arrow-trend-up',"Jami tashrif",totalVisits,'var(--c2)'],
+         ['fa-calendar-day',"Bugun faol",today,'#10b981'],
+         ['fa-calendar-week',"Shu hafta",week,'#f59e0b'],
+         ['fa-rotate',"Qaytganlar",returning,'var(--c3)'],
+         ['fa-ban',"Bloklangan",blocked,'#f43f5e']]
+        .map(([ic,l,v,c])=>`<div class="p-4 rounded-2xl surface">
+          <div class="w-8 h-8 rounded-xl flex items-center justify-center mb-2" style="background:${c}22;color:${c}"><i class="fa-solid ${ic} text-xs"></i></div>
+          <div class="text-xl font-bold font-mono">${v}</div><div class="text-[10px]" style="color:var(--muted)">${l}</div></div>`).join('')}
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+      ${[['Chat suhbatlari',activeThreads],['Jami xabarlar',totalMsgs],['Brauzer turlari',byBrowser.length],['OS turlari',byOs.length]]
+        .map(([l,v])=>`<div class="p-3 rounded-2xl bg-white/5 border border-white/10 text-center"><div class="text-lg font-bold font-mono t1">${v}</div><div class="text-[10px]" style="color:var(--muted)">${l}</div></div>`).join('')}
+    </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      ${card(`<h4 class="font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-mobile-screen t1"></i> Qurilma turlari</h4>
+        <div class="space-y-3">${byDevice.length?byDevice.map(([k,v],i)=>barRow(k,v,maxDevice,colors[i%colors.length])).join(''):`<p class="text-xs" style="color:var(--muted)">Ma'lumot yo'q</p>`}</div>`)}
+      ${card(`<h4 class="font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-globe t1"></i> Brauzerlar</h4>
+        <div class="space-y-3">${byBrowser.length?byBrowser.map(([k,v],i)=>barRow(k,v,maxBrowser,colors[i%colors.length])).join(''):`<p class="text-xs" style="color:var(--muted)">Ma'lumot yo'q</p>`}</div>`)}
+      ${card(`<h4 class="font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-desktop t1"></i> Operatsion tizimlar</h4>
+        <div class="space-y-3">${byOs.length?byOs.map(([k,v],i)=>barRow(k,v,maxOs,colors[i%colors.length])).join(''):`<p class="text-xs" style="color:var(--muted)">Ma'lumot yo'q</p>`}</div>`)}
+      ${card(`<h4 class="font-bold text-sm mb-3 flex items-center gap-2"><i class="fa-solid fa-chart-column t1"></i> So'nggi 7 kun tashriflari</h4>
+        <div class="flex items-end justify-between gap-2 h-32">
+          ${days.map(([k,v])=>`<div class="flex-1 flex flex-col items-center gap-1.5">
+            <span class="text-[10px] font-bold font-mono">${v}</span>
+            <div class="w-full rounded-t-lg" style="height:${Math.max(4,(v/maxDay)*80)}px;background:linear-gradient(to top,var(--c1),var(--c3))"></div>
+            <span class="text-[9px]" style="color:var(--muted)">${k}</span></div>`).join('')}
+        </div>`)}
+    </div>`;
+}
+
 /* ---------- Foydalanuvchilar / qurilmalar ---------- */
 async function refreshVisitors(){
   if(DB){
@@ -1661,8 +1873,11 @@ function renderVisitors(){
           </div>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 text-[11px]">
-          ${[['Qurilma',u.kind],['Brauzer / OS',u.device],['Ekran',u.screen],['Til',u.lang],['Vaqt mintaqasi',u.tz],
-             ['Yadrolar',u.cores],['Xotira',u.mem],['Sensorli',u.touch],
+          ${[['Qurilma',u.kind],['Brauzer',u.browser||u.device],['OS / Platforma',u.os||u.platform],['Ekran',u.screen],
+             ['Ekran ko\'rinishi (viewport)',u.viewport],['Yo\'nalish',u.orientation],['Piksel nisbati',u.pixelRatio],
+             ['Internet turi',u.connection],['Til',u.lang],['Vaqt mintaqasi',u.tz],
+             ['Yadrolar',u.cores],['Xotira',u.mem],['Sensorli ekran',u.touch],['Cookie',u.cookies],['Tizim mavzusi',u.colorPref],
+             ['Qayerdan kirgan',u.referrer],
              ['Birinchi kirish',dateStr(u.first)],['Oxirgi faollik',dateStr(u.last)],['Kirishlar soni',u.visits||1],
              ['Oxirgi xabar', u.lastAt?agoStr(u.lastAt):'—']]
             .map(([l,v])=>`<div class="p-2 rounded-xl bg-white/5 border border-white/10"><div class="opacity-60">${l}</div><div class="font-semibold truncate">${esc(v==null||v===''?'—':v)}</div></div>`).join('')}
@@ -1903,15 +2118,19 @@ async function init(){
     const u = USERS[ME.vid];
     if(u && u.blocked){ showBlocked(); return; }
     const d = deviceInfo();
+    const log = ((u&&u.visitLog)||[]).concat(Date.now()).slice(-40);
     await saveUser(Object.assign({}, u||{}, {
       vid: ME.vid, name: ME.name, phone: u&&u.phone ? u.phone : ('+998'+(ME.phone||'')),
-      device:`${d.browser} / ${d.os}`, kind:d.device, screen:d.screen, lang:d.lang, tz:d.tz,
-      cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
-      first: (u&&u.first)||Date.now(), last: Date.now(), visits: ((u&&u.visits)||0)+1,
+      device:`${d.browser} / ${d.os}`, browser:d.browser, os:d.os, kind:d.device, screen:d.screen, viewport:d.viewport,
+      lang:d.lang, tz:d.tz, cores:d.cores, mem:d.mem, touch:d.touch, ua:d.ua,
+      platform:d.platform, pixelRatio:d.pixelRatio, connection:d.connection, orientation:d.orientation,
+      referrer:d.referrer, cookies:d.cookies, colorPref:d.colorPref,
+      first: (u&&u.first)||Date.now(), last: Date.now(), visits: ((u&&u.visits)||0)+1, visitLog: log,
       blocked: !!(u&&u.blocked)
     }));
     renderUserChat();
   }
+  applyDesignTheme(DATA.site.uiStyle||1);
   updateChatBadge();
 }
 document.addEventListener('DOMContentLoaded', init);
